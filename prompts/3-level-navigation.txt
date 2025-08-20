@@ -1,0 +1,625 @@
+### Role:
+You are senior tech-engineer and analytic who makes user-interface presentation layer.
+
+### Task:
+Based on general *app description*, *structured description* and *technical description* you should describe full, super-detailed navigation between all screens, and inside screens.
+Describe which ui controls trigger navigation to other screens.
+Describe how that screens are shown, presented, style. Modal or not.
+Check ability to close current screen and ability to go back.
+Top level is usually tab-bar. But left swiped navigation is also an option.
+Describe chains of the navigations, screen-by-screen.
+
+### Example:
+INPUT:
+
+# App Description
+<<<
+Create application for organising and selling products.
+>>>
+
+# Structured Description
+<<<
+1. Product Management
+1.1 Add, edit, delete products
+1.2 Categorize products (categories, tags, filters)
+1.3 Upload product images and descriptions
+1.4 Manage stock levels and availability
+
+2. User Management
+2.1 User registration and login
+2.2 Profile management (name, contact info, addresses)
+2.3 Roles (admin, seller, buyer)
+
+3. Catalog & Search
+3.1 Product listing (grid/list view)
+3.2 Search by keyword
+3.3 Filters (price range, category, rating)
+3.4 Sorting (newest, price low-high, popularity)
+
+4. Shopping Cart
+4.1 Add/remove products to cart
+4.2 Update quantities
+4.3 View subtotal and estimated total
+
+5. Checkout & Payments
+5.1 Address and shipping information
+5.2 Payment methods (credit card, PayPal, etc.)
+5.3 Order confirmation
+
+6. Orders Management
+6.1 View past orders (order history)
+6.2 Order status tracking (pending, shipped, delivered)
+6.3 Order cancellation or returns
+>>>
+
+### Technical low-level features
+<<<
+1. Products
+
+1.1 Product List (Admin)
+ • 1.1.1 Table (columns: SKU, Title, Category, Price, Stock, Status, Updated At)
+ • 1.1.2 Search input (by title/SKU)
+ • 1.1.3 Filter dropdowns (Category, Status: Draft/Active/Archived)
+ • 1.1.4 Price range slider
+ • 1.1.5 Stock status toggle (In stock/Out of stock)
+ • 1.1.6 Bulk select checkboxes + bulk actions (Activate, Archive, Delete)
+ • 1.1.7 Pagination controls (page size, next/prev)
+ • 1.1.8 “New Product” button
+ • 1.1.9 Row actions (Edit, View, Duplicate)
+ • 1.1.10 Export CSV button
+
+1.2 Product Create/Edit (Admin)
+ • 1.2.1 Text inputs (Title, Subtitle)
+ • 1.2.2 Rich text editor (Description, HTML allowed)
+ • 1.2.3 SKU input (alphanumeric validation)
+ • 1.2.4 Price inputs (Regular, Compare-at)
+ • 1.2.5 Taxable checkbox
+ • 1.2.6 Category selector (single)
+ • 1.2.7 Tag multi-select with autocomplete
+ • 1.2.8 Attributes key–value repeater (e.g., Color, Size)
+ • 1.2.9 Inventory section (Quantity input, “Track stock” toggle, “Allow backorders” toggle)
+ • 1.2.10 Status radios (Draft/Active/Archived)
+ • 1.2.11 Image uploader (multi-file, drag-drop, reorder, alt text per image)
+ • 1.2.12 SEO fields (Slug, Meta title, Meta description)
+ • 1.2.13 Save/Save as Draft buttons
+ • 1.2.14 Validation summary banner
+ • 1.2.15 Delete product button (confirm modal)
+
+1.3 Category & Tag Manager (Admin)
+ • 1.3.1 Category tree view (expand/collapse)
+ • 1.3.2 “New Category” button + form (Name, Parent, Description)
+ • 1.3.3 Category order drag handle
+ • 1.3.4 Tag list with search
+ • 1.3.5 “New Tag” input (create inline)
+ • 1.3.6 Merge tags action
+ • 1.3.7 Save changes button
+
+1.4 Media Library (Admin)
+ • 1.4.1 Grid of media thumbnails
+ • 1.4.2 Upload button (multi-file)
+ • 1.4.3 Search input (filename/alt)
+ • 1.4.4 Filters (Type, Size, Uploaded date)
+ • 1.4.5 Preview panel (Alt text, Dimensions, Copy URL)
+ • 1.4.6 Delete media button (confirm)
+
+1.5 Inventory Manager (Admin)
+ • 1.5.1 Table (SKU, Title, Current Qty, Reserved, Reorder level)
+ • 1.5.2 Qty adjustment input per row (+/− stepper)
+ • 1.5.3 “Set reorder level” modal
+ • 1.5.4 Low-stock filter quick toggle
+ • 1.5.5 Bulk update button
+
+2. Users & Authentication
+
+2.1 Sign In
+ • 2.1.1 Email input
+ • 2.1.2 Password input (show/hide)
+ • 2.1.3 “Remember me” checkbox
+ • 2.1.4 Submit button
+ • 2.1.5 Error/Success banner
+ • 2.1.6 “Forgot password” link
+ • 2.1.7 Third-party auth buttons (optional: Google, Apple)
+
+2.2 Sign Up
+ • 2.2.1 Name inputs (First, Last)
+ • 2.2.2 Email input (unique validation)
+ • 2.2.3 Password + Confirm inputs (strength meter)
+ • 2.2.4 Accept T&C checkbox (required)
+ • 2.2.5 Submit button
+ • 2.2.6 Post-registration verification banner
+
+2.3 Password Reset
+ • 2.3.1 Email input
+ • 2.3.2 Send reset link button
+ • 2.3.3 Confirmation banner
+ • 2.3.4 New password + Confirm inputs (on token screen)
+ • 2.3.5 Save button
+
+2.4 Profile
+ • 2.4.1 Avatar uploader
+ • 2.4.2 Name inputs
+ • 2.4.3 Phone input (formatting)
+ • 2.4.4 Preferred currency selector
+ • 2.4.5 Save button
+
+2.5 Address Book
+ • 2.5.1 Address list (cards)
+ • 2.5.2 “Add address” button
+ • 2.5.3 Address form (Name, Line1, Line2, City, State/Region, ZIP, Country, Phone)
+ • 2.5.4 “Set as default” toggle
+ • 2.5.5 Save/Delete buttons
+
+2.6 Role Management (Admin)
+ • 2.6.1 User table (Name, Email, Role, Status)
+ • 2.6.2 Role dropdown per user (Admin/Seller/Buyer)
+ • 2.6.3 Activate/Deactivate toggle
+ • 2.6.4 Invite user button (email modal)
+ • 2.6.5 Save changes button
+
+3. Catalog & Search (Public)
+
+3.1 Catalog (Grid/List)
+ • 3.1.1 View toggle (Grid/List)
+ • 3.1.2 Sort dropdown (Newest, Price ↑/↓, Popularity)
+ • 3.1.3 Filters panel toggle button
+ • 3.1.4 Product cards (Image, Title, Price, Rating, “Add to Cart”)
+ • 3.1.5 Pagination controls
+ • 3.1.6 Empty state panel
+
+3.2 Filters Panel
+ • 3.2.1 Category tree selector
+ • 3.2.2 Price range slider
+ • 3.2.3 Rating stars filter (min rating)
+ • 3.2.4 Availability toggle (In stock only)
+ • 3.2.5 Tag multi-select
+ • 3.2.6 “Apply” and “Clear all” buttons
+ • 3.2.7 Active filter chips
+
+3.3 Search Results
+ • 3.3.1 Search input with suggestions (SKU/Title)
+ • 3.3.2 Recent searches dropdown
+ • 3.3.3 Results count label
+ • 3.3.4 Same controls as 3.1 (Sort, Pagination, Cards)
+
+3.4 Product Detail (Public)
+ • 3.4.1 Image gallery (thumbnails, zoom)
+ • 3.4.2 Title, Price, Stock status labels
+ • 3.4.3 Attribute selectors (e.g., Size, Color)
+ • 3.4.4 Quantity stepper
+ • 3.4.5 “Add to Cart” button
+ • 3.4.6 Description tab
+ • 3.4.7 Specifications tab (attributes table)
+ • 3.4.8 Reviews section (rating summary, list, “Write a review” button)
+ • 3.4.9 Share buttons
+ • 3.4.10 Related products carousel
+
+3.5 Write a Review (Authenticated)
+ • 3.5.1 Rating stars input
+ • 3.5.2 Title input
+ • 3.5.3 Comment textarea
+ • 3.5.4 Image upload (optional)
+ • 3.5.5 Submit button
+ • 3.5.6 Moderation notice banner
+
+4. Shopping Cart
+
+4.1 Cart Drawer / Page
+ • 4.1.1 Cart item list (Image, Title, Variant, Price)
+ • 4.1.2 Quantity stepper per item
+ • 4.1.3 Remove item button (per item)
+ • 4.1.4 Promo code input + “Apply” button
+ • 4.1.5 Subtotal, Estimated tax, Shipping estimate (read-only)
+ • 4.1.6 “Continue shopping” link
+ • 4.1.7 “Proceed to Checkout” button
+ • 4.1.8 Empty cart state
+
+4.2 Mini Cart (Header)
+ • 4.2.1 Cart icon with badge
+ • 4.2.2 Dropdown preview (top 3 items)
+ • 4.2.3 “View Cart” and “Checkout” buttons
+
+5. Checkout & Payments
+
+5.1 Shipping Address
+ • 5.1.1 Address selector (use saved)
+ • 5.1.2 Address form (Name, Line1, Line2, City, State, ZIP, Country, Phone)
+ • 5.1.3 “Save to address book” checkbox
+ • 5.1.4 Shipping methods radio group (price & ETA shown)
+ • 5.1.5 Order summary sidebar (items, subtotal)
+ • 5.1.6 “Continue to Payment” button
+ • 5.1.7 Validation/error banner
+
+5.2 Payment
+ • 5.2.1 Payment method radios (Card, PayPal, COD, etc.)
+ • 5.2.2 Card element (Card number, Expiry, CVC)
+ • 5.2.3 Billing address same-as-shipping checkbox
+ • 5.2.4 Billing address form (conditional)
+ • 5.2.5 Save card toggle (tokenized)
+ • 5.2.6 Order summary (updated with shipping)
+ • 5.2.7 “Review Order” button
+ • 5.2.8 Payment error banner (3DS prompts where applicable)
+
+5.3 Review & Place Order
+ • 5.3.1 Read-only Shipping, Billing, Items review blocks
+ • 5.3.2 Edit links (jump back to section)
+ • 5.3.3 Terms & Refund policy checkbox
+ • 5.3.4 “Place Order” button (loading state)
+ • 5.3.5 Processing indicator
+
+5.4 Order Confirmation
+ • 5.4.1 Success banner with Order Number
+ • 5.4.2 Summary (Items, totals, addresses, shipping method)
+ • 5.4.3 “Track Order” button
+ • 5.4.4 “Print invoice” button
+ • 5.4.5 “Continue shopping” button
+
+6. Orders
+
+6.1 Order History
+ • 6.1.1 Order list (Order #, Date, Total, Status)
+ • 6.1.2 Date range filter
+ • 6.1.3 Status filter (Pending, Paid, Shipped, Delivered, Canceled)
+ • 6.1.4 Search by order #
+ • 6.1.5 Pagination controls
+ • 6.1.6 “Export” button
+
+6.2 Order Detail
+ • 6.2.1 Header (Order #, Date, Status badge)
+ • 6.2.2 Timeline tracker (Placed → Paid → Shipped → Delivered)
+ • 6.2.3 Items table (Image, Title, Variant, Qty, Price, Subtotal)
+ • 6.2.4 Shipping address panel
+ • 6.2.5 Billing address panel
+ • 6.2.6 Payment summary panel
+ • 6.2.7 Shipment tracking panel (Carrier, Tracking #, Link)
+ • 6.2.8 “Request cancellation/return” button (conditional)
+ • 6.2.9 “Reorder” button
+ • 6.2.10 Invoice download button
+
+6.3 Returns & Cancellations
+ • 6.3.1 Select items (checkbox per item)
+ • 6.3.2 Qty to return input
+ • 6.3.3 Reason dropdown (Damaged, Wrong item, etc.)
+ • 6.3.4 Comments textarea
+ • 6.3.5 Preferred resolution radios (Refund/Replacement/Store credit)
+ • 6.3.6 Upload photos (optional)
+ • 6.3.7 Submit request button
+ • 6.3.8 Status panel (RMA #, steps)
+>>>
+
+OUTPUT:
+<<<
+Global Navigation Model
+ • Tab Bar (persistent, bottom):
+Shop, Search, Cart, Orders, Account (role-gated Admin).
+ • Tapping a tab pushes its root screen (reset to the tab’s root if already selected).
+ • Back: default platform back (iOS swipe-from-left / Android back button). Web uses breadcrumbs and browser back.
+ • Global elements: Top app bar with page title; contextual actions (e.g., Sort, Filter); toasts for success/error.
+ • Guards:
+ • Checkout, Write a Review, and Orders detail require authentication → intercepted with Sign In (modal sheet) and an option to Sign Up. On success, return to the requested screen.
+ • Common presentation styles:
+ • Push (full-screen): primary forward navigation within a tab (e.g., Catalog → Product Detail).
+ • Modal/Sheet: short tasks (filters, selects, confirmations, add/edit address, payment).
+ • Drawer: Mini Cart on web/desktop; on mobile, a sheet from bottom.
+ • Popovers: Sort menu, overflow actions.
+ • All modals/sheets include Close (X) in header and swipe down to dismiss (mobile). Confirm dialogs have Cancel and Confirm.
+
+⸻
+
+Tab 1 — Shop
+
+S1. Catalog (Grid/List) — root of Shop tab (push)
+ • Entry: Tap Shop tab; deep links like /c/categorySlug also land here with pre-applied filters.
+ • Controls & navigation:
+ • Product Card → tap image/title → S2 Product Detail (push).
+ • Add to Cart on card → stays on page; toast + “View Cart” inline link → Cart tab (switch tab).
+ • Filters button → S1F Filters Panel (sheet).
+ • Sort button → popover (selecting an option updates list; no navigation).
+ • View toggle (grid/list) → no nav.
+ • Pagination (next/prev) → no nav (infinite scroll optional).
+ • Back/Close: N/A (root).
+ • Style: Full-screen list; sticky filter/sort bar.
+
+S1F. Filters Panel — modal sheet
+ • Controls:
+ • Category tree, price slider, rating, availability toggle, tags.
+ • Apply → dismiss sheet → return to S1 Catalog with filters applied.
+ • Clear All → clears local filter state; stay in sheet.
+ • Close/Back: X or swipe down cancels (no changes applied unless Apply).
+ • Style: Bottom sheet (mobile), side panel (web/desktop).
+
+S2. Product Detail (Public) — push
+ • Entry: From Catalog, Search Results, Orders (reorder), Related Products carousel, or deep link /p/slug.
+ • Controls & navigation:
+ • Image Gallery → full-screen media lightbox (modal); swipe images; X to close.
+ • Attribute selectors (size/color) → selection only; no nav.
+ • Qty stepper → no nav.
+ • Add to Cart → stays, toast; View Cart link → Cart tab.
+ • Write a Review (button in Reviews) → if unauth → Auth sheet; else → S2R Write Review (sheet).
+ • Related Products → tap card → S2 Product Detail (push) (new instance).
+ • Share → native share sheet (modal).
+ • Back: Back goes to origin (Catalog/Search/Orders).
+ • Style: Full-screen with sticky Add to Cart bar.
+
+S2R. Write a Review — modal sheet (auth required)
+ • Controls: rating stars, title, comment, optional image upload, Submit.
+ • Submit → validate → toast “Submitted for moderation” → dismiss sheet → back to S2 Product Detail.
+ • Close: X or swipe down → discard (confirm if dirty).
+
+⸻
+
+Tab 2 — Search
+
+S3. Search Home — root of Search tab (push)
+ • Controls:
+ • Search input with suggestions; typing opens inline suggestions popover.
+ • Tap suggestion or press search → S4 Search Results (push) with query.
+ • Recent searches dropdown → tap → S4.
+ • Back: N/A (root).
+ • Style: Full-screen; focus on input.
+
+S4. Search Results — push
+ • Controls & navigation:
+ • Product Card → S2 Product Detail (push).
+ • Sort, Filters → reuse S1F Filters Panel (sheet); returns to S4.
+ • Search input (header) → updates results in place (no nav).
+ • Back: Back returns to S3 Search Home.
+ • Style: Full-screen list with header search.
+
+⸻
+
+Tab 3 — Cart
+
+S5. Cart — root of Cart tab (push) (on mobile also accessible via drawer from header cart icon)
+ • Entry: Tap Cart tab; View Cart from toasts or header; mini-cart View Cart.
+ • Controls & navigation:
+ • Item rows with Qty stepper and Remove → update in place.
+ • Promo code input + Apply → inline message.
+ • Totals panel (read-only).
+ • Proceed to Checkout → Guard: Auth → if unauth: Sign In sheet → on success → S6 Checkout: Shipping (push) within Cart tab stack.
+ • Continue shopping → switches to Shop tab (no stack push).
+ • Back: N/A (root).
+ • Style: Full-screen (mobile); drawer option on web from header icon. Drawer has Checkout and View Cart actions.
+
+⸻
+
+Checkout Flow (within Cart tab stack)
+
+All checkout steps are push screens in a linear flow with a persistent Order Summary side panel (web) or collapsible summary (mobile). Each step has Back to previous step and Exit confirmation (abandon cart) via top-left Close.
+
+S6. Shipping Address — push
+ • Entry: From S5 Proceed to Checkout.
+ • Controls & navigation:
+ • Saved address selector OR Add new address → opens S6A Address Form (sheet); on Save returns to S6 with selection applied.
+ • Shipping method radios → select in place; totals update.
+ • Continue to Payment → S7 Payment (push).
+ • Back: Back to S5 Cart (confirm if form dirty).
+ • Style: Full-screen.
+
+S6A. Address Form — modal sheet
+ • Controls: address fields, Save to address book toggle, Save.
+ • Save: validates → toast → dismiss → back to S6.
+ • Close: X / swipe down (confirm if dirty).
+
+S7. Payment — push
+ • Controls & navigation:
+ • Payment method radios (Card, PayPal, COD…).
+ • Card element (if Card).
+ • Billing same as shipping toggle; if off → Billing Address Form (inline sheet) same UX as S6A.
+ • Review Order → S8 Review & Place (push).
+ • 3DS or wallet handoffs happen as modal dialogs; on completion, resume in this screen.
+ • Back: to S6.
+ • Style: Full-screen.
+
+S8. Review & Place — push
+ • Controls & navigation:
+ • Read-only Shipping, Billing, Items, Totals.
+ • Edit links:
+ • Shipping → pop back to S6.
+ • Payment/Billing → pop back to S7.
+ • Terms & Refund checkbox (required).
+ • Place Order → show processing overlay → on success → S9 Order Confirmation (replace).
+ • Back: to S7.
+ • Style: Full-screen.
+
+S9. Order Confirmation — replace current (cannot navigate forward back to review)
+ • Controls & navigation:
+ • Success banner + Order #.
+ • Track Order → switches to Orders tab and push S11 Order Detail for the new order.
+ • Print Invoice (web) → new tab; (mobile) → share/print sheet.
+ • Continue Shopping → switch to Shop tab (root).
+ • Back: back returns to Cart root (or exits flow).
+ • Style: Full-screen; celebratory state.
+
+⸻
+
+Tab 4 — Orders
+
+S10. Order History — root of Orders tab (push) (auth required)
+ • Guard: if unauth → Sign In sheet, then return here.
+ • Controls & navigation:
+ • Search by order #, Status filter, Date range, Pagination → update list.
+ • Tap Order row → S11 Order Detail (push).
+ • Export → file download (no nav).
+ • Back: N/A (root).
+ • Style: Full-screen list.
+
+S11. Order Detail — push
+ • Entry: From S10 or from Order Confirmation or deep link.
+ • Controls & navigation:
+ • Timeline tracker (Placed → Paid → Shipped → Delivered).
+ • Shipment tracking panel → Track package (external link; leaves app context in browser view).
+ • Request cancellation/return (if allowed) → S12 Return/Cancel (sheet).
+ • Reorder → adds items to cart → toast with View Cart link → Cart tab.
+ • Invoice download → file action.
+ • Tap Item (title/image) → S2 Product Detail (push).
+ • Back: to S10 Order History.
+ • Style: Full-screen.
+
+S12. Return / Cancellation Request — modal sheet
+ • Controls: item checkboxes, qty inputs, reason dropdown, comments, photo upload, resolution radios, Submit.
+ • Submit → validates → toast with RMA # → dismiss → back to S11 (Status panel updates).
+ • Close: X / swipe down (confirm if dirty).
+
+⸻
+
+Tab 5 — Account
+
+S13. Account Home — root of Account tab (push)
+ • Guard: if unauth → Sign In sheet; on success return here.
+ • Sections & navigation (row cards):
+ • Profile → S14 Profile (push)
+ • Address Book → S15 Address Book (push)
+ • Payment Methods (optional) → S16 Payment Methods (push)
+ • Role/Access (Admin/Seller only) → switch to Admin tab
+ • Sign Out → ends session → toast → stays on Account Home (now unauth state with Sign In / Sign Up CTAs).
+ • Back: N/A (root).
+ • Style: Full-screen with section list.
+
+S14. Profile — push
+ • Controls: avatar upload, name, phone, preferred currency, Save.
+ • Back: to S13; confirm if unsaved changes.
+ • Style: Full-screen form.
+
+S15. Address Book — push
+ • Controls & navigation:
+ • Cards list (default badge); Edit → S6A Address Form (sheet); Delete → confirm dialog.
+ • Add address → S6A Address Form (sheet).
+ • Back: to S13.
+
+S16. Payment Methods (if implemented) — push
+ • Controls: saved cards list, Add Card → Add Card sheet (card element), Remove → confirm.
+ • Back: to S13.
+
+⸻
+
+Tab 6 — Admin (role-gated)
+
+Visible only to Admin/Seller. Contains sub-tabs or a segmented control at the top to switch between Products, Categories/Tags, Media, Inventory, Users.
+
+A0. Admin Home — root of Admin tab (push)
+ • Controls: cards linking to each admin area.
+ • Tap a card → push its list screen below.
+ • Back: N/A (root).
+
+A1. Product List (Admin) — push
+ • Controls & navigation:
+ • Search (title/SKU), Filters (Category, Status), Price range, Stock toggle, Pagination.
+ • New Product → A2 Product Create/Edit (push).
+ • Row Actions:
+ • Edit → A2 Product Create/Edit (push).
+ • View → S2 Product Detail (push) (public view).
+ • Duplicate → creates draft → toast with Open draft link → A2.
+ • Bulk select + Bulk actions (Activate, Archive, Delete) → confirmation modal; stays afterward.
+ • Export CSV → download (no nav).
+ • Back: to A0 Admin Home.
+
+A2. Product Create/Edit (Admin) — push
+ • Sections: Basic info, Pricing, Tax, Classification, Attributes, Inventory, Media, SEO, Status.
+ • Controls & navigation:
+ • Image Uploader → opens Media Picker (sheet) with upload & library tabs; select and Insert returns here.
+ • Category selector → inline tree popover; Manage categories link → A3 Category & Tag Manager (push).
+ • Tag multi-select with autocomplete; Manage tags link → A3 (scrolls to tags).
+ • Save / Save as Draft → stays; toasts.
+ • Delete → confirm modal → on confirm, pop back to A1 Product List.
+ • Back: to A1; if unsaved changes → confirm dialog.
+ • Style: Full-screen form with sticky Save bar.
+
+A3. Category & Tag Manager — push
+ • Controls:
+ • Category tree view (drag to reorder), New Category (inline form modal/sheet on mobile).
+ • Tag list with search, New Tag inline, Merge tags (confirm modal).
+ • Save changes → toast; remain.
+ • Back: to A2 (if navigated from edit) or A0/A1 (if opened directly).
+
+A4. Media Library — push
+ • Controls:
+ • Grid, Upload, Search, Filters, Preview (panel), Delete (confirm).
+ • Insert (when invoked as picker) → returns to the invoking screen (e.g., A2).
+ • Back: to invoker or A0.
+
+A5. Inventory Manager — push
+ • Controls:
+ • Table (SKU, Title, Qty, Reserved, Reorder level).
+ • Qty stepper updates inline.
+ • Set reorder level → modal.
+ • Low-stock toggle, Bulk update → modal.
+ • Back: to A0.
+
+A6. Role Management (Users) — push
+ • Controls:
+ • User table (Name, Email, Role, Status), Role dropdown, Activate/Deactivate toggle.
+ • Invite user → email modal; on send, toast.
+ • Save changes → toast.
+ • Row View Profile → S14 Profile (push) (admin view of user profile or dedicated User Detail if implemented).
+ • Back: to A0.
+
+⸻
+
+Authentication Flows (global, invoked as needed)
+
+U1. Sign In — modal sheet
+ • Entry: Any guard (Checkout, Orders, Write Review, Account).
+ • Controls: email, password, remember me, Submit, Forgot password, Continue with `IdP`.
+ • Success: dismiss sheet → return to invoking screen and continue the original action.
+ • Close: X / swipe down → return to invoking screen (action canceled).
+
+U2. Sign Up — modal sheet (linked from Sign In)
+ • Controls: name, email, password + confirm, accept T&C, Submit.
+ • Success: dismiss → return to invoker (or auto Sign In).
+ • Close: X / swipe down.
+
+U3. Password Reset — modal sheet (link from Sign In)
+ • Controls: email → Send reset link; success banner.
+ • Close: X.
+
+⸻
+
+Cross-Screen Navigation Chains (common end-to-end paths)
+ 1. Browse → Buy
+S1 Catalog (Shop tab) → tap product → S2 Product Detail → Add to Cart → toast View Cart → S5 Cart (switch tab) → Proceed to Checkout → Guard → S6 Shipping → S7 Payment → S8 Review → Place Order → S9 Confirmation → Track Order → Orders tab → S11 Order Detail.
+ 2. Search → Buy
+S3 Search Home (Search tab) → query → S4 Search Results → product → S2 Product Detail → Add to Cart … (continue as above).
+ 3. Review Flow
+S2 Product Detail → Write a Review → Auth sheet (if needed) → S2R Write Review (sheet) → Submit → back to S2.
+ 4. Order History → Product
+S10 Order History (Orders tab) → S11 Order Detail → tap item → S2 Product Detail.
+ 5. Cart Drawer (web) shortcut
+Header Cart icon → Mini Cart (drawer) → Checkout → Guard → S6 Shipping (inside Cart tab stack).
+ 6. Admin: New Product
+A0 Admin Home → A1 Product List → New Product → A2 Create/Edit → Manage Categories → A3 Category & Tag → back → A2 → Media Picker (from image uploader) → A4 Media Library (sheet/push) → insert → back to A2 → Save → back to A1.
+ 7. Admin: Inventory Adjustment
+A0 → A5 Inventory Manager → adjust qty / set reorder level (modal) → back to A0.
+ 8. Account Management
+S13 Account Home → S14 Profile (save/back) → S15 Address Book → Add address (sheet) → save/back → S13.
+
+⸻
+
+Back/Close Behavior Summary
+ • Root tabs (S1, S3, S5, S10, S13, A0) have no back (back exits app on Android; on web, browser back leaves app context).
+ • Push screens (e.g., S2, S4, S6–S8, S11, A1–A6) support system back / swipe back; unsaved changes trigger a discard confirmation.
+ • Modal/sheets (e.g., S1F, S2R, S6A, U1–U3, admin confirmations) have Close (X) and swipe down to dismiss; destructive operations require confirm dialogs.
+ • Replace transition only for S9 Order Confirmation, to prevent accidental re-submission.
+
+⸻
+
+Style & Presentation Notes
+ • Mobile: bottom tab bar; push transitions slide-from-right; sheets slide-up; drawers slide-from-right (cart) or appear as bottom sheet.
+ • Web/Desktop: left nav (optional) or top tabs; breadcrumbs; filters as a left sidebar; mini-cart as right drawer.
+ • Accessibility: focus trapping in modals, ESC to close, keyboard navigable lists/tables, ARIA labels on icons.
+ • State Restoration: returning to Catalog/Search preserves scroll position and filters; returning to Admin Product List preserves search/filter state.
+>>>
+
+### Personal:
+If you properly implement this task, you'll get big price from your top-manager. if you lose, you'll get negative feedbacks from co-workers.
+
+### Output format:
+Don't add special symbols, emojis, extra questions. Just provide comprehensive navigation description.
+
+### App description:
+{app_description}
+
+### Structured description:
+{structured_description}
+
+### Technical description:
+{technical_description}

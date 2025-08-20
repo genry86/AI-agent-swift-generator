@@ -1,0 +1,109 @@
+Project Structure
+Recommended folder hierarchy:
+```
+App/
+  App.swift            // Entry point, scenes, DI container
+  AppEnvironment.swift // Service protocols + DI
+Features/
+  <FeatureName>/
+    Views/
+    ViewModels/
+    Models/
+    Services/          // Repositories / API adapters
+Shared/
+  UIComponents/        // Buttons, cards, inputs
+  DesignSystem/        // Colors, fonts, spacing (tokens)
+  Utilities/           // Extensions, logging, errors
+  Routing/             // Navigation models, deep link parser
+  Persistence/         // SwiftData/CoreData/Keychain abstractions
+Resources/
+  Assets.xcassets
+  Localizable.strings
+Tests/
+  Unit/
+  UITests/
+```
+
+Architecture and State
+1. Unidirectional data flow — Views render state and send actions, no business logic in views.
+2. MVVM (or UDF/TCA for complex features):
+   - View — declarative UI.
+   - ViewModel — state + side effects via services/repositories.
+   - Model — domain objects, not raw JSON.
+3. Place state where it "owns" the data:
+   - `@State` — local, lightweight state.
+   - `@Binding` — pass changes between parent and child.
+   - `@StateObject` — long‑lived source of truth.
+   - `@ObservedObject` — read‑only observer.
+   - `@EnvironmentObject` — global state (use sparingly).
+   - For Swift 5.9+, prefer `@Observable`/`@Observation` over Combine subjects where possible.
+4. Dependency injection via Environment — define service protocols, inject through `@Environment` for testing and previews.
+
+Navigation
+1. Use `NavigationStack` + value‑type routes:
+```swift
+enum Route: Hashable { case details(id: UUID) }
+@State private var path: [Route] = []
+```
+2. For deep links/state restoration — use serializable routes, store/restore `path` (e.g., from `SceneStorage`).
+3. Avoid coordinators that just duplicate NavigationStack — keep navigation rules inside the view model.
+
+Async and Side Effects
+1. Use `async/await` by default — networking via `URLSession`, abstracted in services/repositories.
+2. MainActor boundaries — update UI state only on the main thread (`@MainActor`).
+3. Long‑running tasks should be cancellable (`Task`, `Task.cancel()`), use `try Task.checkCancellation()`.
+
+Persistence (SwiftData/CoreData)
+1. Use a repository layer — ViewModels shouldn't directly use SwiftData.
+2. Keep domain models separate from storage models (or map between them).
+3. Plan for migrations and schema versioning — avoid hard‑coupling schema to UI.
+
+Layout and Performance
+1. Keep views small and reusable — shorter `body` means cheaper recalculation.
+2. Avoid `AnyView`, `GeometryReader`, and `PreferenceKey` unless truly necessary.
+3. Make views `Equatable` if frequent re‑rendering:
+```swift
+struct Row: View, Equatable { ... }
+```
+4. Don't store heavy objects in `View`; use `@StateObject`/services instead.
+5. Optimize images — caching, fixed sizes for predictable layout.
+
+Patterns
+- Repository — network/local data source with caching.
+- Use Case / Interactor — for complex business logic.
+- Redux‑style UDF or The Composable Architecture — when many states/effects/navigation rules.
+- Adapter / Facade — bridging UIKit/AppKit and SwiftUI.
+- Result Builder factories — configurable component builders.
+
+Error Handling, Logging, Analytics
+1. Typed domain errors (`enum AppError: Error`) + human‑friendly UI messages.
+2. Unified Logger (os.Logger), log levels, event IDs.
+3. Soft failures and retries inside services; ViewModels expose `@Published var alert: AlertState?`.
+
+Previews and Design System
+1. Design tokens (colors, typography, spacing) in one place, applied via Environment.
+2. Components in `UIComponents/` with previews in various states/locales/dynamic type sizes.
+3. Previews should work offline and without real services (use DI with mocks).
+
+Testing
+1. Unit tests for ViewModels and services (mocks, fakes, in‑memory repositories).
+2. Snapshot/UITests for critical flows, navigation, deep links.
+3. Contract tests for repositories — same test suite for network and local implementations.
+
+Accessibility, Localization, Theming
+1. VoiceOver/Focus — use `accessibilityLabel`, `accessibilityHint`, `accessibilitySortPriority`.
+2. Support dynamic type — avoid hardcoding font sizes.
+3. Localization — use `String(localized:)`, preview in multiple languages/regions.
+4. Test light/dark themes and high contrast.
+
+Lifecycle and macOS Specifics
+1. Use scenes (`WindowGroup`, `Settings`, `MenuBarExtra`) and `@Environment(\.scenePhase)` for save/restore.
+2. Multiple windows/interactions — shared Observable layer in `EnvironmentObject`, use `UndoManager` in models.
+3. Menu commands via `Commands` and `@FocusedValue` for context operations.
+
+Anti‑Patterns
+- Business logic in `View.body`.
+- Global singletons without abstraction.
+- Overusing `EnvironmentObject` instead of explicit DI.
+- Using `onAppear` as "initialize everything" — prefer Tasks and ViewModel lifecycle.
+- Storing network DTOs directly in UI state.

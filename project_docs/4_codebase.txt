@@ -1,0 +1,185 @@
+{
+  "folders": [
+    {
+      "name": "App",
+      "folders": [],
+      "files": [
+        {
+          "name": "App.swift",
+          "code": "import SwiftUI\\n\\n/// Entry point of the macOS browser app.\\n@main\\nstruct BrowserApp: App {\\n    // Inject environment with services.\\n    @StateObject private var appEnvironment = AppEnvironment()\\n\\n    var body: some Scene {\\n        WindowGroup {\\n            MainWindow()\\n                .environmentObject(appEnvironment)\\n        }\\n        .commands {\\n            SettingsCommands()\\n        }\\n    }\\n}"
+        },
+        {
+          "name": "MainWindow.swift",
+          "code": "import SwiftUI\\n\\n/// Main window containing split view with sidebars and web content.\\nstruct MainWindow: View {\\n    @EnvironmentObject private var env: AppEnvironment\\n\\n    var body: some View {\\n        NavigationSplitView {\\n            // Left sidebar: bookmarks\\n            BookmarkListView()\\n        } column: {\\n            // Central pane: web browser\\n            WebBrowserView()\\n        } detail: {\\n            // Right sidebar: notes\\n            NoteListView()\\n        }\\n        .toolbar {\\n            ToolbarItemGroup(placement: .topBarLeading) {\\n                SidebarToggleView()\\n            }\\n            ToolbarItemGroup(placement: .topBarTrailing) {\\n                ToolbarButtonView(systemName: \\\"gearshape\\\", action: {\\n                    env.showSettings = true\\n                })\\n            }\\n        }\\n        .sheet(isPresented: $env.showSettings) {\\n            SettingsView()\\n        }\\n    }\\n}"
+        },
+        {
+          "name": "AppEnvironment.swift",
+          "code": "import SwiftUI\\n\\n/// Holds shared services and global UI state.\\nclass AppEnvironment: ObservableObject {\\n    // MARK: Services\\n    let bookmarkService = BookmarkService()\\n    let noteService = NoteService()\\n    let webService = WebNavigationService()\\n\\n    // MARK: UI state\\n    @Published var showSettings = false\\n}"
+        },
+        {
+          "name": "Constants.swift",
+          "code": "import Foundation\\n\\n/// Central place for constant values.\\nstruct Constants {\\n    static let defaultHomepage = URL(string: \\\"https://www.apple.com\\\")!\\n}"
+        }
+      ]
+    },
+    {
+      "name": "Components",
+      "folders": [],
+      "files": [
+        {
+          "name": "ToolbarButtonView.swift",
+          "code": "import SwiftUI\\n\\n/// Reusable toolbar button with SF Symbol.\\nstruct ToolbarButtonView: View {\\n    let systemName: String\\n    let action: () -> Void\\n\\n    var body: some View {\\n        Button(action: action) {\\n            Image(systemName: systemName)\\n                .foregroundStyle(.secondary)\\n        }\\n        .buttonStyle(.plain)\\n    }\\n}"
+        },
+        {
+          "name": "SidebarToggleView.swift",
+          "code": "import SwiftUI\\n\\n/// Button to toggle visibility of sidebars.\\nstruct SidebarToggleView: View {\\n    @Environment(\\\\.horizontalSizeClass) private var sizeClass\\n\\n    var body: some View {\\n        // Placeholder for toggle logic.\\n        Button(action: {\\n            // Implement toggle logic if needed.\\n        }) {\\n            Image(systemName: \\\"sidebar.leading\\\")\\n                .foregroundStyle(.secondary)\\n        }\\n        .buttonStyle(.plain)\\n    }\\n}"
+        },
+        {
+          "name": "BookmarkRowView.swift",
+          "code": "import SwiftUI\\n\\n/// Row view for a single bookmark.\\nstruct BookmarkRowView: View {\\n    let bookmark: Bookmark\\n\\n    var body: some View {\\n        HStack {\\n            if let data = bookmark.faviconData,\\n               let nsImage = NSImage(data: data) {\\n                Image(nsImage: nsImage)\\n                    .resizable()\\n                    .frame(width: 16, height: 16)\\n            } else {\\n                Image(systemName: \\\"globe\\\")\\n                    .foregroundStyle(.secondary)\\n            }\\n            VStack(alignment: .leading) {\\n                Text(bookmark.title)\\n                    .font(.system(.body, design: .default))\\n                if let url = bookmark.url {\\n                    Text(url.host ?? \\\"\\\")\\n                        .font(.system(.caption, design: .default))\\n                        .foregroundStyle(.secondary)\\n                }\\n            }\\n        }\\n    }\\n}"
+        },
+        {
+          "name": "NoteRowView.swift",
+          "code": "import SwiftUI\\n\\n/// Row view for a single note.\\nstruct NoteRowView: View {\\n    let note: Note\\n\\n    var body: some View {\\n        HStack {\\n            if let imageData = note.value(forKey: \\\"imageData\\\") as? Data,\\n               let nsImage = NSImage(data: imageData) {\\n                Image(nsImage: nsImage)\\n                    .resizable()\\n                    .frame(width: 40, height: 40)\\n                    .clipShape(RoundedRectangle(cornerRadius: 4))\\n            } else {\\n                Image(systemName: \\\"note.text\\\")\\n                    .foregroundStyle(.secondary)\\n            }\\n            VStack(alignment: .leading) {\\n                Text(note.title ?? \\\"Untitled\\\")\\n                    .font(.system(.body, design: .default))\\n                Text(note.content.prefix(50) + \\\"...\\\")\\n                    .font(.system(.caption, design: .default))\\n                    .foregroundStyle(.secondary)\\n            }\\n            Spacer()\\n            if note.isPinned {\\n                Image(systemName: \\\"pin.fill\\\")\\n                    .foregroundStyle(.yellow)\\n            }\\n        }\\n    }\\n}"
+        }
+      ]
+    },
+    {
+      "name": "Extensions",
+      "folders": [],
+      "files": [
+        {
+          "name": "URL+Extension.swift",
+          "code": "import Foundation\\n\\n/// Extension to validate URL strings.\\nextension URL {\\n    /// Returns true if the URL has a valid scheme and host.\\n    var isValid: Bool {\\n        return scheme != nil && host != nil\\n    }\\n}"
+        },
+        {
+          "name": "NotificationName+Extension.swift",
+          "code": "import Foundation\\n\\nextension Notification.Name {\\n    static let didSelectURL = Notification.Name(\\\"didSelectURL\\\")\\n}"
+        }
+      ]
+    },
+    {
+      "name": "Utility",
+      "folders": [],
+      "files": [
+        {
+          "name": "ImageUtility.swift",
+          "code": "import AppKit\\n\\n/// Utility functions for image handling.\\nstruct ImageUtility {\\n    /// Resizes NSImage to given size.\\n    static func resize(_ image: NSImage, to size: NSSize) -> NSImage {\\n        let newImage = NSImage(size: size)\\n        newImage.lockFocus()\\n        image.draw(in: NSRect(origin: .zero, size: size),\\n                   from: NSRect(origin: .zero, size: image.size),\\n                   operation: .copy,\\n                   fraction: 1.0)\\n        newImage.unlockFocus()\\n        return newImage\\n    }\\n}"
+        },
+        {
+          "name": "PersistenceController.swift",
+          "code": "import CoreData\\n\\n/// Core Data stack singleton.\\nclass PersistenceController {\\n    static let shared = PersistenceController()\\n\\n    let container: NSPersistentContainer\\n\\n    private init() {\\n        container = NSPersistentContainer(name: \\\"BrowserModel\\\")\\n        container.loadPersistentStores { _, error in\\n            if let error = error {\\n                fatalError(\\\"Unresolved Core Data error \\(error)\\\")\\n            }\\n        }\\n    }\\n}"
+        }
+      ]
+    },
+    {
+      "name": "Models",
+      "folders": [],
+      "files": [
+        {
+          "name": "Bookmark.swift",
+          "code": "import Foundation\\nimport CoreData\\n\\n/// Core Data entity representing a bookmark.\\n@objc(Bookmark)\\npublic class Bookmark: NSManagedObject {\\n    @NSManaged public var id: UUID\\n    @NSManaged public var title: String\\n    @NSManaged public var urlString: String\\n    @NSManaged public var order: Int64\\n    @NSManaged public var faviconData: Data?\\n    @NSManaged public var folder: BookmarkFolder?\\n}\\n\\n/// Convenience computed property.\\nextension Bookmark {\\n    /// Returns URL if valid.\\n    var url: URL? {\\n        return URL(string: urlString)\\n    }\\n}"
+        },
+        {
+          "name": "Note.swift",
+          "code": "import Foundation\\nimport CoreData\\n\\n/// Core Data entity representing a note attached to a webpage.\\n@objc(Note)\\npublic class Note: NSManagedObject {\\n    @NSManaged public var id: UUID\\n    @NSManaged public var title: String?\\n    @NSManaged public var content: String\\n    @NSManaged public var isPinned: Bool\\n    @NSManaged public var order: Int64\\n    @NSManaged public var createdAt: Date\\n    @NSManaged public var updatedAt: Date\\n    @NSManaged public var urlString: String\\n}\\n\\n/// Convenience computed property.\\nextension Note {\\n    /// Returns URL of the page the note is attached to.\\n    var url: URL? {\\n        return URL(string: urlString)\\n    }\\n}"
+        }
+      ]
+    },
+    {
+      "name": "Services",
+      "folders": [],
+      "files": [
+        {
+          "name": "BookmarkService.swift",
+          "code": "import Foundation\\nimport CoreData\\n\\n/// Service handling CRUD operations for bookmarks.\\nclass BookmarkService {\\n    private let context: NSManagedObjectContext\\n\\n    init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {\\n        self.context = context\\n    }\\n\\n    /// Fetches all bookmarks sorted by order.\\n    func fetchAll() -> [Bookmark] {\\n        let request: NSFetchRequest<Bookmark> = Bookmark.fetchRequest()\\n        request.sortDescriptors = [NSSortDescriptor(keyPath: \\\"order\\\", ascending: true)]\\n        return (try? context.fetch(request)) ?? []\\n    }\\n\\n    /// Saves a new bookmark.\\n    func add(title: String, url: URL, folder: BookmarkFolder? = nil) {\\n        let bookmark = Bookmark(context: context)\\n        bookmark.id = UUID()\\n        bookmark.title = title\\n        bookmark.urlString = url.absoluteString\\n        bookmark.order = Int64(Date().timeIntervalSince1970)\\n        bookmark.folder = folder\\n        saveContext()\\n    }\\n\\n    /// Updates an existing bookmark.\\n    func update(_ bookmark: Bookmark, title: String, url: URL) {\\n        bookmark.title = title\\n        bookmark.urlString = url.absoluteString\\n        saveContext()\\n    }\\n\\n    /// Deletes a bookmark.\\n    func delete(_ bookmark: Bookmark) {\\n        context.delete(bookmark)\\n        saveContext()\\n    }\\n\\n    /// Persists changes.\\n    private func saveContext() {\\n        if context.hasChanges {\\n            try? context.save()\\n        }\\n    }\\n}"
+        },
+        {
+          "name": "NoteService.swift",
+          "code": "import Foundation\\nimport CoreData\\n\\n/// Service handling CRUD operations for notes.\\nclass NoteService {\\n    private let context: NSManagedObjectContext\\n\\n    init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {\\n        self.context = context\\n    }\\n\\n    /// Fetches notes for a given page URL.\\n    func fetchNotes(for url: URL) -> [Note] {\\n        let request: NSFetchRequest<Note> = Note.fetchRequest()\\n        request.predicate = NSPredicate(format: \\\"urlString == %@\\\", url.absoluteString)\\n        request.sortDescriptors = [NSSortDescriptor(keyPath: \\\"order\\\", ascending: true)]\\n        return (try? context.fetch(request)) ?? []\\n    }\\n\\n    /// Adds a new note.\\n    func add(title: String?, content: String, url: URL, isPinned: Bool = false) {\\n        let note = Note(context: context)\\n        note.id = UUID()\\n        note.title = title\\n        note.content = content\\n        note.urlString = url.absoluteString\\n        note.isPinned = isPinned\\n        note.createdAt = Date()\\n        note.updatedAt = Date()\\n        note.order = Int64(Date().timeIntervalSince1970)\\n        saveContext()\\n    }\\n\\n    /// Updates an existing note.\\n    func update(_ note: Note, title: String?, content: String, isPinned: Bool) {\\n        note.title = title\\n        note.content = content\\n        note.isPinned = isPinned\\n        note.updatedAt = Date()\\n        saveContext()\\n    }\\n\\n    /// Deletes a note.\\n    func delete(_ note: Note) {\\n        context.delete(note)\\n        saveContext()\\n    }\\n\\n    /// Persists changes.\\n    private func saveContext() {\\n        if context.hasChanges {\\n            try? context.save()\\n        }\\n    }\\n}"
+        },
+        {
+          "name": "WebNavigationService.swift",
+          "code": "import WebKit\\nimport Combine\\n\\n/// Service wrapping WKWebView navigation.\\nclass WebNavigationService: NSObject, ObservableObject {\\n    @Published var url: URL?\\n    @Published var title: String = \\\"\\\"\\n    @Published var isLoading: Bool = false\\n    @Published var progress: Double = 0.0\\n\\n    private var webView: WKWebView!\\n\\n    override init() {\\n        super.init()\\n        let config = WKWebViewConfiguration()\\n        webView = WKWebView(frame: .zero, configuration: config)\\n        webView.navigationDelegate = self\\n        webView.addObserver(self, forKeyPath: \\\"estimatedProgress\\\", options: .new, context: nil)\\n    }\\n\\n    deinit {\\n        webView.removeObserver(self, forKeyPath: \\\"estimatedProgress\\\")\\n    }\\n\\n    /// Loads the given URL.\\n    func load(_ url: URL) {\\n        webView.load(URLRequest(url: url))\\n    }\\n\\n    /// Returns the underlying WKWebView for SwiftUI wrapper.\\n    func getWebView() -> WKWebView {\\n        return webView\\n    }\\n\\n    // Observe progress changes.\\n    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {\\n        if keyPath == \\\"estimatedProgress\\\" {\\n            progress = webView.estimatedProgress\\n        }\\n    }\\n}\\n\\n// MARK: WKNavigationDelegate\\nextension WebNavigationService: WKNavigationDelegate {\\n    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {\\n        isLoading = true\\n    }\\n\\n    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {\\n        isLoading = false\\n        title = webView.title ?? \\\"\\\"\\n        url = webView.url\\n    }\\n\\n    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {\\n        isLoading = false\\n    }\\n}"
+        }
+      ]
+    },
+    {
+      "name": "Managers",
+      "folders": [],
+      "files": [
+        {
+          "name": "SyncManager.swift",
+          "code": "import Foundation\\n\\n/// Placeholder for iCloud sync logic.\\nclass SyncManager {\\n    /// Starts synchronization.\\n    func startSync() {\\n        // Implement iCloud sync.\\n    }\\n}"
+        }
+      ]
+    },
+    {
+      "name": "Scenes",
+      "folders": [
+        {
+          "name": "Bookmarks",
+          "folders": [],
+          "files": [
+            {
+              "name": "BookmarkListView.swift",
+              "code": "import SwiftUI\\n\\n/// View displaying hierarchical list of bookmarks.\\nstruct BookmarkListView: View {\\n    @StateObject private var viewModel = BookmarkListViewModel()\\n\\n    var body: some View {\\n        VStack {\\n            // Search field\\n            TextField(\\\"Search bookmarks\\\", text: $viewModel.searchText)\\n                .textFieldStyle(.roundedBorder)\\n                .padding(.horizontal)\\n\\n            // List of bookmarks\\n            List {\\n                ForEach(viewModel.filteredBookmarks) { bookmark in\\n                    BookmarkRowView(bookmark: bookmark)\\n                        .contextMenu {\\n                            Button(\\\"Open\\\") {\\n                                viewModel.select(bookmark)\\n                            }\\n                            Button(\\\"Edit\\\") {\\n                                viewModel.edit(bookmark)\\n                            }\\n                            Button(\\\"Delete\\\", role: .destructive) {\\n                                viewModel.confirmDelete(bookmark)\\n                            }\\n                        }\\n                }\\n                .onDelete(perform: viewModel.delete)\\n                .onMove(perform: viewModel.move)\\n            }\\n        }\\n        .toolbar {\\n            ToolbarItemGroup(placement: .topBarLeading) {\\n                Button(action: viewModel.addFolder) {\\n                    Image(systemName: \\\"folder.badge.plus\\\")\\n                        .foregroundStyle(.secondary)\\n                }\\n                Button(action: viewModel.addBookmark) {\\n                    Image(systemName: \\\"bookmark.badge.plus\\\")\\n                        .foregroundStyle(.secondary)\\n                }\\n                Button(action: viewModel.importBookmarks) {\\n                    Image(systemName: \\\"square.and.arrow.down\\\")\\n                        .foregroundStyle(.secondary)\\n                }\\n                Button(action: viewModel.exportBookmarks) {\\n                    Image(systemName: \\\"square.and.arrow.up\\\")\\n                        .foregroundStyle(.secondary)\\n                }\\n            }\\n        }\\n        .sheet(item: $viewModel.editingBookmark) { bookmark in\\n            AddEditBookmarkView(bookmark: bookmark) { viewModel.refresh() }\\n        }\\n        .alert(isPresented: $viewModel.showDeleteAlert) {\\n            Alert(title: Text(\\\"Delete Bookmark\\\"),\\n                  message: Text(\\\"Are you sure you want to delete this bookmark?\\\"),\\n                  primaryButton: .destructive(Text(\\\"Delete\\\")) {\\n                    viewModel.deleteConfirmed()\\n                  },\\n                  secondaryButton: .cancel())\\n        }\\n    }\\n}"
+            },
+            {
+              "name": "BookmarkListViewModel.swift",
+              "code": "import SwiftUI\\nimport Combine\\n\\n/// ViewModel for BookmarkListView handling state and actions.\\nclass BookmarkListViewModel: ObservableObject {\\n    @Published var searchText: String = \\\"\\\"\\n    @Published var bookmarks: [Bookmark] = []\\n    @Published var editingBookmark: Bookmark?\\n    @Published var showDeleteAlert = false\\n    private var bookmarkToDelete: Bookmark?\\n\\n    private var cancellables = Set<AnyCancellable>()\\n    private let service = BookmarkService()\\n\\n    init() {\\n        fetchBookmarks()\\n        setupSearch()\\n    }\\n\\n    /// Fetches bookmarks from service.\\n    func fetchBookmarks() {\\n        bookmarks = service.fetchAll()\\n    }\\n\\n    /// Refreshes list after changes.\\n    func refresh() {\\n        fetchBookmarks()\\n    }\\n\\n    /// Computed filtered list based on search text.\\n    var filteredBookmarks: [Bookmark] {\\n        guard !searchText.isEmpty else { return bookmarks }\\n        return bookmarks.filter {\\n            $0.title.localizedCaseInsensitiveContains(searchText) ||\\n            $0.urlString.localizedCaseInsensitiveContains(searchText)\\n        }\\n    }\\n\\n    /// Handles selection to load in web view.\\n    func select(_ bookmark: Bookmark) {\\n        if let url = bookmark.url {\\n            NotificationCenter.default.post(name: .didSelectURL, object: url)\\n        }\\n    }\\n\\n    /// Starts editing a bookmark.\\n    func edit(_ bookmark: Bookmark) {\\n        editingBookmark = bookmark\\n    }\\n\\n    /// Adds a new bookmark (opens sheet with empty bookmark).\\n    func addBookmark() {\\n        editingBookmark = nil // Sheet will treat nil as new.\\n    }\\n\\n    /// Adds a new folder (not implemented).\\n    func addFolder() {\\n        // Placeholder for folder creation.\\n    }\\n\\n    /// Imports bookmarks (placeholder).\\n    func importBookmarks() {\\n        // Implement file picker and import logic.\\n    }\\n\\n    /// Exports bookmarks (placeholder).\\n    func exportBookmarks() {\\n        // Implement export logic.\\n    }\\n\\n    /// Initiates delete confirmation.\\n    func confirmDelete(_ bookmark: Bookmark) {\\n        bookmarkToDelete = bookmark\\n        showDeleteAlert = true\\n    }\\n\\n    /// Performs deletion after confirmation.\\n    func deleteConfirmed() {\\n        if let bookmark = bookmarkToDelete {\\n            service.delete(bookmark)\\n            fetchBookmarks()\\n        }\\n        showDeleteAlert = false\\n        bookmarkToDelete = nil\\n    }\\n\\n    /// Delete via swipe or edit actions.\\n    func delete(at offsets: IndexSet) {\\n        offsets.map { bookmarks[$0] }.forEach { service.delete($0) }\\n        fetchBookmarks()\\n    }\\n\\n    /// Move bookmarks.\\n    func move(from source: IndexSet, to destination: Int) {\\n        var reordered = bookmarks\\n        reordered.move(fromOffsets: source, toOffset: destination)\\n        for (index, bookmark) in reordered.enumerated() {\\n            bookmark.order = Int64(index)\\n        }\\n        service.saveContext()\\n        fetchBookmarks()\\n    }\\n\\n    /// Sets up Combine pipeline for search.\\n    private func setupSearch() {\\n        $searchText\\n            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)\\n            .sink { [weak self] _ in\\n                self?.objectWillChange.send()\\n            }\\n            .store(in: &cancellables)\\n    }\\n}"
+            },
+            {
+              "name": "AddEditBookmarkView.swift",
+              "code": "import SwiftUI\\n\\n/// Sheet view for adding or editing a bookmark.\\nstruct AddEditBookmarkView: View {\\n    @Environment(\\.dismiss) private var dismiss\\n    @State private var title: String = \\\"\\\"\\n    @State private var urlString: String = \\\"\\\"\\n    @State private var errorMessage: String?\\n\\n    var bookmark: Bookmark?\\n    var onSave: (() -> Void)?\\n\\n    var body: some View {\\n        VStack(spacing: 16) {\\n            TextField(\\\"Title\\\", text: $title)\\n            TextField(\\\"URL\\\", text: $urlString)\\n                .textFieldStyle(.roundedBorder)\\n            if let error = errorMessage {\\n                Text(error)\\n                    .foregroundStyle(.red)\\n            }\\n            HStack {\\n                Button(\\\"Cancel\\\") {\\n                    dismiss()\\n                }\\n                Spacer()\\n                Button(\\\"Save\\\") {\\n                    save()\\n                }\\n                .disabled(title.isEmpty || URL(string: urlString) == nil)\\n            }\\n        }\\n        .padding()\\n        .onAppear {\\n            if let bm = bookmark {\\n                title = bm.title\\n                urlString = bm.urlString\\n            }\\n        }\\n    }\\n\\n    private func save() {\\n        guard let url = URL(string: urlString), url.isValid else {\\n            errorMessage = \\\"Invalid URL\\\"\\n            return\\n        }\\n        let service = BookmarkService()\\n        if let bm = bookmark {\\n            service.update(bm, title: title, url: url)\\n        } else {\\n            service.add(title: title, url: url)\\n        }\\n        onSave?()\\n        dismiss()\\n    }\\n}"
+            }
+          ]
+        },
+        {
+          "name": "Web",
+          "folders": [],
+          "files": [
+            {
+              "name": "WebBrowserView.swift",
+              "code": "import SwiftUI\\nimport WebKit\\n\\n/// SwiftUI wrapper for WKWebView.\\nstruct WebBrowserView: NSViewRepresentable {\\n    @EnvironmentObject private var env: AppEnvironment\\n    @ObservedObject private var viewModel = WebViewModel()\\n\\n    func makeNSView(context: Context) -> WKWebView {\\n        let webView = env.webService.getWebView()\\n        webView.navigationDelegate = viewModel\\n        // Listen for URL selection notifications.\\n        NotificationCenter.default.addObserver(forName: .didSelectURL, object: nil, queue: .main) { notification in\\n            if let url = notification.object as? URL {\\n                viewModel.load(url)\\n            }\\n        }\\n        return webView\\n    }\\n\\n    func updateNSView(_ nsView: WKWebView, context: Context) {\\n        // No dynamic updates needed.\\n    }\\n\\n    var body: some View {\\n        VStack(spacing: 0) {\\n            // Toolbar with navigation controls.\\n            HStack {\\n                Button(action: viewModel.goBack) {\\n                    Image(systemName: \\\"chevron.backward\\\")\\n                        .foregroundStyle(.secondary)\\n                }\\n                .disabled(!viewModel.canGoBack)\\n\\n                Button(action: viewModel.goForward) {\\n                    Image(systemName: \\\"chevron.forward\\\")\\n                        .foregroundStyle(.secondary)\\n                }\\n                .disabled(!viewModel.canGoForward)\\n\\n                Button(action: viewModel.reload) {\\n                    Image(systemName: \\\"arrow.clockwise\\\")\\n                        .foregroundStyle(.secondary)\\n                }\\n\\n                TextField(\\\"Enter URL\\\", text: $viewModel.addressBarText, onCommit: {\\n                    viewModel.loadAddressBar()\\n                })\\n                .textFieldStyle(.roundedBorder)\\n\\n                ProgressView(value: viewModel.progress)\\n                    .frame(width: 100)\\n            }\\n            .padding(.horizontal)\\n\\n            // The actual web view.\\n            self\\n        }\\n    }\\n}"
+            },
+            {
+              "name": "WebViewModel.swift",
+              "code": "import SwiftUI\\nimport WebKit\\nimport Combine\\n\\n/// ViewModel for WebBrowserView handling navigation state.\\nclass WebViewModel: NSObject, ObservableObject, WKNavigationDelegate {\\n    @Published var canGoBack = false\\n    @Published var canGoForward = false\\n    @Published var progress: Double = 0.0\\n    @Published var addressBarText: String = \\\"\\\"\\n\\n    private var webView: WKWebView? {\\n        // Find the WKWebView in the view hierarchy.\\n        NSApplication.shared.windows.first?.contentView?.subviews.compactMap { $0 as? WKWebView }.first\\n    }\\n\\n    // MARK: Navigation actions\\n    func load(_ url: URL) {\\n        webView?.load(URLRequest(url: url))\\n        addressBarText = url.absoluteString\\n    }\\n\\n    func loadAddressBar() {\\n        guard let url = URL(string: addressBarText), url.isValid else { return }\\n        load(url)\\n    }\\n\\n    func goBack() {\\n        webView?.goBack()\\n    }\\n\\n    func goForward() {\\n        webView?.goForward()\\n    }\\n\\n    func reload() {\\n        webView?.reload()\\n    }\\n\\n    // MARK: WKNavigationDelegate\\n    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {\\n        canGoBack = webView.canGoBack\\n        canGoForward = webView.canGoForward\\n    }\\n\\n    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {\\n        canGoBack = webView.canGoBack\\n        canGoForward = webView.canGoForward\\n        addressBarText = webView.url?.absoluteString ?? \\\"\\\"\\n    }\\n}"
+            }
+          ]
+        },
+        {
+          "name": "Notes",
+          "folders": [],
+          "files": [
+            {
+              "name": "NoteListView.swift",
+              "code": "import SwiftUI\\n\\n/// View displaying notes attached to the current webpage.\\nstruct NoteListView: View {\\n    @StateObject private var viewModel = NoteListViewModel()\\n    @State private var showingAddNote = false\\n\\n    var body: some View {\\n        VStack {\\n            // Search field\\n            TextField(\\\"Search notes\\\", text: $viewModel.searchText)\\n                .textFieldStyle(.roundedBorder)\\n                .padding(.horizontal)\\n\\n            // List of notes\\n            List {\\n                ForEach(viewModel.filteredNotes) { note in\\n                    NoteRowView(note: note)\\n                        .contextMenu {\\n                            Button(\\\"Edit\\\") {\\n                                viewModel.edit(note)\\n                            }\\n                            Button(\\\"Delete\\\", role: .destructive) {\\n                                viewModel.delete(note)\\n                            }\\n                        }\\n                }\\n                .onMove(perform: viewModel.move)\\n            }\\n        }\\n        .toolbar {\\n            ToolbarItemGroup(placement: .topBarTrailing) {\\n                Button(action: { showingAddNote = true }) {\\n                    Image(systemName: \\\"plus\\\")\\n                        .foregroundStyle(.secondary)\\n                }\\n                Button(action: viewModel.exportNotes) {\\n                    Image(systemName: \\\"square.and.arrow.up\\\")\\n                        .foregroundStyle(.secondary)\\n                }\\n            }\\n        }\\n        .sheet(isPresented: $showingAddNote) {\\n            AddEditNoteView(note: nil) { viewModel.refresh() }\\n        }\\n        .sheet(item: $viewModel.editingNote) { note in\\n            AddEditNoteView(note: note) { viewModel.refresh() }\\n        }\\n    }\\n}"
+            },
+            {
+              "name": "NoteListViewModel.swift",
+              "code": "import SwiftUI\\nimport Combine\\n\\n/// ViewModel for NoteListView handling note state.\\nclass NoteListViewModel: ObservableObject {\\n    @Published var searchText: String = \\\"\\\"\\n    @Published var notes: [Note] = []\\n    @Published var editingNote: Note?\\n\\n    private var cancellables = Set<AnyCancellable>()\\n    private let service = NoteService()\\n    private var currentURL: URL?\\n\\n    init() {\\n        // Listen for URL changes.\\n        NotificationCenter.default.publisher(for: .didSelectURL)\\n            .compactMap { $0.object as? URL }\\n            .sink { [weak self] url in\\n                self?.currentURL = url\\n                self?.fetchNotes()\\n            }\\n            .store(in: &cancellables)\\n        setupSearch()\\n    }\\n\\n    /// Fetches notes for current URL.\\n    func fetchNotes() {\\n        guard let url = currentURL else { notes = []; return }\\n        notes = service.fetchNotes(for: url)\\n    }\\n\\n    /// Refresh after add/edit.\\n    func refresh() {\\n        fetchNotes()\\n    }\\n\\n    /// Filtered notes based on search.\\n    var filteredNotes: [Note] {\\n        guard !searchText.isEmpty else { return notes }\\n        return notes.filter {\\n            ($0.title?.localizedCaseInsensitiveContains(searchText) ?? false) ||\\n            $0.content.localizedCaseInsensitiveContains(searchText)\\n        }\\n    }\\n\\n    /// Starts editing a note.\\n    func edit(_ note: Note) {\\n        editingNote = note\\n    }\\n\\n    /// Deletes a note with undo support (simplified).\\n    func delete(_ note: Note) {\\n        service.delete(note)\\n        fetchNotes()\\n    }\\n\\n    /// Moves notes order.\\n    func move(from source: IndexSet, to destination: Int) {\\n        var reordered = notes\\n        reordered.move(fromOffsets: source, toOffset: destination)\\n        for (index, note) in reordered.enumerated() {\\n            note.order = Int64(index)\\n        }\\n        service.saveContext()\\n        fetchNotes()\\n    }\\n\\n    /// Export notes (placeholder).\\n    func exportNotes() {\\n        // Implement export logic.\\n    }\\n\\n    private func setupSearch() {\\n        $searchText\\n            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)\\n            .sink { [weak self] _ in\\n                self?.objectWillChange.send()\\n            }\\n            .store(in: &cancellables)\\n    }\\n}"
+            },
+            {
+              "name": "AddEditNoteView.swift",
+              "code": "import SwiftUI\\n\\n/// Sheet view for adding or editing a note.\\nstruct AddEditNoteView: View {\\n    @Environment(\\.dismiss) private var dismiss\\n    @State private var title: String = \\\"\\\"\\n    @State private var content: String = \\\"\\\"\\n    @State private var isPinned: Bool = false\\n    @State private var errorMessage: String?\\n\\n    var note: Note?\\n    var onSave: (() -> Void)?\\n\\n    var body: some View {\\n        VStack(spacing: 12) {\\n            TextField(\\\"Title (optional)\\\", text: $title)\\n            TextEditor(text: $content)\\n                .frame(minHeight: 200)\\n                .border(Color.gray.opacity(0.2))\\n            Toggle(\\\"Pin note\\\", isOn: $isPinned)\\n            if let error = errorMessage {\\n                Text(error)\\n                    .foregroundStyle(.red)\\n            }\\n            HStack {\\n                Button(\\\"Cancel\\\") { dismiss() }\\n                Spacer()\\n                if note != nil {\\n                    Button(\\\"Delete\\\", role: .destructive) { delete() }\\n                }\\n                Button(\\\"Save\\\") { save() }\\n                    .disabled(content.isEmpty)\\n            }\\n        }\\n        .padding()\\n        .onAppear {\\n            if let n = note {\\n                title = n.title ?? \\\"\\\"\\n                content = n.content\\n                isPinned = n.isPinned\\n            }\\n        }\\n    }\\n\\n    private func save() {\\n        guard let url = (NotificationCenter.default.userInfo?[\\\"currentURL\\\"] as? URL) else {\\n            errorMessage = \\\"No page URL available.\\\"\\n            return\\n        }\\n        let service = NoteService()\\n        if let n = note {\\n            service.update(n, title: title.isEmpty ? nil : title, content: content, isPinned: isPinned)\\n        } else {\\n            service.add(title: title.isEmpty ? nil : title, content: content, url: url, isPinned: isPinned)\\n        }\\n        onSave?()\\n        dismiss()\\n    }\\n\\n    private func delete() {\\n        if let n = note {\\n            NoteService().delete(n)\\n            onSave?()\\n            dismiss()\\n        }\\n    }\\n}"
+            }
+          ]
+        },
+        {
+          "name": "Settings",
+          "folders": [],
+          "files": [
+            {
+              "name": "SettingsView.swift",
+              "code": "import SwiftUI\\n\\n/// Preferences window content.\\nstruct SettingsView: View {\\n    @EnvironmentObject private var env: AppEnvironment\\n    @State private var homepage: String = Constants.defaultHomepage.absoluteString\\n\\n    var body: some View {\\n        VStack(alignment: .leading, spacing: 20) {\\n            Text(\\\"General\\\")\\n                .font(.title2)\\n            HStack {\\n                Text(\\\"Default homepage:\\\")\\n                TextField(\\\"URL\\\", text: $homepage)\\n                    .textFieldStyle(.roundedBorder)\\n            }\\n            Button(\\\"Save\\\") {\\n                if let url = URL(string: homepage), url.isValid {\\n                    // Save to settings storage if needed.\\n                }\\n            }\\n            Spacer()\\n        }\\n        .padding()\\n        .frame(width: 400, height: 200)\\n    }\\n}"
+            }
+          ]
+        }
+      ],
+      "files": []
+    }
+  ],
+  "files": []
+}

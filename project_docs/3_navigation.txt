@@ -1,0 +1,239 @@
+**Global Navigation Model**
+
+*Root UI* – a single **Main Window** that contains a **three‑pane split view** (Left Sidebar | Central Web View | Right Sidebar).  
+The window hosts a **global toolbar** (navigation buttons, address bar, progress indicator) and a **menu bar** (File, Edit, View, Window, Help).  
+
+All navigation actions are triggered from UI controls inside the panes or from the menu bar.  
+Modal dialogs, sheets, alerts and pop‑overs are used for secondary tasks; they can be dismissed with a close (✕) button, the Escape key, or a swipe‑down gesture on trackpad (where applicable).  
+
+Root‑level navigation does **not** use a tab‑bar; instead the split‑view remains visible while modal layers are stacked on top.  
+
+| Destination | Presentation | How to close / go back |
+|------------|---------------|------------------------|
+| Add / Edit Bookmark | Sheet (modal) attached to Main Window | ✕ button, Cancel, or Escape; Save dismisses sheet and returns to Bookmark list |
+| Delete Bookmark confirmation | Alert (modal) | Cancel or Confirm; after Confirm the alert dismisses automatically |
+| Import / Export Bookmarks | System file‑picker panel (modal) | Cancel or Choose file; panel dismisses automatically |
+| Add / Edit Note | Sheet (modal) | ✕ button, Cancel, or Escape; Save dismisses sheet and returns to Note list |
+| Delete Note undo | Bottom‑aligned Snackbar (non‑modal) | Auto‑dismiss after 5 s or Undo button restores note |
+| Export Notes | System file‑picker panel (modal) | Cancel or Choose destination; panel dismisses automatically |
+| Settings / Preferences | Separate **Preferences Window** (modal to app) | Close button (⌘‑W) or menu → Preferences again |
+| iCloud Sync & Backup dialogs | Sheet (modal) from Preferences | ✕, Cancel, or Done |
+| “Open in New Window” (Web) | New **Browser Window** (independent NSWindow) | Close window (⌘‑W) |
+| Context‑menu “Add Note” from Web page | Sheet (modal) pre‑filled with selection | Same as Add Note sheet |
+| Full‑screen view of an image attachment | Full‑screen modal view | Click outside, ✕ button, or Escape |
+
+---
+
+## 1. Main Window – Split‑View Layout  
+
+**1.1 Left Sidebar – BookmarkListView**  
+
+| UI Control | Navigation / Action | Result |
+|------------|--------------------|--------|
+| **Search field** (TextField) | Live filter of the hierarchical list | List updates in‑place; no navigation change |
+| **Add Folder** button (Toolbar above list) | Opens **Add/Edit Bookmark Sheet** in *Folder* mode | Sheet appears; after Save a new folder is inserted |
+| **Add Bookmark** button | Opens **Add/Edit Bookmark Sheet** in *Bookmark* mode | Sheet appears; after Save the new bookmark appears in the list |
+| **Import** button | Opens **Import Bookmarks** file‑picker (modal) | Selected file is parsed; list refreshed |
+| **Export** button | Opens **Export Bookmarks** file‑picker (modal) | User chooses destination; CSV/HTML file written |
+| **Bookmark row** (single‑click) | Sets `selectedBookmarkID` in `BookmarkViewModel` | Central Web View loads the bookmark’s URL |
+| **Bookmark row** (double‑click) | Same as single‑click (load URL) but also gives visual feedback | No additional navigation |
+| **Bookmark row** (right‑click → Context Menu) | • *Open in New Window* → creates a new **Browser Window** with the URL loaded.<br>• *Edit* → opens **Add/Edit Bookmark Sheet** pre‑filled.<br>• *Delete* → shows **Delete Confirmation Alert**.<br>• *Add Bookmark* (duplicate) → opens sheet with duplicated data. | New window or sheet/alert as described |
+| **Drag‑handle** (grip icon) on row | Drag‑and‑drop reordering or moving between folders | ViewModel updates `order` and parent‑folder; UI updates instantly |
+| **Folder row** (right‑click → Context Menu) | *Add Bookmark*, *Add Folder*, *Rename*, *Delete* (alert) | Same modal/alert flow as bookmarks |
+
+**1.2 Central Pane – WebBrowserView**  
+
+| UI Control | Navigation / Action | Result |
+|------------|--------------------|--------|
+| **Back** button (toolbar) | Calls `webView.goBack()` | Web view navigates back; address bar updates |
+| **Forward** button | Calls `webView.goForward()` | Web view navigates forward |
+| **Reload** button | Calls `webView.reload()` | Page reloads; progress indicator animates |
+| **Stop** button | Calls `webView.stopLoading()` | Loading halts; progress resets |
+| **Home** button | Loads URL from Settings (`defaultHomepage`) | Home page displayed |
+| **Address bar** (TextField) | • On Commit → loads entered URL.<br>• On typing → shows **Auto‑completion Popover** (bookmarks + history). | Selected suggestion loads; popover dismisses |
+| **Progress indicator** (ProgressView) | Binds to `webView.estimatedProgress` | Shows loading progress; hidden when complete |
+| **Web page context menu** (right‑click) | • *Add Note* (enabled when text is selected) → opens **Add Note Sheet** with selected text pre‑filled.<br>• *Open Link in New Window* → new Browser Window.<br>• Standard browser actions (Copy, Open in New Tab, etc.) | Sheet or new window appears |
+| **JavaScript bridge** (message handler) | Receives “addNote” messages from page scripts | Triggers same Add Note sheet as context menu |
+
+**1.3 Right Sidebar – NoteListView**  
+
+| UI Control | Navigation / Action | Result |
+|------------|--------------------|--------|
+| **Search field** (TextField) | Live filter of notes belonging to current URL | List updates in‑place |
+| **New Note** button (toolbar above list) | Opens **Add/Edit Note Sheet** (empty) | Sheet appears; after Save note appears in list |
+| **Export** button | Opens **Export Notes** file‑picker (modal) | User selects format & destination; notes exported |
+| **Settings** button | Opens **Notes Settings** sheet (or jumps to Preferences → Notes tab) | Settings UI appears |
+| **Note row** (single‑click) | Selects note → shows preview (if any) in a small inline area | No navigation change |
+| **Note row** (right‑click → Context Menu) | • *Edit* → opens **Add/Edit Note Sheet** pre‑filled.<br>• *Delete* → removes note and shows **Undo Snackbar**.<br>• *Duplicate* → creates copy and opens edit sheet. | Sheet or snackbar as described |
+| **Pin toggle** (star icon) on row | Toggles `note.isPinned` | Pinned notes stay visible when navigating to a different page (if “Pin across pages” is enabled) |
+| **Drag‑handle** (grip) on row | Drag‑and‑drop reordering within the list | ViewModel updates `order`; UI reflects new order |
+| **Note row** (double‑click) | Same as Edit (opens sheet) | No extra navigation |
+
+---
+
+## 2. Modal & Sheet Navigation Flow  
+
+### 2.1 Add / Edit Bookmark Sheet  
+
+*Presentation*: `.sheet(isPresented:)` attached to Main Window.  
+*Controls*  
+
+| Control | Triggers | Outcome |
+|---------|----------|---------|
+| **Title** TextField | – | User input |
+| **URL** TextField | – | User input (validated) |
+| **Folder picker** (PopUpButton) | – | Select parent folder |
+| **Favicon preview** + **Refresh** button | – | Updates preview |
+| **Save** button (primary) | Tap | Validates → persists via `BookmarkViewModel.save()` → dismisses sheet → Bookmark list refreshes |
+| **Cancel** button (secondary) | Tap or Escape | Dismisses sheet without saving |
+| **Delete** button (only in Edit mode) | Tap | Shows **Delete Confirmation Alert**; on Confirm deletes bookmark and dismisses sheet |
+
+*Close behavior*: ✕ button in top‑right of sheet, Escape key, or Cancel. Unsaved changes prompt a “Discard changes?” alert.
+
+### 2.2 Delete Confirmation Alert (Bookmark / Note)  
+
+*Presentation*: `.alert(isPresented:)` modal.  
+*Buttons* – **Cancel** (dismisses alert), **Delete** (performs deletion, then dismisses).  
+
+### 2.3 Add / Edit Note Sheet  
+
+*Presentation*: `.sheet(isPresented:)` attached to Main Window.  
+*Controls*  
+
+| Control | Triggers | Outcome |
+|---------|----------|---------|
+| **Title** TextField (optional) | – | User input |
+| **Rich‑Text Editor** (TextEditor with attributed string) | – | User writes note content |
+| **Image attachment area** (Drop target + “Add Image” button) | Drag‑and‑drop or button | Opens **Image Picker** (system panel) → selected image appears; optional **CropperView** can be invoked |
+| **Tags field** (tokenized chips) | – | User adds tags |
+| **Pin toggle** (Toggle) | – | Sets `note.isPinned` |
+| **Save** button (primary) | Tap | Validates (non‑empty content) → persists via `NoteViewModel.save()` → dismisses sheet → Note list refreshes |
+| **Cancel** button (secondary) | Tap or Escape | Dismisses sheet without saving |
+| **Delete** button (only in Edit mode) | Tap | Shows **Delete Confirmation Alert**; on Confirm removes note, shows Undo Snackbar, dismisses sheet |
+
+*Close behavior*: Same as Bookmark sheet.
+
+### 2.4 Undo Snackbar (Note Deletion)  
+
+*Presentation*: `Snackbar` view anchored to bottom of Right Sidebar.  
+*Buttons* – **Undo** (restores note via `NoteViewModel.undoDelete()`) or auto‑dismiss after 5 seconds.  
+
+### 2.5 Export Notes Dialog  
+
+*Presentation*: System **NSSavePanel** opened from Right Sidebar toolbar.  
+*Controls* – **Format picker** (Markdown, PDF, Image Bundle), **Destination selector** (file path).  
+*Outcome* – On **Export** button, `NoteExportService.export(notes:format:to:)` runs; panel dismisses; a brief toast confirms success.
+
+### 2.6 Import / Export Bookmarks Dialogs  
+
+*Presentation*: System **NSOpenPanel** / **NSSavePanel** from Left Sidebar toolbar.  
+*Outcome* – Files are parsed or written; on success a toast appears.
+
+### 2.7 Preferences Window  
+
+*Access*: Menu → **App > Preferences** (⌘+,) or toolbar button.  
+*Presentation*: Separate **NSWindow** (`.windowStyle(.utility)`) that stays on top of the Main Window.  
+*Structure*: `TabView` (or `SegmentedControl`) with tabs: **General**, **Appearance**, **Keyboard Shortcuts**, **Privacy**, **iCloud Sync**, **Backup & Restore**.  
+
+**Navigation inside Preferences**  
+
+| Tab | Controls that open further UI |
+|-----|-------------------------------|
+| **General** | TextField for default homepage, Picker for start‑up behavior – changes saved instantly. |
+| **Appearance** | RadioGroup for theme, Switches for sidebar visibility – changes reflected immediately. |
+| **Keyboard Shortcuts** | Editable shortcut fields – pressing a field captures the next key combo; **Reset** button restores defaults. |
+| **Privacy** | Buttons **Clear Cookies & Site Data**, **Clear Cache** – each shows a confirmation alert before execution. |
+| **iCloud Sync** | Toggle **Enable iCloud Sync** – opens a **Sync Status Sheet** showing progress; **Conflict Resolution** picker – changes saved. |
+| **Backup & Restore** | **Create Backup** button → opens **Save Panel**; **Restore Backup** button → opens **Open Panel**, then shows a **Preview Alert** with file contents before confirming overwrite. |
+
+All tabs have a **Close** button (⌘‑W) that dismisses the Preferences window.
+
+### 2.8 “Open in New Window” (Web)  
+
+*Presentation*: New **NSWindow** containing the same three‑pane split view, but the left and right sidebars may be hidden (user can toggle).  
+*Navigation*: The new window loads the selected URL; all other UI (bookmarks, notes) are shared via the same Core Data store, so changes are reflected across windows.  
+*Close*: Standard window close (⌘‑W) or red traffic‑light button.
+
+---
+
+## 3. Navigation Chains (Typical User Journeys)
+
+### 3.1 Browse a Bookmark → Add a Note → Export Notes → Change Appearance
+
+1. **Main Window** opens → Left Sidebar shows Bookmark list.  
+2. User clicks a bookmark row → Central Web View loads URL.  
+3. User selects text on the page → Right‑click → **Add Note** (context menu).  
+4. **Add Note Sheet** appears → user adds title, optional image, tags → taps **Save** → sheet dismisses, note appears in Right Sidebar.  
+5. User clicks **Export** button in Right Sidebar → **Export Notes Dialog** opens → selects *Markdown* and destination → taps **Export** → dialog dismisses, toast “Exported 1 note”.  
+6. User opens **Preferences** (⌘+,) → switches to **Appearance** tab → selects **Dark** theme → UI updates instantly.  
+7. User closes Preferences (⌘‑W).  
+
+### 3.2 Create a New Bookmark Folder → Import Bookmarks → Open a Bookmark in a New Window
+
+1. In Left Sidebar, tap **Add Folder** → **Add/Edit Bookmark Sheet** opens in folder mode → user enters folder name → taps **Save** → sheet dismisses, folder appears.  
+2. Tap **Import** → **Open Panel** appears → user selects an HTML file → import runs, new bookmarks appear under appropriate folders.  
+3. User right‑clicks a newly imported bookmark → selects **Open in New Window** → a new Browser Window opens, loading that URL.  
+
+### 3.3 Edit an Existing Note → Undo Deletion
+
+1. In Right Sidebar, locate a note → right‑click → **Edit** → **Add/Edit Note Sheet** opens with existing content.  
+2. User modifies text, then taps **Delete** (available only in edit mode).  
+3. **Delete Confirmation Alert** appears → user confirms → note is removed, **Undo Snackbar** appears at bottom.  
+4. User taps **Undo** within 5 seconds → note is restored to its previous position.  
+
+### 3.4 Change Keyboard Shortcuts → Use New Shortcut to Open Preferences
+
+1. Open **Preferences** → **Keyboard Shortcuts** tab.  
+2. Locate **Open Preferences** action → click its shortcut field → press **⌥⌘P** → shortcut updates.  
+3. Close Preferences.  
+4. Press **⌥⌘P** → Preferences window opens, confirming the new shortcut works.  
+
+### 3.5 Enable iCloud Sync → Resolve Conflict → Backup Data
+
+1. Open **Preferences** → **iCloud Sync** tab.  
+2. Toggle **Enable iCloud Sync** → **Sync Status Sheet** appears, showing progress bar.  
+3. Sync finishes; if a conflict is detected, a **Conflict Resolution Alert** appears → user selects **Prefer Cloud** → conflict resolved.  
+4. Switch to **Backup & Restore** tab → tap **Create Backup** → **Save Panel** opens → user chooses location → backup file created, toast confirms.  
+
+### 3.6 Use Navigation Buttons and Address Bar
+
+1. User navigates to `https://example.com` via address bar → page loads.  
+2. User clicks a link → new page loads; **Back** button becomes enabled.  
+3. User clicks **Back** → previous page appears; **Forward** button becomes enabled.  
+4. User clicks **Reload** → page reloads, progress indicator animates.  
+
+---
+
+## 4. Back / Close Behavior Summary
+
+| Screen / Layer | Back / Close Mechanism | Special Cases |
+|----------------|------------------------|---------------|
+| Main Window (split view) | No back; closing the window quits the app (or hides if “Close windows when quitting” disabled). | Cmd‑Q quits; Cmd‑W closes window. |
+| Bookmark / Note Sheets | ✕ button, **Cancel**, or Escape. If unsaved changes exist, a **Discard changes?** alert appears. |
+| Alerts (Delete Confirmation, Conflict Resolution) | **Cancel** button or clicking outside (if allowed). |
+| Preferences Window | Close button (⌘‑W) or red traffic‑light. No navigation stack inside; tabs switch content. |
+| New Browser Window | Standard window close (⌘‑W). |
+| Context‑menu “Add Note” → Sheet | Same as Add Note sheet. |
+| Undo Snackbar | Auto‑dismiss after timeout; **Undo** button restores. |
+| Full‑screen image viewer (if used) | Click outside, ✕ button, or Escape. |
+| System file panels (Import/Export, Backup) | **Cancel** or **Choose**; panel dismisses automatically. |
+
+---
+
+## 5. Presentation & Styling Details (macOS‑specific)
+
+* **Sheets** – slide down from the top of the Main Window, dimming the background. Use `presentationDetents([.medium, .large])` on macOS 13+ for resizable height.  
+* **Alerts** – modal dialogs centered over the Main Window, blocking interaction until dismissed.  
+* **Popovers** – used for address‑bar auto‑completion and bookmark search suggestions; anchored to the TextField, dismiss on click outside.  
+* **Sidebars** – `NavigationSplitView`‑style with resizable dividers; widths persisted via `UserDefaults` (`AppSettingsViewModel`).  
+* **Toolbar** – native `NSToolbar` bridged into SwiftUI via `ToolbarItemGroup`; icons are SF Symbols, disabled state reflects WebView capabilities.  
+* **Progress Indicator** – `ProgressView` styled as a thin line under the toolbar, hidden when `estimatedProgress == 1.0`.  
+* **Undo Snackbar** – custom view with a semi‑transparent background, anchored to the bottom of the Right Sidebar, using `withAnimation` for slide‑in/out.  
+* **Dark/Light Mode** – all views use system colors (`Color.primary`, `Color.secondary`, `Color.windowBackground`) and automatically adapt.  
+* **Accessibility** – every interactive element has `.accessibilityLabel` and `.accessibilityHint`. Keyboard focus order follows visual order; `focusable(true)` is applied to rows, buttons, and text fields.  
+
+---
+
+### End of Navigation Specification
+
+All described navigation paths, UI controls, presentation styles, and back/close behaviours are consistent with the macOS Human Interface Guidelines and fully support the MVVM + Combine architecture outlined in the technical description.

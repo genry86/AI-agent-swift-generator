@@ -1,0 +1,18 @@
+# Core
+python-dotenv>=1.0.0
+pydantic>=2.0
+tiktoken>=0.7.0
+
+# LLM & Agents
+openai>=1.0.0
+langchain>=0.2.0
+langchain-core>=0.2.0
+
+# Utilities
+requests>=2.31.0
+numpy>=1.25.0
+
+# Dev & Testing
+pytest>=7.4.0
+black>=24.0.0
+isort>=5.12.0

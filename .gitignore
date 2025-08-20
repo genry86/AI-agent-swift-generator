@@ -1,0 +1,20 @@
+# Node.js
+.env
+
+# Python
+__pycache__/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# JetBrains IDEs
+.idea/
+
+# Test
+tests/*
+
+context_data/user_rules.json
+context_data/user_rules_str.txt

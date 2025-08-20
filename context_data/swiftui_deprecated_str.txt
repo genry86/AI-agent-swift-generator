@@ -1,0 +1,1319 @@
+SwiftUI / NavigationView
+deprecated-code - `struct NavigationView<Content> where Content : View`
+Use NavigationStack and NavigationSplitView instead. For more information, see Migrating to new navigation types.
+
+SwiftUI / View / tabItem(_:)
+deprecated-code - `nonisolated
+func tabItem<V>(@ViewBuilder _ label: () -> V) -> some View where V : View`
+Use `Tab(title:image:value:content:)` and related initializers instead
+
+SwiftUI / View / subscriptionPromotionalOffer(offer:signature:)
+deprecated-code - `nonisolated
+func subscriptionPromotionalOffer(
+offer: @escaping (Product, Product.SubscriptionInfo) -> Product.SubscriptionOffer?,
+signature: @escaping (Product, Product.SubscriptionInfo, Product.SubscriptionOffer) async throws -> Product.SubscriptionOffer.Signature
+) -> some View`
+Sign promotional offers with JWS and use the subscriptionPromotionalOffer(offer:compactJWS:) view modifier instead
+
+SwiftUI / RotationGesture
+deprecated-code - `struct RotationGesture`
+Use RotateGesture instead.
+
+SwiftUI / MagnificationGesture
+deprecated-code - `struct MagnificationGesture`
+Use MagnifyGesture instead.
+
+SwiftUI / ContentSizeCategory
+deprecated-code - `enum ContentSizeCategory`
+Use DynamicTypeSize instead.
+
+SwiftUI / View / dropDestination(for:action:isTargeted:)
+deprecated-code - `nonisolated
+func dropDestination<T>(
+for payloadType: T.Type = T.self,
+action: @escaping ([T], CGPoint) -> Bool,
+isTargeted: @escaping (Bool) -> Void = { _ in }
+) -> some View where T : Transferable`
+Use `dropDestination(for:isEnabled:action:)` with an `action` that takes a `DropSession` parameter instead.
+
+SwiftUI / ActionSheet
+deprecated-code - `struct ActionSheet`
+Use a View modifier like confirmationDialog(_:isPresented:titleVisibility:presenting:actions:message:) instead.
+
+SwiftUI / Alert
+deprecated-code - `struct Alert`
+Use a View modifier like alert(_:isPresented:presenting:actions:message:) instead.
+
+SwiftUI / AnimatableModifier
+deprecated-code - `protocol AnimatableModifier : Animatable, ViewModifier`
+Use Animatable instead.
+
+SwiftUI / ContextMenu
+deprecated-code - `struct ContextMenu<MenuItems> where MenuItems : View`
+Use contextMenu(menuItems:) instead.
+
+SwiftUI / MenuButton
+deprecated-code - `struct MenuButton<Label, Content> where Label : View, Content : View`
+Use Menu instead.
+
+SwiftUI / PullDownButton
+deprecated-code - `typealias PullDownButton`
+Use Menu instead.
+
+SwiftUI / ControlActiveState
+deprecated-code - `enum ControlActiveState`
+Use `EnvironmentValues.appearsActive` instead.
+
+SwiftUI / NavigationView / init(content:)
+deprecated-code - `init(@ViewBuilder content: () -> Content)`
+Use NavigationStack and NavigationSplitView instead. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationViewStyle
+deprecated-code - `protocol NavigationViewStyle`
+Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / View / navigationViewStyle(_:)
+deprecated-code - `nonisolated
+func navigationViewStyle<S>(_ style: S) -> some View where S : NavigationViewStyle`
+Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / TabViewCustomization / subscript(sectionID:)
+deprecated-code - `subscript(sectionID id: String) -> [String]? { get }`
+Use the `section` subscript and read `tabOrder` instead.
+
+SwiftUI / TabViewCustomization / subscript(sidebarVisibility:)
+deprecated-code - `subscript(sidebarVisibility id: String) -> Visibility { get set }`
+Use the `tab` subscript and read `sidebarVisibility` instead.
+
+SwiftUI / TabViewCustomization / resetSectionOrder(for:)
+deprecated-code - `mutating func resetSectionOrder(for sectionID: String)`
+Use the `section` subscript and call `resetTabOrder` instead.
+
+SwiftUI / NavigationViewStyle / stack
+deprecated-code - `static var stack: StackNavigationViewStyle { get }`
+Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / Picker / init(selection:label:content:)
+deprecated-code - `nonisolated
+init(
+selection: Binding<SelectionValue>,
+label: Label,
+@ViewBuilder content: () -> Content
+)`
+Use init(selection:content:label:) instead.
+
+SwiftUI / View / contextMenu(_:)
+deprecated-code - `nonisolated
+func contextMenu<MenuItems>(_ contextMenu: ContextMenu<MenuItems>?) -> some View where MenuItems : View`
+Use contextMenu(menuItems:) instead.
+
+SwiftUI / PasteButton / init(supportedContentTypes:validator:payloadAction:)
+deprecated-code - `@MainActor @preconcurrency
+init<Payload>(
+supportedContentTypes: [UTType],
+validator: @escaping ([NSItemProvider]) -> Payload?,
+payloadAction: @escaping (Payload) -> Void
+)`
+Use init(payloadType:onPaste:) instead.
+
+SwiftUI / PasteButton / init(supportedTypes:payloadAction:)
+deprecated-code - `@MainActor @preconcurrency
+init(
+supportedTypes: [String],
+payloadAction: @escaping ([NSItemProvider]) -> Void
+)`
+Use the init(supportedContentTypes:payloadAction:) initializer instead.
+
+SwiftUI / PasteButton / init(supportedTypes:validator:payloadAction:)
+deprecated-code - `@MainActor @preconcurrency
+init<Payload>(
+supportedTypes: [String],
+validator: @escaping ([NSItemProvider]) -> Payload?,
+payloadAction: @escaping (Payload) -> Void
+)`
+Use the init(supportedContentTypes:validator:payloadAction:) initializer instead.
+
+SwiftUI / Stepper / init(onIncrement:onDecrement:onEditingChanged:label:)
+deprecated-code - `nonisolated
+init(
+onIncrement: (() -> Void)?,
+onDecrement: (() -> Void)?,
+onEditingChanged: @escaping (Bool) -> Void = { _ in },
+@ViewBuilder label: () -> Label
+)`
+Use init(label:onIncrement:onDecrement:onEditingChanged:) instead.
+
+SwiftUI / Stepper / init(value:in:step:onEditingChanged:label:)
+deprecated-code - `nonisolated
+init<V>(
+value: Binding<V>,
+in bounds: ClosedRange<V>,
+step: V.Stride = 1,
+onEditingChanged: @escaping (Bool) -> Void = { _ in },
+@ViewBuilder label: () -> Label
+) where V : Strideable`
+Use init(value:in:step:label:onEditingChanged:) instead.
+
+SwiftUI / Stepper / init(value:step:onEditingChanged:label:)
+deprecated-code - `nonisolated
+init<V>(
+value: Binding<V>,
+step: V.Stride = 1,
+onEditingChanged: @escaping (Bool) -> Void = { _ in },
+@ViewBuilder label: () -> Label
+) where V : Strideable`
+Use init(value:step:label:onEditingChanged:) instead.
+
+SwiftUI / Slider / init(value:in:step:onEditingChanged:label:)
+deprecated-code - `nonisolated
+init<V>(
+value: Binding<V>,
+in bounds: ClosedRange<V>,
+step: V.Stride = 1,
+onEditingChanged: @escaping (Bool) -> Void = { _ in },
+@ViewBuilder label: () -> Label
+) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint`
+Use init(value:in:step:label:onEditingChanged:) instead.
+
+SwiftUI / Slider / init(value:in:onEditingChanged:minimumValueLabel:maximumValueLabel:label:)
+deprecated-code - `nonisolated
+init<V>(
+value: Binding<V>,
+in bounds: ClosedRange<V> = 0...1,
+onEditingChanged: @escaping (Bool) -> Void = { _ in },
+minimumValueLabel: ValueLabel,
+maximumValueLabel: ValueLabel,
+@ViewBuilder label: () -> Label
+) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint`
+Use init(value:in:label:minimumValueLabel:maximumValueLabel:onEditingChanged:) instead.
+
+SwiftUI / Slider / init(value:in:step:onEditingChanged:minimumValueLabel:maximumValueLabel:label:)
+deprecated-code - `nonisolated
+init<V>(
+value: Binding<V>,
+in bounds: ClosedRange<V>,
+step: V.Stride = 1,
+onEditingChanged: @escaping (Bool) -> Void = { _ in },
+minimumValueLabel: ValueLabel,
+maximumValueLabel: ValueLabel,
+@ViewBuilder label: () -> Label
+) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint`
+Use init(value:in:step:label:minimumValueLabel:maximumValueLabel:onEditingChanged:) instead.
+
+SwiftUI / Slider / init(value:in:onEditingChanged:label:)
+deprecated-code - `nonisolated
+init<V>(
+value: Binding<V>,
+in bounds: ClosedRange<V> = 0...1,
+onEditingChanged: @escaping (Bool) -> Void = { _ in },
+@ViewBuilder label: () -> Label
+) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint`
+Use init(value:in:label:onEditingChanged:) instead.
+
+SwiftUI / View / foregroundColor(_:)
+deprecated-code - `nonisolated
+func foregroundColor(_ color: Color?) -> some View`
+Use foregroundStyle(_:) instead.
+
+SwiftUI / EnvironmentValues / sizeCategory
+deprecated-code - `var sizeCategory: ContentSizeCategory { get set }`
+Use dynamicTypeSize instead.
+
+SwiftUI / EnvironmentValues / disableAutocorrection
+deprecated-code - `var disableAutocorrection: Bool? { get set }`
+
+
+SwiftUI / PresentationMode
+deprecated-code - `struct PresentationMode`
+Use isPresented or dismiss instead.
+
+SwiftUI / EnvironmentValues / controlActiveState
+deprecated-code - `var controlActiveState: ControlActiveState { get set }`
+Use `EnvironmentValues.appearsActive` instead.
+
+SwiftUI / EnvironmentValues / presentationMode
+deprecated-code - `var presentationMode: Binding<PresentationMode> { get }`
+Use isPresented or dismiss instead.
+
+SwiftUI / EnvironmentValues / complicationRenderingMode
+deprecated-code - `var complicationRenderingMode: ComplicationRenderingMode { get }`
+On watchOS 9.0 or later, use WidgetKit instead
+
+SwiftUI / RotationGesture / init(minimumAngleDelta:)
+deprecated-code - `init(minimumAngleDelta: Angle = .degrees(1))`
+Use RotateGesture instead.
+
+SwiftUI / RotationGesture / minimumAngleDelta
+deprecated-code - `var minimumAngleDelta: Angle`
+Use RotateGesture instead.
+
+SwiftUI / MagnificationGesture / minimumScaleDelta
+deprecated-code - `var minimumScaleDelta: CGFloat`
+Use MagnifyGesture instead.
+
+SwiftUI / MagnificationGesture / init(minimumScaleDelta:)
+deprecated-code - `init(minimumScaleDelta: CGFloat = 0.01)`
+Use MagnifyGesture instead.
+
+SwiftUI / SpatialTapGesture / init(count:coordinateSpace:)
+deprecated-code - `init(
+count: Int = 1,
+coordinateSpace: CoordinateSpace = .local
+)`
+Use init(count:coordinateSpace:) instead.
+
+SwiftUI / DragGesture / init(minimumDistance:coordinateSpace:)
+deprecated-code - `init(
+minimumDistance: CGFloat = 10,
+coordinateSpace: CoordinateSpace = .local
+)`
+Use init(minimumDistance:coordinateSpace:) instead.
+
+SwiftUI / UIHostingConfiguration / minSize()
+deprecated-code - `func minSize() -> UIHostingConfiguration<Content, Background>`
+Use minSize(width:height:) instead.
+
+SwiftUI / ImmersiveSpace / init(id:content:)
+deprecated-code - `init(
+id: String,
+@ImmersiveSpaceContentBuilder content: () -> Content
+) where Data == Never`
+
+
+SwiftUI / Scene / onChange(of:perform:)
+deprecated-code - `nonisolated
+func onChange<V>(
+of value: V,
+perform action: @escaping (V) -> Void
+) -> some Scene where V : Equatable`
+Use onChange(of:initial:_:) or onChange(of:initial:_:) instead. The trailing closure in each case takes either zero or two input parameters, compared to this method which takes one. Be aware that the replacements have slightly different behvavior. This modifier’s closure captures values that represent the state before the change. The new modifiers capture values that correspond to the new state. The new behavior makes it easier to perform updates that rely on values other than the one that caused the modifier’s closure to run.
+
+SwiftUI / ScrollView / init(_:showsIndicators:content:)
+deprecated-code - `init(
+_ axes: Axis.Set = .vertical,
+showsIndicators: Bool = true,
+@ViewBuilder content: () -> Content
+)`
+Use the ScrollView(_:content:) initializer and the scrollIndicators(:_) modifier
+
+SwiftUI / View / onChange(of:perform:)
+deprecated-code - `nonisolated
+func onChange<V>(
+of value: V,
+perform action: @escaping (V) -> Void
+) -> some View where V : Equatable`
+Use onChange(of:initial:_:) or onChange(of:initial:_:) instead. The trailing closure in each case takes either zero or two input parameters, compared to this method which takes one. Be aware that the replacements have slightly different behvavior. This modifier’s closure captures values that represent the state before the change. The new modifiers capture values that correspond to the new state. The new behavior makes it easier to perform updates that rely on values other than the one that caused the modifier’s closure to run.
+
+SwiftUI / ModifiedContent / accessibility(value:)
+deprecated-code - `nonisolated
+func accessibility(value: Text) -> ModifiedContent<Content, Modifier>`
+Use accessibilityValue(_:) instead.
+
+SwiftUI / ModifiedContent / accessibility(hint:)
+deprecated-code - `nonisolated
+func accessibility(hint: Text) -> ModifiedContent<Content, Modifier>`
+Use accessibilityHint(_:) instead.
+
+SwiftUI / ModifiedContent / accessibility(selectionIdentifier:)
+deprecated-code - `nonisolated
+func accessibility(selectionIdentifier: AnyHashable) -> ModifiedContent<Content, Modifier>`
+This functionality is no longer available.
+
+SwiftUI / ModifiedContent / accessibility(inputLabels:)
+deprecated-code - `nonisolated
+func accessibility(inputLabels: [Text]) -> ModifiedContent<Content, Modifier>`
+Use accessibilityInputLabels(_:) instead.
+
+SwiftUI / ModifiedContent / accessibility(removeTraits:)
+deprecated-code - `nonisolated
+func accessibility(removeTraits traits: AccessibilityTraits) -> ModifiedContent<Content, Modifier>`
+Use accessibilityRemoveTraits(_:) instead.
+
+SwiftUI / ModifiedContent / accessibility(hidden:)
+deprecated-code - `nonisolated
+func accessibility(hidden: Bool) -> ModifiedContent<Content, Modifier>`
+Use accessibilityHidden(_:) instead.
+
+SwiftUI / ModifiedContent / accessibility(label:)
+deprecated-code - `nonisolated
+func accessibility(label: Text) -> ModifiedContent<Content, Modifier>`
+Use accessibilityLabel(_:) instead.
+
+SwiftUI / ModifiedContent / accessibility(activationPoint:)
+deprecated-code - `nonisolated
+func accessibility(activationPoint: CGPoint) -> ModifiedContent<Content, Modifier>`
+Use accessibilityActivationPoint(_:) instead.
+
+SwiftUI / ModifiedContent / accessibility(addTraits:)
+deprecated-code - `nonisolated
+func accessibility(addTraits traits: AccessibilityTraits) -> ModifiedContent<Content, Modifier>`
+Use accessibilityAddTraits(_:) instead.
+
+SwiftUI / ModifiedContent / accessibility(identifier:)
+deprecated-code - `nonisolated
+func accessibility(identifier: String) -> ModifiedContent<Content, Modifier>`
+Use accessibilityIdentifier(_:) instead.
+
+SwiftUI / ModifiedContent / accessibility(sortPriority:)
+deprecated-code - `nonisolated
+func accessibility(sortPriority: Double) -> ModifiedContent<Content, Modifier>`
+Use accessibilitySortPriority(_:) instead.
+
+SwiftUI / EventModifiers / function
+deprecated-code - `static let function: EventModifiers`
+This key modifier is reserved for system applications.
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.small
+deprecated-code - `case small`
+
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.extraExtraExtraLarge
+deprecated-code - `case extraExtraExtraLarge`
+
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.medium
+deprecated-code - `case medium`
+
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.accessibilityLarge
+deprecated-code - `case accessibilityLarge`
+
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.extraSmall
+deprecated-code - `case extraSmall`
+
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.extraLarge
+deprecated-code - `case extraLarge`
+
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.accessibilityMedium
+deprecated-code - `case accessibilityMedium`
+
+
+SwiftUI / ContentSizeCategory / isAccessibilityCategory
+deprecated-code - `var isAccessibilityCategory: Bool { get }`
+
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.extraExtraLarge
+deprecated-code - `case extraExtraLarge`
+
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.accessibilityExtraExtraLarge
+deprecated-code - `case accessibilityExtraExtraLarge`
+
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.accessibilityExtraLarge
+deprecated-code - `case accessibilityExtraLarge`
+
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.large
+deprecated-code - `case large`
+
+
+SwiftUI / ContentSizeCategory / ContentSizeCategory.accessibilityExtraExtraExtraLarge
+deprecated-code - `case accessibilityExtraExtraExtraLarge`
+
+
+SwiftUI / SecureField / init(_:text:onCommit:)
+deprecated-code - `nonisolated
+init(
+_ titleKey: LocalizedStringKey,
+text: Binding<String>,
+onCommit: @escaping () -> Void
+)`
+Use init(_:text:prompt:) instead. Add the onSubmit(of:_:) view modifier for the onCommit behavior.
+
+SwiftUI / Font / system(_:design:)
+deprecated-code - `static func system(
+_ style: Font.TextStyle,
+design: Font.Design = .default
+) -> Font`
+Use system(_:design:weight:) instead.
+
+SwiftUI / Font / system(size:weight:design:)
+deprecated-code - `static func system(
+size: CGFloat,
+weight: Font.Weight = .regular,
+design: Font.Design = .default
+) -> Font`
+Use system(size:weight:design:) instead.
+
+SwiftUI / Text / foregroundColor(_:)
+deprecated-code - `nonisolated
+func foregroundColor(_ color: Color?) -> Text`
+Use foregroundStyle(_:) instead.
+
+SwiftUI / Text / +(_:_:)
+deprecated-code - `static func + (lhs: Text, rhs: Text) -> Text`
+Use string interpolation on `Text` instead: `Text(\"Hello \\(name)\")`
+
+SwiftUI / DropInfo / hasItemsConforming(to:)
+deprecated-code - `func hasItemsConforming(to types: [String]) -> Bool`
+Use hasItemsConforming(to:) instead.
+
+SwiftUI / DropInfo / itemProviders(for:)
+deprecated-code - `func itemProviders(for types: [String]) -> [NSItemProvider]`
+Use itemProviders(for:) instead.
+
+SwiftUI / TableColumn / width()
+deprecated-code - `nonisolated
+func width() -> TableColumn<RowValue, Sort, Content, Label>`
+Use width(_:) or width(min:ideal:max:) instead.
+
+SwiftUI / GroupBox / init(label:content:)
+deprecated-code - `nonisolated
+init(
+label: Label,
+@ViewBuilder content: () -> Content
+)`
+
+
+SwiftUI / Section / init(header:content:)
+deprecated-code - `init(
+header: Parent,
+@ViewBuilder content: () -> Content
+)`
+Use init(content:header:) instead.
+
+SwiftUI / Section / collapsible(_:)
+deprecated-code - `func collapsible(_ collapsible: Bool) -> some View`
+To disable collapsibility in macOS 14 and later, use one of the Section initializers that lacks collapsibility.
+
+SwiftUI / Section / init(header:footer:content:)
+deprecated-code - `init(
+header: Parent,
+footer: Footer,
+@ViewBuilder content: () -> Content
+)`
+Use init(content:header:footer:) instead.
+
+SwiftUI / Section / init(footer:content:)
+deprecated-code - `init(
+footer: Footer,
+@ViewBuilder content: () -> Content
+)`
+Use init(content:footer:) instead.
+
+SwiftUI / DynamicViewContent / onInsert(of:perform:)
+deprecated-code - `func onInsert(
+of acceptedTypeIdentifiers: [String],
+perform action: @escaping (Int, [NSItemProvider]) -> Void
+) -> some DynamicViewContent`
+Use onInsert(of:perform:) instead.
+
+SwiftUI / View / actionSheet(isPresented:content:)
+deprecated-code - `nonisolated
+func actionSheet(
+isPresented: Binding<Bool>,
+content: () -> ActionSheet
+) -> some View`
+Use confirmationDialog(_:isPresented:titleVisibility:actions:message:) instead.
+
+SwiftUI / ActionSheet / init(title:message:buttons:)
+deprecated-code - `init(
+title: Text,
+message: Text? = nil,
+buttons: [ActionSheet.Button] = [.cancel()]
+)`
+Use a View modifier like confirmationDialog(_:isPresented:titleVisibility:presenting:actions:message:) instead.
+
+SwiftUI / ActionSheet / ActionSheet.Button
+deprecated-code - `typealias Button = Alert.Button`
+Use a View modifier like confirmationDialog(_:isPresented:titleVisibility:presenting:actions:message:) instead.
+
+SwiftUI / Alert / init(title:message:primaryButton:secondaryButton:)
+deprecated-code - `init(
+title: Text,
+message: Text? = nil,
+primaryButton: Alert.Button,
+secondaryButton: Alert.Button
+)`
+Use a View modifier like alert(_:isPresented:presenting:actions:message:) instead.
+
+SwiftUI / View / alert(isPresented:content:)
+deprecated-code - `nonisolated
+func alert(
+isPresented: Binding<Bool>,
+content: () -> Alert
+) -> some View`
+Use alert(_:isPresented:actions:message:) instead.
+
+SwiftUI / Alert / Alert.Button
+deprecated-code - `struct Button`
+Use a View modifier like alert(_:isPresented:presenting:actions:message:) instead.
+
+SwiftUI / Alert / init(title:message:dismissButton:)
+deprecated-code - `init(
+title: Text,
+message: Text? = nil,
+dismissButton: Alert.Button? = nil
+)`
+Use a View modifier like alert(_:isPresented:presenting:actions:message:) instead.
+
+SwiftUI / Alert / sideBySideButtons(title:message:primaryButton:secondaryButton:)
+deprecated-code - `static func sideBySideButtons(
+title: Text,
+message: Text? = nil,
+primaryButton: Alert.Button,
+secondaryButton: Alert.Button
+) -> Alert`
+Use a View modifier like alert(_:isPresented:presenting:actions:message:) instead.
+
+SwiftUI / View / background(_:alignment:)
+deprecated-code - `nonisolated
+func background<Background>(
+_ background: Background,
+alignment: Alignment = .center
+) -> some View where Background : View`
+Use background(alignment:content:) instead.
+
+SwiftUI / View / overlay(_:alignment:)
+deprecated-code - `nonisolated
+func overlay<Overlay>(
+_ overlay: Overlay,
+alignment: Alignment = .center
+) -> some View where Overlay : View`
+Use overlay(alignment:content:) instead.
+
+SwiftUI / ToolbarItem / init(id:placement:showsByDefault:content:)
+deprecated-code - `nonisolated
+init(
+id: String,
+placement: ToolbarItemPlacement = .automatic,
+showsByDefault: Bool,
+@ViewBuilder content: () -> Content
+)`
+Use the CustomizableToolbarContent/defaultCustomization(_:options) modifier with a value of .hidden
+
+SwiftUI / ToolbarItemPlacement / navigationBarTrailing
+deprecated-code - `static let navigationBarTrailing: ToolbarItemPlacement`
+Use topBarTrailing instead.
+
+SwiftUI / ToolbarItemPlacement / navigationBarLeading
+deprecated-code - `static let navigationBarLeading: ToolbarItemPlacement`
+Use topBarLeading instead.
+
+SwiftUI / ToolbarItemPlacement / init(id:)
+deprecated-code - `init<ID>(id: ID) where ID : Hashable`
+Use accessoryBar(id:) instead.
+
+SwiftUI / ToolbarPlacement / init(id:)
+deprecated-code - `init<ID>(id: ID) where ID : Hashable`
+Use init(id:) instead.
+
+SwiftUI / CustomizableToolbarContent / defaultCustomization()
+deprecated-code - `func defaultCustomization() -> some CustomizableToolbarContent`
+Please provide either a visibility or customization options
+
+SwiftUI / TimelineView / init(_:content:)
+deprecated-code - `nonisolated
+init(
+_ schedule: Schedule,
+@ViewBuilder content: @escaping (TimelineView<Schedule, Content>.Context) -> Content
+)`
+Use init(_:content:) instead. The replacement initializer’s context closure takes a TimelineViewDefaultContext as its input rather than a TimelineView.Context to prevent introducing an unnecessary generic parameter dependency on the context type.
+
+SwiftUI / UnitCurve / easeInEaseOut
+deprecated-code - `static let easeInEaseOut: UnitCurve`
+Use easeInOut instead.
+
+SwiftUI / ContextMenu / init(menuItems:)
+deprecated-code - `init(@ViewBuilder menuItems: () -> MenuItems)`
+Use contextMenu(menuItems:) instead.
+
+SwiftUI / MenuButtonStyle
+deprecated-code - `protocol MenuButtonStyle`
+Use MenuStyle instead.
+
+SwiftUI / MenuButton / init(_:content:)
+deprecated-code - `nonisolated
+init(
+_ titleKey: LocalizedStringKey,
+@ViewBuilder content: () -> Content
+)`
+Use Menu instead.
+
+SwiftUI / MenuButton / init(label:content:)
+deprecated-code - `init(
+label: Label,
+@ViewBuilder content: () -> Content
+)`
+Use Menu instead.
+
+SwiftUI / View / menuButtonStyle(_:)
+deprecated-code - `nonisolated
+func menuButtonStyle<S>(_ style: S) -> some View where S : MenuButtonStyle`
+Use menuStyle(_:) instead.
+
+SwiftUI / WindowGroup / init(content:)
+deprecated-code - `init(@ViewBuilder content: () -> Content)`
+Use the initializer which takes an escaping view builder instead.
+
+SwiftUI / WindowGroup / init(_:id:content:)
+deprecated-code - `init(
+_ title: Text,
+id: String,
+@ViewBuilder content: () -> Content
+)`
+Use the initializer which takes an escaping view builder instead.
+
+SwiftUI / WindowGroup / init(_:content:)
+deprecated-code - `init(
+_ title: Text,
+@ViewBuilder content: () -> Content
+)`
+Use the initializer which takes an escaping view builder instead.
+
+SwiftUI / WindowGroup / init(id:content:)
+deprecated-code - `init(
+id: String,
+@ViewBuilder content: () -> Content
+)`
+Use the initializer which takes an escaping view builder instead.
+
+SwiftUI / Color / cgColor
+deprecated-code - `var cgColor: CGColor? { get }`
+
+
+SwiftUI / StackNavigationViewStyle
+deprecated-code - `struct StackNavigationViewStyle`
+Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / View / accentColor(_:)
+deprecated-code - `nonisolated
+func accentColor(_ accentColor: Color?) -> some View`
+Use the asset catalog’s accent color or tint(_:) instead.
+
+SwiftUI / View / accessibility(hidden:)
+deprecated-code - `nonisolated
+func accessibility(hidden: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier>`
+Use accessibilityHidden(_:) instead.
+
+SwiftUI / View / onLongPressGesture(minimumDuration:pressing:perform:)
+deprecated-code - `nonisolated
+func onLongPressGesture(
+minimumDuration: Double = 0.5,
+pressing: ((Bool) -> Void)? = nil,
+perform action: @escaping () -> Void
+) -> some View`
+Use onLongPressGesture(minimumDuration:perform:onPressingChanged:) instead.
+
+SwiftUI / View / accessibility(inputLabels:)
+deprecated-code - `nonisolated
+func accessibility(inputLabels: [Text]) -> ModifiedContent<Self, AccessibilityAttachmentModifier>`
+Use accessibilityInputLabels(_:) instead.
+
+SwiftUI / View / navigationBarItems(leading:trailing:)
+deprecated-code - `nonisolated
+func navigationBarItems<L, T>(
+leading: L,
+trailing: T
+) -> some View where L : View, T : View`
+Use toolbar(content:) with navigationBarLeading or navigationBarTrailing placement.
+
+SwiftUI / View / onPasteCommand(of:perform:)
+deprecated-code - `nonisolated
+func onPasteCommand(
+of supportedTypes: [String],
+perform payloadAction: @escaping ([NSItemProvider]) -> Void
+) -> some View`
+Use onPasteCommand(of:perform:) instead.
+
+SwiftUI / View / onDrop(of:delegate:)
+deprecated-code - `nonisolated
+func onDrop(
+of supportedTypes: [String],
+delegate: any DropDelegate
+) -> some View`
+Use onDrop(of:delegate:) instead.
+
+SwiftUI / View / navigationBarTitle(_:)
+deprecated-code - `nonisolated
+func navigationBarTitle(_ title: Text) -> some View`
+Use navigationTitle(_:) instead.
+
+SwiftUI / View / accessibility(identifier:)
+deprecated-code - `nonisolated
+func accessibility(identifier: String) -> ModifiedContent<Self, AccessibilityAttachmentModifier>`
+Use accessibilityIdentifier(_:) instead.
+
+SwiftUI / View / coordinateSpace(name:)
+deprecated-code - `nonisolated
+func coordinateSpace<T>(name: T) -> some View where T : Hashable`
+Use coordinateSpace(_:) instead.
+
+SwiftUI / View / navigationBarItems(trailing:)
+deprecated-code - `nonisolated
+func navigationBarItems<T>(trailing: T) -> some View where T : View`
+Use toolbar(content:) with navigationBarTrailing placement.
+
+SwiftUI / View / navigationBarItems(leading:)
+deprecated-code - `nonisolated
+func navigationBarItems<L>(leading: L) -> some View where L : View`
+Use toolbar(content:) with navigationBarLeading placement.
+
+SwiftUI / View / searchable(text:placement:prompt:suggestions:)
+deprecated-code - `nonisolated
+func searchable<S>(
+text: Binding<String>,
+placement: SearchFieldPlacement = .automatic,
+prompt: LocalizedStringKey,
+@ViewBuilder suggestions: () -> S
+) -> some View where S : View`
+Use the searchable modifier with the searchSuggestions modifier
+
+SwiftUI / View / accessibility(hint:)
+deprecated-code - `nonisolated
+func accessibility(hint: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>`
+Use accessibilityHint(_:) instead.
+
+SwiftUI / View / listRowPlatterColor(_:)
+deprecated-code - `nonisolated
+func listRowPlatterColor(_ color: Color?) -> some View`
+Use listItemTint(_:) instead.
+
+SwiftUI / View / complicationForeground()
+deprecated-code - `@MainActor @preconcurrency
+func complicationForeground() -> some View`
+On watchOS 9.0 or later, use WidgetKit instead
+
+SwiftUI / View / alert(item:content:)
+deprecated-code - `nonisolated
+func alert<Item>(
+item: Binding<Item?>,
+content: (Item) -> Alert
+) -> some View where Item : Identifiable`
+Use alert(_:isPresented:presenting:actions:message:) instead.
+
+SwiftUI / View / accessibility(activationPoint:)
+deprecated-code - `nonisolated
+func accessibility(activationPoint: CGPoint) -> ModifiedContent<Self, AccessibilityAttachmentModifier>`
+Use accessibilityActivationPoint(_:) instead.
+
+SwiftUI / View / mask(_:)
+deprecated-code - `nonisolated
+func mask<Mask>(_ mask: Mask) -> some View where Mask : View`
+Use mask(alignment:_:) instead.
+
+SwiftUI / View / onPasteCommand(of:validator:perform:)
+deprecated-code - `nonisolated
+func onPasteCommand<Payload>(
+of supportedTypes: [String],
+validator: @escaping ([NSItemProvider]) -> Payload?,
+perform payloadAction: @escaping (Payload) -> Void
+) -> some View`
+Use onPasteCommand(of:validator:perform:) instead.
+
+SwiftUI / View / autocapitalization(_:)
+deprecated-code - `nonisolated
+func autocapitalization(_ style: UITextAutocapitalizationType) -> some View`
+Use textInputAutocapitalization(_:) instead.
+
+SwiftUI / View / disableAutocorrection(_:)
+deprecated-code - `nonisolated
+func disableAutocorrection(_ disable: Bool?) -> some View`
+Use autocorrectionDisabled(_:) instead.
+
+SwiftUI / View / focusable(_:onFocusChange:)
+deprecated-code - `nonisolated
+func focusable(
+_ isFocusable: Bool = true,
+onFocusChange: @escaping (Bool) -> Void = { _ in }
+) -> some View`
+Use the focusable(_:) method instead.
+
+SwiftUI / View / accessibility(value:)
+deprecated-code - `nonisolated
+func accessibility(value: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>`
+Use accessibilityValue(_:) instead.
+
+SwiftUI / View / onTapGesture(count:coordinateSpace:perform:)
+deprecated-code - `nonisolated
+func onTapGesture(
+count: Int = 1,
+coordinateSpace: CoordinateSpace = .local,
+perform action: @escaping (CGPoint) -> Void
+) -> some View`
+Use onTapGesture(count:coordinateSpace:perform:) instead.
+
+SwiftUI / View / onContinuousHover(coordinateSpace:perform:)
+deprecated-code - `nonisolated
+func onContinuousHover(
+coordinateSpace: CoordinateSpace = .local,
+perform action: @escaping (HoverPhase) -> Void
+) -> some View`
+Use onContinuousHover(coordinateSpace:perform:) instead.
+
+SwiftUI / View / colorScheme(_:)
+deprecated-code - `nonisolated
+func colorScheme(_ colorScheme: ColorScheme) -> some View`
+Use preferredColorScheme(_:) instead.
+
+SwiftUI / View / accessibility(selectionIdentifier:)
+deprecated-code - `nonisolated
+func accessibility(selectionIdentifier: AnyHashable) -> ModifiedContent<Self, AccessibilityAttachmentModifier>`
+This functionality is no longer available.
+
+SwiftUI / View / onLongPressGesture(minimumDuration:maximumDistance:pressing:perform:)
+deprecated-code - `nonisolated
+func onLongPressGesture(
+minimumDuration: Double = 0.5,
+maximumDistance: CGFloat = 10,
+pressing: ((Bool) -> Void)? = nil,
+perform action: @escaping () -> Void
+) -> some View`
+Use onLongPressGesture(minimumDuration:maximumDistance:perform:onPressingChanged:) instead.
+
+SwiftUI / View / accessibility(label:)
+deprecated-code - `nonisolated
+func accessibility(label: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>`
+Use accessibilityLabel(_:) instead.
+
+SwiftUI / View / navigationBarTitle(_:displayMode:)
+deprecated-code - `nonisolated
+func navigationBarTitle(
+_ title: Text,
+displayMode: NavigationBarItem.TitleDisplayMode
+) -> some View`
+Use navigationTitle(_:) with navigationBarTitleDisplayMode(_:).
+
+SwiftUI / View / edgesIgnoringSafeArea(_:)
+deprecated-code - `nonisolated
+func edgesIgnoringSafeArea(_ edges: Edge.Set) -> some View`
+Use ignoresSafeArea(_:edges:) instead.
+
+SwiftUI / View / animation(_:)
+deprecated-code - `nonisolated
+func animation(_ animation: Animation?) -> some View`
+Use withAnimation(_:_:) or animation(_:value:) instead.
+
+SwiftUI / View / accessibility(addTraits:)
+deprecated-code - `nonisolated
+func accessibility(addTraits traits: AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>`
+Use accessibilityAddTraits(_:) instead.
+
+SwiftUI / View / accessibility(removeTraits:)
+deprecated-code - `nonisolated
+func accessibility(removeTraits traits: AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>`
+Use accessibilityRemoveTraits(_:) instead.
+
+SwiftUI / View / navigationBarHidden(_:)
+deprecated-code - `nonisolated
+func navigationBarHidden(_ hidden: Bool) -> some View`
+Use toolbar(_:for:) with the Visibility.hidden visibility and the navigationBar placement instead.
+
+SwiftUI / View / statusBar(hidden:)
+deprecated-code - `nonisolated
+func statusBar(hidden: Bool) -> some View`
+Use statusBarHidden(_:) instead.
+
+SwiftUI / View / frame()
+deprecated-code - `nonisolated
+func frame() -> some View`
+Use frame(width:height:alignment:) or frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:) instead.
+
+SwiftUI / View / actionSheet(item:content:)
+deprecated-code - `nonisolated
+func actionSheet<T>(
+item: Binding<T?>,
+content: (T) -> ActionSheet
+) -> some View where T : Identifiable`
+Use confirmationDialog(_:isPresented:titleVisibility:presenting:actions:message:) instead.
+
+SwiftUI / View / cornerRadius(_:antialiased:)
+deprecated-code - `nonisolated
+func cornerRadius(
+_ radius: CGFloat,
+antialiased: Bool = true
+) -> some View`
+Use clipShape(_:style:) or fill(style:) instead.
+
+SwiftUI / View / accessibility(sortPriority:)
+deprecated-code - `nonisolated
+func accessibility(sortPriority: Double) -> ModifiedContent<Self, AccessibilityAttachmentModifier>`
+Use accessibilitySortPriority(_:) instead.
+
+SwiftUI / SurroundingsEffect / systemDark
+deprecated-code - `static var systemDark: SurroundingsEffect { get }`
+
+
+SwiftUI / ListStyle / inset(alternatesRowBackgrounds:)
+deprecated-code - `static func inset(alternatesRowBackgrounds: Bool) -> InsetListStyle`
+Use the inset style and add the alternatingRowBackgrounds(_:) view modifier instead.
+
+SwiftUI / ListStyle / bordered(alternatesRowBackgrounds:)
+deprecated-code - `static func bordered(alternatesRowBackgrounds: Bool) -> BorderedListStyle`
+Use the bordered style and add the alternatingRowBackgrounds(_:) view modifier instead.
+
+SwiftUI / TabViewStyle / carousel
+deprecated-code - `@MainActor @preconcurrency
+static var carousel: CarouselTabViewStyle { get }`
+Use verticalPage or verticalPage(transitionStyle:) instead.
+
+SwiftUI / CarouselTabViewStyle
+deprecated-code - `struct CarouselTabViewStyle`
+Use VerticalPageTabViewStyle instead.
+
+SwiftUI / BorderedButtonMenuStyle
+deprecated-code - `struct BorderedButtonMenuStyle`
+Use menuStyle(_:) with button and buttonStyle(_:) with bordered.
+
+SwiftUI / MenuStyle / borderedButton
+deprecated-code - `@MainActor @preconcurrency
+static var borderedButton: BorderedButtonMenuStyle { get }`
+Use menuStyle(_:) with button and buttonStyle(_:) with bordered.
+
+SwiftUI / BorderlessButtonMenuStyle
+deprecated-code - `struct BorderlessButtonMenuStyle`
+Use menuStyle(_:) with button and buttonStyle(_:) with borderless.
+
+SwiftUI / MenuStyle / borderlessButton
+deprecated-code - `@MainActor @preconcurrency
+static var borderlessButton: BorderlessButtonMenuStyle { get }`
+Use menuStyle(_:) with button and buttonStyle(_:) with borderless.
+
+SwiftUI / PopUpButtonPickerStyle
+deprecated-code - `struct PopUpButtonPickerStyle`
+Use MenuPickerStyle instead.
+
+SwiftUI / TableStyle / bordered(alternatesRowBackgrounds:)
+deprecated-code - `@MainActor @preconcurrency
+static func bordered(alternatesRowBackgrounds: Bool) -> BorderedTableStyle`
+Use the bordered style and add the alternatingRowBackgrounds(_:) view modifier instead.
+
+SwiftUI / TableStyle / inset(alternatesRowBackgrounds:)
+deprecated-code - `@MainActor @preconcurrency
+static func inset(alternatesRowBackgrounds: Bool) -> InsetTableStyle`
+Use the inset style and add the alternatingRowBackgrounds(_:) view modifier instead.
+
+SwiftUI / ControlActiveState / ControlActiveState.key
+deprecated-code - `case key`
+Use `EnvironmentValues.appearsActive` instead.
+
+SwiftUI / ControlActiveState / ControlActiveState.inactive
+deprecated-code - `case inactive`
+Use `EnvironmentValues.appearsActive` instead.
+
+SwiftUI / ControlActiveState / ControlActiveState.active
+deprecated-code - `case active`
+Use `EnvironmentValues.appearsActive` instead.
+
+SwiftUI / NavigationViewStyle / automatic
+deprecated-code - `static var automatic: DefaultNavigationViewStyle { get }`
+Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / DefaultNavigationViewStyle
+deprecated-code - `struct DefaultNavigationViewStyle`
+Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / DoubleColumnNavigationViewStyle
+deprecated-code - `struct DoubleColumnNavigationViewStyle`
+Use ColumnNavigationViewStyle instead.
+
+SwiftUI / ColumnNavigationViewStyle
+deprecated-code - `struct ColumnNavigationViewStyle`
+Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationViewStyle / columns
+deprecated-code - `static var columns: ColumnNavigationViewStyle { get }`
+Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationLink / init(destination:tag:selection:label:)
+deprecated-code - `init<V>(
+destination: Destination,
+tag: V,
+selection: Binding<V?>,
+@ViewBuilder label: () -> Label
+) where V : Hashable`
+Use init(value:label:) inside a List within a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationLink / init(tag:selection:destination:label:)
+deprecated-code - `init<V>(
+tag: V,
+selection: Binding<V?>,
+@ViewBuilder destination: () -> Destination,
+@ViewBuilder label: () -> Label
+) where V : Hashable`
+Use init(value:label:) inside a List within a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationLink / init(_:destination:isActive:)
+deprecated-code - `nonisolated
+init(
+_ titleKey: LocalizedStringKey,
+destination: Destination,
+isActive: Binding<Bool>
+)`
+Use init(_:value:) instead. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationLink / init(destination:isActive:label:)
+deprecated-code - `init(
+destination: Destination,
+isActive: Binding<Bool>,
+@ViewBuilder label: () -> Label
+)`
+Use init(value:label:) instead. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationLink / init(_:tag:selection:destination:)
+deprecated-code - `nonisolated
+init<S, V>(
+_ title: S,
+tag: V,
+selection: Binding<V?>,
+@ViewBuilder destination: () -> Destination
+) where S : StringProtocol, V : Hashable`
+Use init(_:value:) inside a List within a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationLink / init(destinationName:isActive:label:)
+deprecated-code - `nonisolated
+init(
+destinationName: String,
+isActive: Binding<Bool>,
+@ViewBuilder label: () -> Label
+)`
+Use init(value:label:) instead. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationLink / init(destinationName:tag:selection:label:)
+deprecated-code - `nonisolated
+init<V>(
+destinationName: String,
+tag: V,
+selection: Binding<V?>,
+@ViewBuilder label: () -> Label
+) where V : Hashable`
+Use init(value:label:) inside a List within a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationLink / init(_:destination:tag:selection:)
+deprecated-code - `nonisolated
+init<S, V>(
+_ title: S,
+destination: Destination,
+tag: V,
+selection: Binding<V?>
+) where S : StringProtocol, V : Hashable`
+Use init(_:value:) inside a List within a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationLink / init(_:isActive:destination:)
+deprecated-code - `nonisolated
+init(
+_ titleKey: LocalizedStringKey,
+isActive: Binding<Bool>,
+@ViewBuilder destination: () -> Destination
+)`
+Use init(_:value:) inside a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / NavigationLink / init(destinationName:label:)
+deprecated-code - `nonisolated
+init(
+destinationName: String,
+@ViewBuilder label: () -> Label
+)`
+Use init(destination:label:) instead.
+
+SwiftUI / NavigationLink / init(isActive:destination:label:)
+deprecated-code - `init(
+isActive: Binding<Bool>,
+@ViewBuilder destination: () -> Destination,
+@ViewBuilder label: () -> Label
+)`
+Use init(value:label:) inside a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / PresentationMode / dismiss()
+deprecated-code - `mutating func dismiss()`
+Use dismiss instead.
+
+SwiftUI / PresentationMode / isPresented
+deprecated-code - `var isPresented: Bool { get }`
+Use isPresented instead.
+
+SwiftUI / TextField / init(_:value:formatter:onEditingChanged:onCommit:)
+deprecated-code - `nonisolated
+init<S, V>(
+_ title: S,
+value: Binding<V>,
+formatter: Formatter,
+onEditingChanged: @escaping (Bool) -> Void,
+onCommit: @escaping () -> Void
+) where S : StringProtocol`
+Use init(_:value:formatter:prompt:) instead. Add the onSubmit(of:_:) view modifier for the onCommit behavior. Use FocusState and focused(_:equals:) for the onEditingChanged behavior.
+
+SwiftUI / TextField / init(_:value:formatter:onEditingChanged:)
+deprecated-code - `nonisolated
+init<S, V>(
+_ title: S,
+value: Binding<V>,
+formatter: Formatter,
+onEditingChanged: @escaping (Bool) -> Void
+) where S : StringProtocol`
+Renamed TextField.init(_:value:formatter:onEditingChanged:). Use View.onSubmit(of:_:) for functionality previously provided by the onCommit parameter. Use FocusState<T> and View.focused(_:equals:) for functionality previously provided by the onEditingChanged parameter.
+
+SwiftUI / TextField / init(_:text:onCommit:)
+deprecated-code - `nonisolated
+init(
+_ titleKey: LocalizedStringKey,
+text: Binding<String>,
+onCommit: @escaping () -> Void
+)`
+Renamed TextField.init(_:text:onEditingChanged:). Use View.onSubmit(of:_:) for functionality previously provided by the onCommit parameter. Use FocusState<T> and View.focused(_:equals:) for functionality previously provided by the onEditingChanged parameter.
+
+SwiftUI / TextField / init(_:text:onEditingChanged:onCommit:)
+deprecated-code - `nonisolated
+init(
+_ titleKey: LocalizedStringKey,
+text: Binding<String>,
+onEditingChanged: @escaping (Bool) -> Void,
+onCommit: @escaping () -> Void
+)`
+Use init(_:text:prompt:) instead. Add the onSubmit(of:_:) view modifier for the onCommit behavior. Use FocusState and focused(_:equals:) for the onEditingChanged behavior.
+
+SwiftUI / TextField / init(_:value:formatter:onCommit:)
+deprecated-code - `nonisolated
+init<S, V>(
+_ title: S,
+value: Binding<V>,
+formatter: Formatter,
+onCommit: @escaping () -> Void
+) where S : StringProtocol`
+Renamed TextField.init(_:value:formatter:onEditingChanged:). Use View.onSubmit(of:_:) for functionality previously provided by the onCommit parameter. Use FocusState<T> and View.focused(_:equals:) for functionality previously provided by the onEditingChanged parameter.
+
+SwiftUI / TextField / init(_:text:onEditingChanged:)
+deprecated-code - `nonisolated
+init(
+_ titleKey: LocalizedStringKey,
+text: Binding<String>,
+onEditingChanged: @escaping (Bool) -> Void
+)`
+Renamed TextField.init(_:text:onEditingChanged:). Use View.onSubmit(of:_:) for functionality previously provided by the onCommit parameter. Use FocusState<T> and View.focused(_:equals:) for functionality previously provided by the onEditingChanged parameter.
+
+SwiftUI / BorderedTableStyle / init(alternatesRowBackgrounds:)
+deprecated-code - `init(alternatesRowBackgrounds: Bool)`
+Use the bordered style and add the alternatingRowBackgrounds(_:) view modifier instead.
+
+SwiftUI / InsetTableStyle / init(alternatesRowBackgrounds:)
+deprecated-code - `init(alternatesRowBackgrounds: Bool)`
+Use the inset style and add the alternatingRowBackgrounds(_:) view modifier instead.
+
+SwiftUI / Anchor / Anchor.Source / center
+deprecated-code - `static var center: Anchor<Point3D>.Source { get }`
+Use Anchor.Source.center3D instead
+
+SwiftUI / Alert / Alert.Button / destructive(_:action:)
+deprecated-code - `static func destructive(
+_ label: Text,
+action: (() -> Void)? = {}
+) -> Alert.Button`
+Use View.alert(_:isPresented:presenting:actions:) instead.
+
+SwiftUI / Alert / Alert.Button / default(_:action:)
+deprecated-code - `static func `default`(
+_ label: Text,
+action: (() -> Void)? = {}
+) -> Alert.Button`
+Use View.alert(_:isPresented:presenting:actions:) instead.
+
+SwiftUI / Alert / Alert.Button / cancel(_:)
+deprecated-code - `static func cancel(_ action: (() -> Void)? = {}) -> Alert.Button`
+Use View.alert(_:isPresented:presenting:actions:) instead.
+
+SwiftUI / Alert / Alert.Button / cancel(_:action:)
+deprecated-code - `static func cancel(
+_ label: Text,
+action: (() -> Void)? = {}
+) -> Alert.Button`
+Use View.alert(_:isPresented:presenting:actions:) instead.
+
+SwiftUI / BorderlessButtonMenuButtonStyle
+deprecated-code - `struct BorderlessButtonMenuButtonStyle`
+Use BorderlessButtonMenuStyle instead.
+
+SwiftUI / DefaultMenuButtonStyle
+deprecated-code - `struct DefaultMenuButtonStyle`
+Use DefaultMenuStyle instead.
+
+SwiftUI / BorderlessPullDownMenuButtonStyle
+deprecated-code - `struct BorderlessPullDownMenuButtonStyle`
+Use BorderlessButtonMenuStyle instead.
+
+SwiftUI / PullDownMenuButtonStyle
+deprecated-code - `struct PullDownMenuButtonStyle`
+Use BorderedButtonMenuStyle instead.
+
+SwiftUI / SwitchToggleStyle / init(tint:)
+deprecated-code - `init(tint: Color)`
+Use the tint(_:) view modifier instead.
+
+SwiftUI / StackNavigationViewStyle / init()
+deprecated-code - `init()`
+Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / InsetListStyle / init(alternatesRowBackgrounds:)
+deprecated-code - `init(alternatesRowBackgrounds: Bool)`
+Use the inset style and add the alternatingRowBackgrounds(_:) view modifier instead.
+
+SwiftUI / BorderedListStyle / init(alternatesRowBackgrounds:)
+deprecated-code - `init(alternatesRowBackgrounds: Bool)`
+Use the bordered style and add the alternatingRowBackgrounds(_:) view modifier instead.
+
+SwiftUI / CarouselTabViewStyle / init()
+deprecated-code - `init()`
+Use verticalPage instead.
+
+SwiftUI / BorderedButtonStyle / init(tint:)
+deprecated-code - `init(tint: Color)`
+Use tint(_:) instead.
+
+SwiftUI / BorderedButtonMenuStyle / init()
+deprecated-code - `init()`
+Use menuStyle(_:) with button and buttonStyle(_:) with bordered.
+
+SwiftUI / BorderlessButtonMenuStyle / init(showsMenuIndicator:)
+deprecated-code - `init(showsMenuIndicator: Bool)`
+Use View/menuIndicator(_) instead.
+
+SwiftUI / BorderlessButtonMenuStyle / init()
+deprecated-code - `init()`
+Use menuStyle(_:) with button and buttonStyle(_:) with borderless.
+
+SwiftUI / PopUpButtonPickerStyle / init()
+deprecated-code - `init()`
+Use MenuPickerStyle instead.
+
+SwiftUI / LinearGaugeStyle / init(tint:)
+deprecated-code - `init(tint: Color)`
+Use the tint(_:) view modifier instead.
+
+SwiftUI / LinearProgressViewStyle / init(tint:)
+deprecated-code - `init(tint: Color)`
+Use the tint(_:) view modifier instead.
+
+SwiftUI / CircularProgressViewStyle / init(tint:)
+deprecated-code - `init(tint: Color)`
+Use the tint(_:) view modifier instead.
+
+SwiftUI / WindowPlacement / WindowPlacement.Position / replacing(_:)
+deprecated-code - `static func replacing(_ relativeWindow: WindowProxy) -> WindowPlacement.Position`
+Use PushWindowAction instead.
+
+SwiftUI / DefaultNavigationViewStyle / init()
+deprecated-code - `init()`
+Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.
+
+SwiftUI / DoubleColumnNavigationViewStyle / init()
+deprecated-code - `init()`
+Use ColumnNavigationViewStyle instead.
+
+SwiftUI / BorderlessButtonMenuButtonStyle / init()
+deprecated-code - `init()`
+Use `BorderlessButtonMenuStyle` instead.
+
+SwiftUI / DefaultMenuButtonStyle / init()
+deprecated-code - `init()`
+Use `menuStyle(.automatic)` instead.
+
+SwiftUI / BorderlessPullDownMenuButtonStyle / init()
+deprecated-code - `init()`
+Use `BorderlessButtonMenuStyle` instead.
+
+SwiftUI / PullDownMenuButtonStyle / init()
+deprecated-code - `init()`
+Use `BorderedButtonMenuStyle` instead.

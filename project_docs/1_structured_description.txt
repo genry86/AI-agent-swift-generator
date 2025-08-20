@@ -1,0 +1,63 @@
+1. Application Architecture  
+1.1 Adopt MVVM pattern for clear separation of concerns  
+1.2 Use Combine for reactive data flow between ViewModels and Views  
+1.3 SwiftUI as the sole UI framework, targeting macOS  
+
+2. Main UI Layout  
+2.1 Split‑view window with three panes: left sidebar, central web view, right sidebar  
+2.2 Resizable sidebars with user‑adjustable width  
+2.3 Dark/Light mode support and automatic adaptation to system appearance  
+
+3. Bookmark Management (Left Sidebar)  
+3.1 Display hierarchical list of bookmarks (folders & items)  
+3.2 Add new bookmark (URL, title, optional folder)  
+3.3 Edit bookmark details (URL, title, folder, favicon)  
+3.4 Delete bookmark(s) with confirmation  
+3.5 Drag‑and‑drop reordering and moving between folders  
+3.6 Search/filter bookmarks by title or URL  
+3.7 Import/Export bookmarks (HTML, JSON)  
+3.8 Open selected bookmark in the central web view  
+
+4. Web Content Rendering (Central Pane)  
+4.1 Embed WKWebView for full‑featured web browsing  
+4.2 Navigation controls (back, forward, reload, stop, home)  
+4.3 Address bar with auto‑completion from bookmarks and history  
+4.4 Page loading progress indicator  
+4.5 Context menu integration for “Add Note” on selected page region  
+
+5. Note Management (Right Sidebar)  
+5.1 List of notes attached to the currently displayed webpage  
+5.2 Create new note (text, image, or mixed)  
+5.3 Edit existing note (rich‑text editor, image cropping)  
+5.4 Delete note with undo support  
+5.5 Reorder notes via drag‑and‑drop  
+5.6 Pin/unpin notes to keep them visible across page navigations (optional)  
+5.7 Search notes by content or tags  
+5.8 Export notes (Markdown, PDF, image bundle)  
+
+6. Data Persistence & Synchronization  
+6.1 Local storage using Core Data (or SQLite) for bookmarks and notes  
+6.2 Automatic saving of UI state (sidebar widths, selected items)  
+6.3 Optional iCloud sync for bookmarks and notes across devices  
+6.4 Backup & restore functionality  
+
+7. Settings & Preferences  
+7.1 General preferences (default homepage, start‑up behavior)  
+7.2 Appearance settings (sidebar visibility, theme overrides)  
+7.3 Keyboard shortcuts configuration (e.g., Cmd‑B for bookmark panel)  
+7.4 Privacy settings (clear browsing data, cookie management)  
+
+8. Accessibility & Localization  
+8.1 Full VoiceOver support for all UI elements  
+8.2 Keyboard‑only navigation throughout the app  
+8.3 Support for Dynamic Type and larger text sizes  
+8.4 Localization framework ready for multiple languages (strings files)  
+
+9. Testing & Quality Assurance  
+9.1 Unit tests for ViewModels and data layer using XCTest  
+9.2 UI tests for bookmark and note workflows with XCUITest  
+9.3 Performance profiling for web view loading and memory usage  
+
+10. Distribution  
+10.1 Signed macOS app bundle ready for Mac App Store or direct distribution  
+10.2 Automatic update mechanism via Sparkle (optional)  

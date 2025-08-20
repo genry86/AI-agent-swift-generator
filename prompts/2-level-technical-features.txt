@@ -1,0 +1,298 @@
+### Role:
+You are experienced tech-lead with analytical skills to define technical specification.
+
+### Task:
+Based on *general* and *structured description* of the logical features and sub-features, create 3-levels list of technical description:
+1-level represents main app entities(folders) which group all main features. Numbered with 1, 2, 3, etc.
+2-level represents screens inside each entity. Numbered with 1.1, 1.2, 1.3, etc.
+3-level represent UI controls inside each screen. input, output controls etc. Numbered with 1.1.1, 1.1.2, 1.1.3, etc.
+Be precise and detailed.
+
+### Example:
+INPUT:
+
+# App Description
+<<<
+Create application for organising and selling products.
+>>>
+
+# Structured Description
+<<<
+1. Product Management
+1.1 Add, edit, delete products
+1.2 Categorize products (categories, tags, filters)
+1.3 Upload product images and descriptions
+1.4 Manage stock levels and availability
+
+2. User Management
+2.1 User registration and login
+2.2 Profile management (name, contact info, addresses)
+2.3 Roles (admin, seller, buyer)
+
+3. Catalog & Search
+3.1 Product listing (grid/list view)
+3.2 Search by keyword
+3.3 Filters (price range, category, rating)
+3.4 Sorting (newest, price low-high, popularity)
+
+4. Shopping Cart
+4.1 Add/remove products to cart
+4.2 Update quantities
+4.3 View subtotal and estimated total
+
+5. Checkout & Payments
+5.1 Address and shipping information
+5.2 Payment methods (credit card, PayPal, etc.)
+5.3 Order confirmation
+
+6. Orders Management
+6.1 View past orders (order history)
+6.2 Order status tracking (pending, shipped, delivered)
+6.3 Order cancellation or returns
+>>>
+
+OUTPUT:
+<<<
+1. Products
+
+1.1 Product List (Admin)
+ • 1.1.1 Table (columns: SKU, Title, Category, Price, Stock, Status, Updated At)
+ • 1.1.2 Search input (by title/SKU)
+ • 1.1.3 Filter dropdowns (Category, Status: Draft/Active/Archived)
+ • 1.1.4 Price range slider
+ • 1.1.5 Stock status toggle (In stock/Out of stock)
+ • 1.1.6 Bulk select checkboxes + bulk actions (Activate, Archive, Delete)
+ • 1.1.7 Pagination controls (page size, next/prev)
+ • 1.1.8 “New Product” button
+ • 1.1.9 Row actions (Edit, View, Duplicate)
+ • 1.1.10 Export CSV button
+
+1.2 Product Create/Edit (Admin)
+ • 1.2.1 Text inputs (Title, Subtitle)
+ • 1.2.2 Rich text editor (Description, HTML allowed)
+ • 1.2.3 SKU input (alphanumeric validation)
+ • 1.2.4 Price inputs (Regular, Compare-at)
+ • 1.2.5 Taxable checkbox
+ • 1.2.6 Category selector (single)
+ • 1.2.7 Tag multi-select with autocomplete
+ • 1.2.8 Attributes key–value repeater (e.g., Color, Size)
+ • 1.2.9 Inventory section (Quantity input, “Track stock” toggle, “Allow backorders” toggle)
+ • 1.2.10 Status radios (Draft/Active/Archived)
+ • 1.2.11 Image uploader (multi-file, drag-drop, reorder, alt text per image)
+ • 1.2.12 SEO fields (Slug, Meta title, Meta description)
+ • 1.2.13 Save/Save as Draft buttons
+ • 1.2.14 Validation summary banner
+ • 1.2.15 Delete product button (confirm modal)
+
+1.3 Category & Tag Manager (Admin)
+ • 1.3.1 Category tree view (expand/collapse)
+ • 1.3.2 “New Category” button + form (Name, Parent, Description)
+ • 1.3.3 Category order drag handle
+ • 1.3.4 Tag list with search
+ • 1.3.5 “New Tag” input (create inline)
+ • 1.3.6 Merge tags action
+ • 1.3.7 Save changes button
+
+1.4 Media Library (Admin)
+ • 1.4.1 Grid of media thumbnails
+ • 1.4.2 Upload button (multi-file)
+ • 1.4.3 Search input (filename/alt)
+ • 1.4.4 Filters (Type, Size, Uploaded date)
+ • 1.4.5 Preview panel (Alt text, Dimensions, Copy URL)
+ • 1.4.6 Delete media button (confirm)
+
+1.5 Inventory Manager (Admin)
+ • 1.5.1 Table (SKU, Title, Current Qty, Reserved, Reorder level)
+ • 1.5.2 Qty adjustment input per row (+/− stepper)
+ • 1.5.3 “Set reorder level” modal
+ • 1.5.4 Low-stock filter quick toggle
+ • 1.5.5 Bulk update button
+
+2. Users & Authentication
+
+2.1 Sign In
+ • 2.1.1 Email input
+ • 2.1.2 Password input (show/hide)
+ • 2.1.3 “Remember me” checkbox
+ • 2.1.4 Submit button
+ • 2.1.5 Error/Success banner
+ • 2.1.6 “Forgot password” link
+ • 2.1.7 Third-party auth buttons (optional: Google, Apple)
+
+2.2 Sign Up
+ • 2.2.1 Name inputs (First, Last)
+ • 2.2.2 Email input (unique validation)
+ • 2.2.3 Password + Confirm inputs (strength meter)
+ • 2.2.4 Accept T&C checkbox (required)
+ • 2.2.5 Submit button
+ • 2.2.6 Post-registration verification banner
+
+2.3 Password Reset
+ • 2.3.1 Email input
+ • 2.3.2 Send reset link button
+ • 2.3.3 Confirmation banner
+ • 2.3.4 New password + Confirm inputs (on token screen)
+ • 2.3.5 Save button
+
+2.4 Profile
+ • 2.4.1 Avatar uploader
+ • 2.4.2 Name inputs
+ • 2.4.3 Phone input (formatting)
+ • 2.4.4 Preferred currency selector
+ • 2.4.5 Save button
+
+2.5 Address Book
+ • 2.5.1 Address list (cards)
+ • 2.5.2 “Add address” button
+ • 2.5.3 Address form (Name, Line1, Line2, City, State/Region, ZIP, Country, Phone)
+ • 2.5.4 “Set as default” toggle
+ • 2.5.5 Save/Delete buttons
+
+2.6 Role Management (Admin)
+ • 2.6.1 User table (Name, Email, Role, Status)
+ • 2.6.2 Role dropdown per user (Admin/Seller/Buyer)
+ • 2.6.3 Activate/Deactivate toggle
+ • 2.6.4 Invite user button (email modal)
+ • 2.6.5 Save changes button
+
+3. Catalog & Search (Public)
+
+3.1 Catalog (Grid/List)
+ • 3.1.1 View toggle (Grid/List)
+ • 3.1.2 Sort dropdown (Newest, Price ↑/↓, Popularity)
+ • 3.1.3 Filters panel toggle button
+ • 3.1.4 Product cards (Image, Title, Price, Rating, “Add to Cart”)
+ • 3.1.5 Pagination controls
+ • 3.1.6 Empty state panel
+
+3.2 Filters Panel
+ • 3.2.1 Category tree selector
+ • 3.2.2 Price range slider
+ • 3.2.3 Rating stars filter (min rating)
+ • 3.2.4 Availability toggle (In stock only)
+ • 3.2.5 Tag multi-select
+ • 3.2.6 “Apply” and “Clear all” buttons
+ • 3.2.7 Active filter chips
+
+3.3 Search Results
+ • 3.3.1 Search input with suggestions (SKU/Title)
+ • 3.3.2 Recent searches dropdown
+ • 3.3.3 Results count label
+ • 3.3.4 Same controls as 3.1 (Sort, Pagination, Cards)
+
+3.4 Product Detail (Public)
+ • 3.4.1 Image gallery (thumbnails, zoom)
+ • 3.4.2 Title, Price, Stock status labels
+ • 3.4.3 Attribute selectors (e.g., Size, Color)
+ • 3.4.4 Quantity stepper
+ • 3.4.5 “Add to Cart” button
+ • 3.4.6 Description tab
+ • 3.4.7 Specifications tab (attributes table)
+ • 3.4.8 Reviews section (rating summary, list, “Write a review” button)
+ • 3.4.9 Share buttons
+ • 3.4.10 Related products carousel
+
+3.5 Write a Review (Authenticated)
+ • 3.5.1 Rating stars input
+ • 3.5.2 Title input
+ • 3.5.3 Comment textarea
+ • 3.5.4 Image upload (optional)
+ • 3.5.5 Submit button
+ • 3.5.6 Moderation notice banner
+
+4. Shopping Cart
+
+4.1 Cart Drawer / Page
+ • 4.1.1 Cart item list (Image, Title, Variant, Price)
+ • 4.1.2 Quantity stepper per item
+ • 4.1.3 Remove item button (per item)
+ • 4.1.4 Promo code input + “Apply” button
+ • 4.1.5 Subtotal, Estimated tax, Shipping estimate (read-only)
+ • 4.1.6 “Continue shopping” link
+ • 4.1.7 “Proceed to Checkout” button
+ • 4.1.8 Empty cart state
+
+4.2 Mini Cart (Header)
+ • 4.2.1 Cart icon with badge
+ • 4.2.2 Dropdown preview (top 3 items)
+ • 4.2.3 “View Cart” and “Checkout” buttons
+
+5. Checkout & Payments
+
+5.1 Shipping Address
+ • 5.1.1 Address selector (use saved)
+ • 5.1.2 Address form (Name, Line1, Line2, City, State, ZIP, Country, Phone)
+ • 5.1.3 “Save to address book” checkbox
+ • 5.1.4 Shipping methods radio group (price & ETA shown)
+ • 5.1.5 Order summary sidebar (items, subtotal)
+ • 5.1.6 “Continue to Payment” button
+ • 5.1.7 Validation/error banner
+
+5.2 Payment
+ • 5.2.1 Payment method radios (Card, PayPal, COD, etc.)
+ • 5.2.2 Card element (Card number, Expiry, CVC)
+ • 5.2.3 Billing address same-as-shipping checkbox
+ • 5.2.4 Billing address form (conditional)
+ • 5.2.5 Save card toggle (tokenized)
+ • 5.2.6 Order summary (updated with shipping)
+ • 5.2.7 “Review Order” button
+ • 5.2.8 Payment error banner (3DS prompts where applicable)
+
+5.3 Review & Place Order
+ • 5.3.1 Read-only Shipping, Billing, Items review blocks
+ • 5.3.2 Edit links (jump back to section)
+ • 5.3.3 Terms & Refund policy checkbox
+ • 5.3.4 “Place Order” button (loading state)
+ • 5.3.5 Processing indicator
+
+5.4 Order Confirmation
+ • 5.4.1 Success banner with Order Number
+ • 5.4.2 Summary (Items, totals, addresses, shipping method)
+ • 5.4.3 “Track Order” button
+ • 5.4.4 “Print invoice” button
+ • 5.4.5 “Continue shopping” button
+
+6. Orders
+
+6.1 Order History
+ • 6.1.1 Order list (Order #, Date, Total, Status)
+ • 6.1.2 Date range filter
+ • 6.1.3 Status filter (Pending, Paid, Shipped, Delivered, Canceled)
+ • 6.1.4 Search by order #
+ • 6.1.5 Pagination controls
+ • 6.1.6 “Export” button
+
+6.2 Order Detail
+ • 6.2.1 Header (Order #, Date, Status badge)
+ • 6.2.2 Timeline tracker (Placed → Paid → Shipped → Delivered)
+ • 6.2.3 Items table (Image, Title, Variant, Qty, Price, Subtotal)
+ • 6.2.4 Shipping address panel
+ • 6.2.5 Billing address panel
+ • 6.2.6 Payment summary panel
+ • 6.2.7 Shipment tracking panel (Carrier, Tracking #, Link)
+ • 6.2.8 “Request cancellation/return” button (conditional)
+ • 6.2.9 “Reorder” button
+ • 6.2.10 Invoice download button
+
+6.3 Returns & Cancellations
+ • 6.3.1 Select items (checkbox per item)
+ • 6.3.2 Qty to return input
+ • 6.3.3 Reason dropdown (Damaged, Wrong item, etc.)
+ • 6.3.4 Comments textarea
+ • 6.3.5 Preferred resolution radios (Refund/Replacement/Store credit)
+ • 6.3.6 Upload photos (optional)
+ • 6.3.7 Submit request button
+ • 6.3.8 Status panel (RMA #, steps)
+>>>
+
+### Personal:
+If you properly implement this task, you'll get big award and money. But If you lose, you will lose money.
+
+### Output format:
+Don't add special symbols, emojis, extra questions. Just provide comprehensive technical description.
+
+### App description:
+{app_description}
+
+### Structured description:
+{structured_description}

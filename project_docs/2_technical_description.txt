@@ -1,0 +1,140 @@
+1. Core Architecture  
+1.1 Modules Overview (non‑visual)  
+ • 1.1.1 MVVM Layer diagram (Model, ViewModel, View)  
+ • 1.1.2 Combine pipelines list (Publishers, Subscribers)  
+ • 1.1.3 Dependency Injection registry (services, repositories)  
+1.2 Data Layer (non‑visual)  
+ • 1.2.1 Core Data stack configuration (persistent container, contexts)  
+ • 1.2.2 iCloud sync manager (CKContainer, CKDatabase)  
+ • 1.2.3 Backup/restore service (file manager, zip utilities)  
+
+2. Main Window Layout  
+2.1 Split‑View Window  
+ • 2.1.1 NSSplitViewController host (SwiftUI wrapper)  
+ • 2.1.2 Left Sidebar container (BookmarkListView)  
+ • 2.1.3 Central Content container (WebBrowserView)  
+ • 2.1.4 Right Sidebar container (NoteListView)  
+ • 2.1.5 Divider drag handles (user‑adjustable width)  
+ • 2.1.6 State persistence bindings (sidebar widths stored in UserDefaults)  
+2.2 Global Toolbar  
+ • 2.2.1 Navigation buttons (Back, Forward, Reload, Stop, Home) – SF Symbols icons, disabled state logic  
+ • 2.2.2 Address Bar (TextField) with auto‑completion list (Popover)  
+ • 2.2.3 Progress Indicator (ProgressView) bound to WKWebView estimatedProgress  
+ • 2.2.4 Search field (optional) – same control as address bar with scope toggle  
+
+3. Bookmark Management (Left Sidebar)  
+3.1 Bookmark List Screen  
+ • 3.1.1 Hierarchical List (OutlineGroup) showing folders and bookmark items  
+ • 3.1.2 Row view components: favicon Image, title Text, URL subtitle (optional)  
+ • 3.1.3 Context menu per row (Add Bookmark, Edit, Delete, Open in New Tab)  
+ • 3.1.4 Selection handling (single/multiple) – highlighted state, binding to selectedBookmarkIDs  
+ • 3.1.5 Search bar (TextField) with live filter predicate on title/URL  
+ • 3.1.6 Toolbar above list: “Add Folder”, “Add Bookmark”, “Import”, “Export” buttons  
+3.2 Add / Edit Bookmark Dialog (Sheet)  
+ • 3.2.1 TextField for Title (validation: non‑empty)  
+ • 3.2.2 TextField for URL (validation: URL format)  
+ • 3.2.3 Folder picker (PopUpButton with hierarchical menu)  
+ • 3.2.4 Favicon preview (Image) with “Refresh” button  
+ • 3.2.5 Save / Cancel buttons (primary/secondary style)  
+ • 3.2.6 Validation summary banner (red text)  
+3.3 Delete Confirmation Alert  
+ • 3.3.1 Alert title “Delete Bookmark(s)?”  
+ • 3.3.2 Message listing count of items to delete  
+ • 3.3.3 Confirm and Cancel actions  
+3.4 Drag‑and‑Drop Reordering  
+ • 3.4.1 Drag handle (grip icon) per row  
+ • 3.4.2 Drop target visual (highlighted background)  
+ • 3.4.3 Model update via ViewModel moveBookmark(at:to:)  
+
+4. Web Content Rendering (Central Pane)  
+4.1 WKWebView Host View  
+ • 4.1.1 WKWebView instance wrapped in NSViewRepresentable  
+ • 4.1.2 Navigation delegate forwarding events to WebViewModel (loading state, title, URL)  
+ • 4.1.3 JavaScript bridge for “Add Note” context menu (window.webkit.messageHandlers)  
+4.2 Navigation Controls (Toolbar – see 2.2)  
+4.3 Address Bar (see 2.2) – includes:  
+ • 4.3.1 TextField with onCommit loading entered URL  
+ • 4.3.2 Auto‑completion list (List in Popover) sourced from bookmarks + browsing history  
+4.4 Loading Progress Indicator (see 2.2) – bound to webView.estimatedProgress  
+4.5 Context Menu Integration  
+ • 4.5.1 “Add Note” item – enabled when a selectable region exists (via JS selection)  
+ • 4.5.2 “Open in New Window” – launches separate NSWindow with new WKWebView  
+
+5. Note Management (Right Sidebar)  
+5.1 Note List Screen  
+ • 5.1.1 List (LazyVStack) of NoteRowViews bound to notes for current URL  
+ • 5.1.2 Row components: preview thumbnail (image or first‑line text), title, timestamp, pin icon  
+ • 5.1.3 Pin toggle button (filled/unfilled star) – updates note.isPinned  
+ • 5.1.4 Drag handle for reordering (onDrag/onDrop modifiers)  
+ • 5.1.5 Context menu per row (Edit, Delete, Duplicate)  
+ • 5.1.6 Search field (TextField) filtering notes by content/tags  
+ • 5.1.7 Toolbar above list: “New Note”, “Export”, “Settings” buttons  
+5.2 New / Edit Note Sheet (Modal)  
+ • 5.2.1 Title TextField (optional)  
+ • 5.2.2 Rich‑Text Editor (TextEditor with attributed string support, markdown preview toggle)  
+ • 5.2.3 Image attachment area (Drop target + “Add Image” button) – supports drag‑and‑drop, cropping UI (CropperView)  
+ • 5.2.4 Tags field (Tokenized chips, auto‑complete)  
+ • 5.2.5 Pin toggle (Toggle)  
+ • 5.2.6 Save, Cancel, and Delete (in edit mode) buttons  
+ • 5.2.7 Validation banner for empty content  
+5.3 Delete Undo Snackbar  
+ • 5.3.1 Banner appearing at bottom of sidebar with “Note deleted” message  
+ • 5.3.2 “Undo” button restoring the note via ViewModel.undoDelete()  
+5.4 Export Notes Dialog  
+ • 5.4.1 Format picker (Picker) – Markdown, PDF, Image Bundle  
+ • 5.4.2 Destination selector (FileSaver)  
+ • 5.4.3 Export button (primary) and Cancel button  
+
+6. Data Persistence & Synchronization  
+6.1 Core Data Model Overview (non‑visual)  
+ • 6.1.1 Entities: Bookmark (id, title, url, folder, order, faviconData), Folder (id, title, parent, order), Note (id, url, title, content, attachments, tags, isPinned, order, createdAt, updatedAt)  
+6.2 UI State Persistence (Settings)  
+ • 6.2.1 Sidebar width bindings saved to UserDefaults via AppSettingsViewModel  
+ • 6.2.2 Last selected bookmark and note IDs persisted per session  
+6.3 iCloud Sync Settings Screen  
+ • 6.3.1 Toggle for “Enable iCloud Sync” (Switch)  
+ • 6.3.2 Conflict resolution selector (Prefer Local / Prefer Cloud)  
+ • 6.3.3 Sync status indicator (ProgressView + status text)  
+6.4 Backup & Restore Dialog  
+ • 6.4.1 “Create Backup” button – opens file save panel  
+ • 6.4.2 “Restore Backup” button – opens file open panel, shows preview of backup contents  
+ • 6.4.3 Confirmation alert before overwriting current data  
+
+7. Settings & Preferences  
+7.1 General Preferences Pane  
+ • 7.1.1 Default homepage TextField (URL)  
+ • 7.1.2 Start‑up behavior Picker (Open last session / Open homepage / Show blank)  
+ • 7.1.3 “Clear Browsing Data on Quit” toggle  
+7.2 Appearance Preferences Pane  
+ • 7.2.1 Theme selector (System / Light / Dark) – RadioGroup  
+ • 7.2.2 Sidebar visibility toggles (Show Left Sidebar, Show Right Sidebar) – Switches  
+ • 7.2.3 Font size slider (Dynamic Type scaling) – Slider bound to environment.fontScale  
+7.3 Keyboard Shortcuts Pane  
+ • 7.3.1 List of actions with editable shortcut fields (TextField with key‑event capture) – e.g., Cmd‑B for Bookmark panel, Cmd‑N for New Note  
+ • 7.3.2 Reset to defaults button  
+7.4 Privacy Preferences Pane  
+ • 7.4.1 “Clear Cookies & Site Data” button with confirmation alert  
+ • 7.4.2 “Clear Cache” button  
+ • 7.4.3 “Do Not Track” toggle  
+
+8. Accessibility & Localization  
+8.1 VoiceOver Labels (non‑visual) – ensure all controls have .accessibilityLabel and .accessibilityHint set in SwiftUI modifiers.  
+8.2 Keyboard‑Only Navigation (non‑visual) – focusable modifiers on all interactive elements, logical tab order defined via .focusable(true).  
+8.3 Dynamic Type Support (non‑visual) – use .font(.system(.body).weight(.regular)) with .dynamicTypeSize(.large … .accessibility3) modifiers.  
+8.4 Localization Settings Screen  
+ • 8.4.1 Language picker (Picker) – list of available .lproj bundles  
+ • 8.4.2 “Restart to apply language” button – triggers app relaunch.  
+
+9. Testing & Quality Assurance (non‑visual)  
+9.1 Unit Test Targets  
+ • 9.1.1 ViewModel tests (BookmarkViewModelTests, NoteViewModelTests, SettingsViewModelTests) using XCTest and Combine expectations.  
+9.2 UI Test Targets  
+ • 9.2.1 XCUITest scripts for bookmark creation, note attachment, web navigation, settings changes.  
+9.3 Performance Profiling Tools (non‑visual) – Instruments templates for WebView loading time, memory footprint, Core Data fetch latency.  
+
+10. Distribution (non‑visual)  
+10.1 Build Settings  
+ • 10.1.1 Code signing identity, provisioning profile for Mac App Store.  
+ • 10.1.2 Hardened runtime entitlements (network, iCloud, App Sandbox).  
+10.2 Update Mechanism (optional)  
+ • 10.2.1 Sparkle framework integration – update feed URL setting in Preferences, auto‑download toggle, progress UI (Alert with progress bar).  

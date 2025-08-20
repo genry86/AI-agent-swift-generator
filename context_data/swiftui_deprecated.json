@@ -1,0 +1,1842 @@
+[
+  {
+    "title": "NavigationView",
+    "description": "A view for presenting a stack of views that represents a visible path in a navigation hierarchy.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationview",
+    "deprecated-code": "struct NavigationView<Content> where Content : View",
+    "alternative-code": "Use NavigationStack and NavigationSplitView instead. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationView"
+  },
+  {
+    "title": "tabItem(_:)",
+    "description": "Sets the tab bar item associated with this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/tabitem(_:)",
+    "deprecated-code": "nonisolated\nfunc tabItem<V>(@ViewBuilder _ label: () -> V) -> some View where V : View",
+    "alternative-code": "Use `Tab(title:image:value:content:)` and related initializers instead",
+    "breadcrumbs": "SwiftUI / View / tabItem(_:)"
+  },
+  {
+    "title": "subscriptionPromotionalOffer(offer:signature:)",
+    "description": "Selects a promotional offer to apply to a purchase a customer makes from a subscription store view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/subscriptionpromotionaloffer(offer:signature:)",
+    "deprecated-code": "nonisolated\nfunc subscriptionPromotionalOffer(\noffer: @escaping (Product, Product.SubscriptionInfo) -> Product.SubscriptionOffer?,\nsignature: @escaping (Product, Product.SubscriptionInfo, Product.SubscriptionOffer) async throws -> Product.SubscriptionOffer.Signature\n) -> some View",
+    "alternative-code": "Sign promotional offers with JWS and use the subscriptionPromotionalOffer(offer:compactJWS:) view modifier instead",
+    "breadcrumbs": "SwiftUI / View / subscriptionPromotionalOffer(offer:signature:)"
+  },
+  {
+    "title": "RotationGesture",
+    "description": "A gesture that recognizes a rotation motion and tracks the angle of the rotation.",
+    "url": "https://developer.apple.com/documentation/swiftui/rotationgesture",
+    "deprecated-code": "struct RotationGesture",
+    "alternative-code": "Use RotateGesture instead.",
+    "breadcrumbs": "SwiftUI / RotationGesture"
+  },
+  {
+    "title": "MagnificationGesture",
+    "description": "A gesture that recognizes a magnification motion and tracks the amount of magnification.",
+    "url": "https://developer.apple.com/documentation/swiftui/magnificationgesture",
+    "deprecated-code": "struct MagnificationGesture",
+    "alternative-code": "Use MagnifyGesture instead.",
+    "breadcrumbs": "SwiftUI / MagnificationGesture"
+  },
+  {
+    "title": "ContentSizeCategory",
+    "description": "The sizes that you can specify for content.",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory",
+    "deprecated-code": "enum ContentSizeCategory",
+    "alternative-code": "Use DynamicTypeSize instead.",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory"
+  },
+  {
+    "title": "dropDestination(for:action:isTargeted:)",
+    "description": "Defines the destination of a drag and drop operation that handles the dropped content with a closure that you specify.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/dropdestination(for:action:istargeted:)",
+    "deprecated-code": "nonisolated\nfunc dropDestination<T>(\nfor payloadType: T.Type = T.self,\naction: @escaping ([T], CGPoint) -> Bool,\nisTargeted: @escaping (Bool) -> Void = { _ in }\n) -> some View where T : Transferable",
+    "alternative-code": "Use `dropDestination(for:isEnabled:action:)` with an `action` that takes a `DropSession` parameter instead.",
+    "breadcrumbs": "SwiftUI / View / dropDestination(for:action:isTargeted:)"
+  },
+  {
+    "title": "ActionSheet",
+    "description": "A representation of an action sheet presentation.",
+    "url": "https://developer.apple.com/documentation/swiftui/actionsheet",
+    "deprecated-code": "struct ActionSheet",
+    "alternative-code": "Use a View modifier like confirmationDialog(_:isPresented:titleVisibility:presenting:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / ActionSheet"
+  },
+  {
+    "title": "Alert",
+    "description": "A representation of an alert presentation.",
+    "url": "https://developer.apple.com/documentation/swiftui/alert",
+    "deprecated-code": "struct Alert",
+    "alternative-code": "Use a View modifier like alert(_:isPresented:presenting:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / Alert"
+  },
+  {
+    "title": "AnimatableModifier",
+    "description": "A modifier that can create another modifier with animation.",
+    "url": "https://developer.apple.com/documentation/swiftui/animatablemodifier",
+    "deprecated-code": "protocol AnimatableModifier : Animatable, ViewModifier",
+    "alternative-code": "Use Animatable instead.",
+    "breadcrumbs": "SwiftUI / AnimatableModifier"
+  },
+  {
+    "title": "ContextMenu",
+    "description": "A container for views that you present as menu items in a context menu.",
+    "url": "https://developer.apple.com/documentation/swiftui/contextmenu",
+    "deprecated-code": "struct ContextMenu<MenuItems> where MenuItems : View",
+    "alternative-code": "Use contextMenu(menuItems:) instead.",
+    "breadcrumbs": "SwiftUI / ContextMenu"
+  },
+  {
+    "title": "MenuButton",
+    "description": "A button that displays a menu containing a list of choices when pressed.",
+    "url": "https://developer.apple.com/documentation/swiftui/menubutton",
+    "deprecated-code": "struct MenuButton<Label, Content> where Label : View, Content : View",
+    "alternative-code": "Use Menu instead.",
+    "breadcrumbs": "SwiftUI / MenuButton"
+  },
+  {
+    "title": "PullDownButton",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/pulldownbutton",
+    "deprecated-code": "typealias PullDownButton",
+    "alternative-code": "Use Menu instead.",
+    "breadcrumbs": "SwiftUI / PullDownButton"
+  },
+  {
+    "title": "ControlActiveState",
+    "description": "The active appearance expected of controls in a window.",
+    "url": "https://developer.apple.com/documentation/swiftui/controlactivestate",
+    "deprecated-code": "enum ControlActiveState",
+    "alternative-code": "Use `EnvironmentValues.appearsActive` instead.",
+    "breadcrumbs": "SwiftUI / ControlActiveState"
+  },
+  {
+    "title": "init(content:)",
+    "description": "Creates a destination-based navigation view.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationview/init(content:)",
+    "deprecated-code": "init(@ViewBuilder content: () -> Content)",
+    "alternative-code": "Use NavigationStack and NavigationSplitView instead. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationView / init(content:)"
+  },
+  {
+    "title": "NavigationViewStyle",
+    "description": "A specification for the appearance and interaction of a navigation view.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationviewstyle",
+    "deprecated-code": "protocol NavigationViewStyle",
+    "alternative-code": "Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationViewStyle"
+  },
+  {
+    "title": "navigationViewStyle(_:)",
+    "description": "Sets the style for navigation views within this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/navigationviewstyle(_:)",
+    "deprecated-code": "nonisolated\nfunc navigationViewStyle<S>(_ style: S) -> some View where S : NavigationViewStyle",
+    "alternative-code": "Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / View / navigationViewStyle(_:)"
+  },
+  {
+    "title": "subscript(sectionID:)",
+    "description": "The customization for a section’s children, identified by the section’s customization identifier.",
+    "url": "https://developer.apple.com/documentation/swiftui/tabviewcustomization/subscript(sectionid:)",
+    "deprecated-code": "subscript(sectionID id: String) -> [String]? { get }",
+    "alternative-code": "Use the `section` subscript and read `tabOrder` instead.",
+    "breadcrumbs": "SwiftUI / TabViewCustomization / subscript(sectionID:)"
+  },
+  {
+    "title": "subscript(sidebarVisibility:)",
+    "description": "The visibility of the tab identified by its customization identifier.",
+    "url": "https://developer.apple.com/documentation/swiftui/tabviewcustomization/subscript(sidebarvisibility:)",
+    "deprecated-code": "subscript(sidebarVisibility id: String) -> Visibility { get set }",
+    "alternative-code": "Use the `tab` subscript and read `sidebarVisibility` instead.",
+    "breadcrumbs": "SwiftUI / TabViewCustomization / subscript(sidebarVisibility:)"
+  },
+  {
+    "title": "resetSectionOrder(for:)",
+    "description": "Resets ordering back to the default for the section with\nsectionID\n, preserving any customized tab visibilities.",
+    "url": "https://developer.apple.com/documentation/swiftui/tabviewcustomization/resetsectionorder(for:)",
+    "deprecated-code": "mutating func resetSectionOrder(for sectionID: String)",
+    "alternative-code": "Use the `section` subscript and call `resetTabOrder` instead.",
+    "breadcrumbs": "SwiftUI / TabViewCustomization / resetSectionOrder(for:)"
+  },
+  {
+    "title": "stack",
+    "description": "A navigation view style represented by a view stack that only shows a single top view at a time.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationviewstyle/stack",
+    "deprecated-code": "static var stack: StackNavigationViewStyle { get }",
+    "alternative-code": "Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationViewStyle / stack"
+  },
+  {
+    "title": "init(selection:label:content:)",
+    "description": "Creates a picker that displays a custom label.",
+    "url": "https://developer.apple.com/documentation/swiftui/picker/init(selection:label:content:)",
+    "deprecated-code": "nonisolated\ninit(\nselection: Binding<SelectionValue>,\nlabel: Label,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "Use init(selection:content:label:) instead.",
+    "breadcrumbs": "SwiftUI / Picker / init(selection:label:content:)"
+  },
+  {
+    "title": "contextMenu(_:)",
+    "description": "Adds a context menu to the view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/contextmenu(_:)",
+    "deprecated-code": "nonisolated\nfunc contextMenu<MenuItems>(_ contextMenu: ContextMenu<MenuItems>?) -> some View where MenuItems : View",
+    "alternative-code": "Use contextMenu(menuItems:) instead.",
+    "breadcrumbs": "SwiftUI / View / contextMenu(_:)"
+  },
+  {
+    "title": "init(supportedContentTypes:validator:payloadAction:)",
+    "description": "Creates a Paste button that accepts specific types of data from the pasteboard, performing a custom validation of the data before sending it to your app.",
+    "url": "https://developer.apple.com/documentation/swiftui/pastebutton/init(supportedcontenttypes:validator:payloadaction:)",
+    "deprecated-code": "@MainActor @preconcurrency\ninit<Payload>(\nsupportedContentTypes: [UTType],\nvalidator: @escaping ([NSItemProvider]) -> Payload?,\npayloadAction: @escaping (Payload) -> Void\n)",
+    "alternative-code": "Use init(payloadType:onPaste:) instead.",
+    "breadcrumbs": "SwiftUI / PasteButton / init(supportedContentTypes:validator:payloadAction:)"
+  },
+  {
+    "title": "init(supportedTypes:payloadAction:)",
+    "description": "Creates a Paste button that accepts specific types of data from the pasteboard.",
+    "url": "https://developer.apple.com/documentation/swiftui/pastebutton/init(supportedtypes:payloadaction:)",
+    "deprecated-code": "@MainActor @preconcurrency\ninit(\nsupportedTypes: [String],\npayloadAction: @escaping ([NSItemProvider]) -> Void\n)",
+    "alternative-code": "Use the init(supportedContentTypes:payloadAction:) initializer instead.",
+    "breadcrumbs": "SwiftUI / PasteButton / init(supportedTypes:payloadAction:)"
+  },
+  {
+    "title": "init(supportedTypes:validator:payloadAction:)",
+    "description": "Creates a Paste button that accepts specific types of data from the pasteboard, performing a custom validation of the data before sending it to your app.",
+    "url": "https://developer.apple.com/documentation/swiftui/pastebutton/init(supportedtypes:validator:payloadaction:)",
+    "deprecated-code": "@MainActor @preconcurrency\ninit<Payload>(\nsupportedTypes: [String],\nvalidator: @escaping ([NSItemProvider]) -> Payload?,\npayloadAction: @escaping (Payload) -> Void\n)",
+    "alternative-code": "Use the init(supportedContentTypes:validator:payloadAction:) initializer instead.",
+    "breadcrumbs": "SwiftUI / PasteButton / init(supportedTypes:validator:payloadAction:)"
+  },
+  {
+    "title": "init(onIncrement:onDecrement:onEditingChanged:label:)",
+    "description": "Creates a stepper instance that performs the closures you provide when the user increments or decrements the stepper.",
+    "url": "https://developer.apple.com/documentation/swiftui/stepper/init(onincrement:ondecrement:oneditingchanged:label:)",
+    "deprecated-code": "nonisolated\ninit(\nonIncrement: (() -> Void)?,\nonDecrement: (() -> Void)?,\nonEditingChanged: @escaping (Bool) -> Void = { _ in },\n@ViewBuilder label: () -> Label\n)",
+    "alternative-code": "Use init(label:onIncrement:onDecrement:onEditingChanged:) instead.",
+    "breadcrumbs": "SwiftUI / Stepper / init(onIncrement:onDecrement:onEditingChanged:label:)"
+  },
+  {
+    "title": "init(value:in:step:onEditingChanged:label:)",
+    "description": "Creates a stepper configured to increment or decrement a binding to a value using a step value and within a range of values you provide.",
+    "url": "https://developer.apple.com/documentation/swiftui/stepper/init(value:in:step:oneditingchanged:label:)",
+    "deprecated-code": "nonisolated\ninit<V>(\nvalue: Binding<V>,\nin bounds: ClosedRange<V>,\nstep: V.Stride = 1,\nonEditingChanged: @escaping (Bool) -> Void = { _ in },\n@ViewBuilder label: () -> Label\n) where V : Strideable",
+    "alternative-code": "Use init(value:in:step:label:onEditingChanged:) instead.",
+    "breadcrumbs": "SwiftUI / Stepper / init(value:in:step:onEditingChanged:label:)"
+  },
+  {
+    "title": "init(value:step:onEditingChanged:label:)",
+    "description": "Creates a stepper configured to increment or decrement a binding to a value using a step value you provide.",
+    "url": "https://developer.apple.com/documentation/swiftui/stepper/init(value:step:oneditingchanged:label:)",
+    "deprecated-code": "nonisolated\ninit<V>(\nvalue: Binding<V>,\nstep: V.Stride = 1,\nonEditingChanged: @escaping (Bool) -> Void = { _ in },\n@ViewBuilder label: () -> Label\n) where V : Strideable",
+    "alternative-code": "Use init(value:step:label:onEditingChanged:) instead.",
+    "breadcrumbs": "SwiftUI / Stepper / init(value:step:onEditingChanged:label:)"
+  },
+  {
+    "title": "init(value:in:step:onEditingChanged:label:)",
+    "description": "Creates a slider to select a value from a given range, subject to a step increment, which displays the provided label.",
+    "url": "https://developer.apple.com/documentation/swiftui/slider/init(value:in:step:oneditingchanged:label:)",
+    "deprecated-code": "nonisolated\ninit<V>(\nvalue: Binding<V>,\nin bounds: ClosedRange<V>,\nstep: V.Stride = 1,\nonEditingChanged: @escaping (Bool) -> Void = { _ in },\n@ViewBuilder label: () -> Label\n) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint",
+    "alternative-code": "Use init(value:in:step:label:onEditingChanged:) instead.",
+    "breadcrumbs": "SwiftUI / Slider / init(value:in:step:onEditingChanged:label:)"
+  },
+  {
+    "title": "init(value:in:onEditingChanged:minimumValueLabel:maximumValueLabel:label:)",
+    "description": "Creates a slider to select a value from a given range, which displays the provided labels.",
+    "url": "https://developer.apple.com/documentation/swiftui/slider/init(value:in:oneditingchanged:minimumvaluelabel:maximumvaluelabel:label:)",
+    "deprecated-code": "nonisolated\ninit<V>(\nvalue: Binding<V>,\nin bounds: ClosedRange<V> = 0...1,\nonEditingChanged: @escaping (Bool) -> Void = { _ in },\nminimumValueLabel: ValueLabel,\nmaximumValueLabel: ValueLabel,\n@ViewBuilder label: () -> Label\n) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint",
+    "alternative-code": "Use init(value:in:label:minimumValueLabel:maximumValueLabel:onEditingChanged:) instead.",
+    "breadcrumbs": "SwiftUI / Slider / init(value:in:onEditingChanged:minimumValueLabel:maximumValueLabel:label:)"
+  },
+  {
+    "title": "init(value:in:step:onEditingChanged:minimumValueLabel:maximumValueLabel:label:)",
+    "description": "Creates a slider to select a value from a given range, subject to a step increment, which displays the provided labels.",
+    "url": "https://developer.apple.com/documentation/swiftui/slider/init(value:in:step:oneditingchanged:minimumvaluelabel:maximumvaluelabel:label:)",
+    "deprecated-code": "nonisolated\ninit<V>(\nvalue: Binding<V>,\nin bounds: ClosedRange<V>,\nstep: V.Stride = 1,\nonEditingChanged: @escaping (Bool) -> Void = { _ in },\nminimumValueLabel: ValueLabel,\nmaximumValueLabel: ValueLabel,\n@ViewBuilder label: () -> Label\n) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint",
+    "alternative-code": "Use init(value:in:step:label:minimumValueLabel:maximumValueLabel:onEditingChanged:) instead.",
+    "breadcrumbs": "SwiftUI / Slider / init(value:in:step:onEditingChanged:minimumValueLabel:maximumValueLabel:label:)"
+  },
+  {
+    "title": "init(value:in:onEditingChanged:label:)",
+    "description": "Creates a slider to select a value from a given range, which displays the provided label.",
+    "url": "https://developer.apple.com/documentation/swiftui/slider/init(value:in:oneditingchanged:label:)",
+    "deprecated-code": "nonisolated\ninit<V>(\nvalue: Binding<V>,\nin bounds: ClosedRange<V> = 0...1,\nonEditingChanged: @escaping (Bool) -> Void = { _ in },\n@ViewBuilder label: () -> Label\n) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint",
+    "alternative-code": "Use init(value:in:label:onEditingChanged:) instead.",
+    "breadcrumbs": "SwiftUI / Slider / init(value:in:onEditingChanged:label:)"
+  },
+  {
+    "title": "foregroundColor(_:)",
+    "description": "Sets the color of the foreground elements displayed by this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/foregroundcolor(_:)",
+    "deprecated-code": "nonisolated\nfunc foregroundColor(_ color: Color?) -> some View",
+    "alternative-code": "Use foregroundStyle(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / foregroundColor(_:)"
+  },
+  {
+    "title": "sizeCategory",
+    "description": "The size of content.",
+    "url": "https://developer.apple.com/documentation/swiftui/environmentvalues/sizecategory",
+    "deprecated-code": "var sizeCategory: ContentSizeCategory { get set }",
+    "alternative-code": "Use dynamicTypeSize instead.",
+    "breadcrumbs": "SwiftUI / EnvironmentValues / sizeCategory"
+  },
+  {
+    "title": "disableAutocorrection",
+    "description": "A Boolean value that determines whether the view hierarchy has auto-correction enabled.",
+    "url": "https://developer.apple.com/documentation/swiftui/environmentvalues/disableautocorrection",
+    "deprecated-code": "var disableAutocorrection: Bool? { get set }",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / EnvironmentValues / disableAutocorrection"
+  },
+  {
+    "title": "PresentationMode",
+    "description": "An indication whether a view is currently presented by another view.",
+    "url": "https://developer.apple.com/documentation/swiftui/presentationmode",
+    "deprecated-code": "struct PresentationMode",
+    "alternative-code": "Use isPresented or dismiss instead.",
+    "breadcrumbs": "SwiftUI / PresentationMode"
+  },
+  {
+    "title": "controlActiveState",
+    "description": "The active appearance expected of controls in a window.",
+    "url": "https://developer.apple.com/documentation/swiftui/environmentvalues/controlactivestate",
+    "deprecated-code": "var controlActiveState: ControlActiveState { get set }",
+    "alternative-code": "Use `EnvironmentValues.appearsActive` instead.",
+    "breadcrumbs": "SwiftUI / EnvironmentValues / controlActiveState"
+  },
+  {
+    "title": "Web Server Error",
+    "description": "A binding to the current presentation mode of the view associated with this environment.",
+    "url": "https://developer.apple.com/documentation/swiftui/environmentvalues/presentationmode",
+    "deprecated-code": "var presentationMode: Binding<PresentationMode> { get }",
+    "alternative-code": "Use isPresented or dismiss instead.",
+    "breadcrumbs": "SwiftUI / EnvironmentValues / presentationMode"
+  },
+  {
+    "title": "complicationRenderingMode",
+    "description": "The complication rendering mode for the current environment.",
+    "url": "https://developer.apple.com/documentation/swiftui/environmentvalues/complicationrenderingmode",
+    "deprecated-code": "var complicationRenderingMode: ComplicationRenderingMode { get }",
+    "alternative-code": "On watchOS 9.0 or later, use WidgetKit instead",
+    "breadcrumbs": "SwiftUI / EnvironmentValues / complicationRenderingMode"
+  },
+  {
+    "title": "init(minimumAngleDelta:)",
+    "description": "Creates a rotation gesture with a minimum delta for the gesture to start.",
+    "url": "https://developer.apple.com/documentation/swiftui/rotationgesture/init(minimumangledelta:)",
+    "deprecated-code": "init(minimumAngleDelta: Angle = .degrees(1))",
+    "alternative-code": "Use RotateGesture instead.",
+    "breadcrumbs": "SwiftUI / RotationGesture / init(minimumAngleDelta:)"
+  },
+  {
+    "title": "minimumAngleDelta",
+    "description": "The minimum delta required before the gesture succeeds.",
+    "url": "https://developer.apple.com/documentation/swiftui/rotationgesture/minimumangledelta",
+    "deprecated-code": "var minimumAngleDelta: Angle",
+    "alternative-code": "Use RotateGesture instead.",
+    "breadcrumbs": "SwiftUI / RotationGesture / minimumAngleDelta"
+  },
+  {
+    "title": "minimumScaleDelta",
+    "description": "The minimum required delta before the gesture starts.",
+    "url": "https://developer.apple.com/documentation/swiftui/magnificationgesture/minimumscaledelta",
+    "deprecated-code": "var minimumScaleDelta: CGFloat",
+    "alternative-code": "Use MagnifyGesture instead.",
+    "breadcrumbs": "SwiftUI / MagnificationGesture / minimumScaleDelta"
+  },
+  {
+    "title": "init(minimumScaleDelta:)",
+    "description": "Creates a magnification gesture with a given minimum delta for the gesture to start.",
+    "url": "https://developer.apple.com/documentation/swiftui/magnificationgesture/init(minimumscaledelta:)",
+    "deprecated-code": "init(minimumScaleDelta: CGFloat = 0.01)",
+    "alternative-code": "Use MagnifyGesture instead.",
+    "breadcrumbs": "SwiftUI / MagnificationGesture / init(minimumScaleDelta:)"
+  },
+  {
+    "title": "init(count:coordinateSpace:)",
+    "description": "Creates a tap gesture with the number of required taps and the coordinate space of the gesture’s location.",
+    "url": "https://developer.apple.com/documentation/swiftui/spatialtapgesture/init(count:coordinatespace:)-1b85g",
+    "deprecated-code": "init(\ncount: Int = 1,\ncoordinateSpace: CoordinateSpace = .local\n)",
+    "alternative-code": "Use init(count:coordinateSpace:) instead.",
+    "breadcrumbs": "SwiftUI / SpatialTapGesture / init(count:coordinateSpace:)"
+  },
+  {
+    "title": "init(minimumDistance:coordinateSpace:)",
+    "description": "Creates a dragging gesture with the minimum dragging distance before the gesture succeeds and the coordinate space of the gesture’s location.",
+    "url": "https://developer.apple.com/documentation/swiftui/draggesture/init(minimumdistance:coordinatespace:)-3804h",
+    "deprecated-code": "init(\nminimumDistance: CGFloat = 10,\ncoordinateSpace: CoordinateSpace = .local\n)",
+    "alternative-code": "Use init(minimumDistance:coordinateSpace:) instead.",
+    "breadcrumbs": "SwiftUI / DragGesture / init(minimumDistance:coordinateSpace:)"
+  },
+  {
+    "title": "minSize()",
+    "description": "Sets the minimum size for the configuration.",
+    "url": "https://developer.apple.com/documentation/swiftui/uihostingconfiguration/minsize()",
+    "deprecated-code": "func minSize() -> UIHostingConfiguration<Content, Background>",
+    "alternative-code": "Use minSize(width:height:) instead.",
+    "breadcrumbs": "SwiftUI / UIHostingConfiguration / minSize()"
+  },
+  {
+    "title": "init(id:content:)",
+    "description": "Creates the immersive space associated with the specified identifier.",
+    "url": "https://developer.apple.com/documentation/swiftui/immersivespace/init(id:content:)",
+    "deprecated-code": "init(\nid: String,\n@ImmersiveSpaceContentBuilder content: () -> Content\n) where Data == Never",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ImmersiveSpace / init(id:content:)"
+  },
+  {
+    "title": "onChange(of:perform:)",
+    "description": "Adds an action to perform when the given value changes.",
+    "url": "https://developer.apple.com/documentation/swiftui/scene/onchange(of:perform:)",
+    "deprecated-code": "nonisolated\nfunc onChange<V>(\nof value: V,\nperform action: @escaping (V) -> Void\n) -> some Scene where V : Equatable",
+    "alternative-code": "Use onChange(of:initial:_:) or onChange(of:initial:_:) instead. The trailing closure in each case takes either zero or two input parameters, compared to this method which takes one. Be aware that the replacements have slightly different behvavior. This modifier’s closure captures values that represent the state before the change. The new modifiers capture values that correspond to the new state. The new behavior makes it easier to perform updates that rely on values other than the one that caused the modifier’s closure to run.",
+    "breadcrumbs": "SwiftUI / Scene / onChange(of:perform:)"
+  },
+  {
+    "title": "init(_:showsIndicators:content:)",
+    "description": "Creates a new instance that’s scrollable in the direction of the given axis and can show indicators while scrolling.",
+    "url": "https://developer.apple.com/documentation/swiftui/scrollview/init(_:showsindicators:content:)",
+    "deprecated-code": "init(\n_ axes: Axis.Set = .vertical,\nshowsIndicators: Bool = true,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "Use the ScrollView(_:content:) initializer and the scrollIndicators(:_) modifier",
+    "breadcrumbs": "SwiftUI / ScrollView / init(_:showsIndicators:content:)"
+  },
+  {
+    "title": "onChange(of:perform:)",
+    "description": "Adds an action to perform when the given value changes.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/onchange(of:perform:)",
+    "deprecated-code": "nonisolated\nfunc onChange<V>(\nof value: V,\nperform action: @escaping (V) -> Void\n) -> some View where V : Equatable",
+    "alternative-code": "Use onChange(of:initial:_:) or onChange(of:initial:_:) instead. The trailing closure in each case takes either zero or two input parameters, compared to this method which takes one. Be aware that the replacements have slightly different behvavior. This modifier’s closure captures values that represent the state before the change. The new modifiers capture values that correspond to the new state. The new behavior makes it easier to perform updates that rely on values other than the one that caused the modifier’s closure to run.",
+    "breadcrumbs": "SwiftUI / View / onChange(of:perform:)"
+  },
+  {
+    "title": "accessibility(value:)",
+    "description": "Adds a textual description of the value that the view contains.",
+    "url": "https://developer.apple.com/documentation/swiftui/modifiedcontent/accessibility(value:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(value: Text) -> ModifiedContent<Content, Modifier>",
+    "alternative-code": "Use accessibilityValue(_:) instead.",
+    "breadcrumbs": "SwiftUI / ModifiedContent / accessibility(value:)"
+  },
+  {
+    "title": "accessibility(hint:)",
+    "description": "Communicates to the user what happens after performing the view’s action.",
+    "url": "https://developer.apple.com/documentation/swiftui/modifiedcontent/accessibility(hint:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(hint: Text) -> ModifiedContent<Content, Modifier>",
+    "alternative-code": "Use accessibilityHint(_:) instead.",
+    "breadcrumbs": "SwiftUI / ModifiedContent / accessibility(hint:)"
+  },
+  {
+    "title": "accessibility(selectionIdentifier:)",
+    "description": "Sets a selection identifier for this view’s accessibility element.",
+    "url": "https://developer.apple.com/documentation/swiftui/modifiedcontent/accessibility(selectionidentifier:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(selectionIdentifier: AnyHashable) -> ModifiedContent<Content, Modifier>",
+    "alternative-code": "This functionality is no longer available.",
+    "breadcrumbs": "SwiftUI / ModifiedContent / accessibility(selectionIdentifier:)"
+  },
+  {
+    "title": "accessibility(inputLabels:)",
+    "description": "Sets alternate input labels with which users identify a view.",
+    "url": "https://developer.apple.com/documentation/swiftui/modifiedcontent/accessibility(inputlabels:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(inputLabels: [Text]) -> ModifiedContent<Content, Modifier>",
+    "alternative-code": "Use accessibilityInputLabels(_:) instead.",
+    "breadcrumbs": "SwiftUI / ModifiedContent / accessibility(inputLabels:)"
+  },
+  {
+    "title": "accessibility(removeTraits:)",
+    "description": "Removes the given traits from this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/modifiedcontent/accessibility(removetraits:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(removeTraits traits: AccessibilityTraits) -> ModifiedContent<Content, Modifier>",
+    "alternative-code": "Use accessibilityRemoveTraits(_:) instead.",
+    "breadcrumbs": "SwiftUI / ModifiedContent / accessibility(removeTraits:)"
+  },
+  {
+    "title": "accessibility(hidden:)",
+    "description": "Specifies whether to hide this view from system accessibility features.",
+    "url": "https://developer.apple.com/documentation/swiftui/modifiedcontent/accessibility(hidden:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(hidden: Bool) -> ModifiedContent<Content, Modifier>",
+    "alternative-code": "Use accessibilityHidden(_:) instead.",
+    "breadcrumbs": "SwiftUI / ModifiedContent / accessibility(hidden:)"
+  },
+  {
+    "title": "accessibility(label:)",
+    "description": "Adds a label to the view that describes its contents.",
+    "url": "https://developer.apple.com/documentation/swiftui/modifiedcontent/accessibility(label:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(label: Text) -> ModifiedContent<Content, Modifier>",
+    "alternative-code": "Use accessibilityLabel(_:) instead.",
+    "breadcrumbs": "SwiftUI / ModifiedContent / accessibility(label:)"
+  },
+  {
+    "title": "accessibility(activationPoint:)",
+    "description": "Specifies the point where activations occur in the view.",
+    "url": "https://developer.apple.com/documentation/swiftui/modifiedcontent/accessibility(activationpoint:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(activationPoint: CGPoint) -> ModifiedContent<Content, Modifier>",
+    "alternative-code": "Use accessibilityActivationPoint(_:) instead.",
+    "breadcrumbs": "SwiftUI / ModifiedContent / accessibility(activationPoint:)"
+  },
+  {
+    "title": "accessibility(addTraits:)",
+    "description": "Adds the given traits to the view.",
+    "url": "https://developer.apple.com/documentation/swiftui/modifiedcontent/accessibility(addtraits:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(addTraits traits: AccessibilityTraits) -> ModifiedContent<Content, Modifier>",
+    "alternative-code": "Use accessibilityAddTraits(_:) instead.",
+    "breadcrumbs": "SwiftUI / ModifiedContent / accessibility(addTraits:)"
+  },
+  {
+    "title": "accessibility(identifier:)",
+    "description": "Uses the specified string to identify the view.",
+    "url": "https://developer.apple.com/documentation/swiftui/modifiedcontent/accessibility(identifier:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(identifier: String) -> ModifiedContent<Content, Modifier>",
+    "alternative-code": "Use accessibilityIdentifier(_:) instead.",
+    "breadcrumbs": "SwiftUI / ModifiedContent / accessibility(identifier:)"
+  },
+  {
+    "title": "accessibility(sortPriority:)",
+    "description": "Sets the sort priority order for this view’s accessibility element, relative to other elements at the same level.",
+    "url": "https://developer.apple.com/documentation/swiftui/modifiedcontent/accessibility(sortpriority:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(sortPriority: Double) -> ModifiedContent<Content, Modifier>",
+    "alternative-code": "Use accessibilitySortPriority(_:) instead.",
+    "breadcrumbs": "SwiftUI / ModifiedContent / accessibility(sortPriority:)"
+  },
+  {
+    "title": "function",
+    "description": "The Function key.",
+    "url": "https://developer.apple.com/documentation/swiftui/eventmodifiers/function",
+    "deprecated-code": "static let function: EventModifiers",
+    "alternative-code": "This key modifier is reserved for system applications.",
+    "breadcrumbs": "SwiftUI / EventModifiers / function"
+  },
+  {
+    "title": "ContentSizeCategory.small",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/small",
+    "deprecated-code": "case small",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.small"
+  },
+  {
+    "title": "ContentSizeCategory.extraExtraExtraLarge",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/extraextraextralarge",
+    "deprecated-code": "case extraExtraExtraLarge",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.extraExtraExtraLarge"
+  },
+  {
+    "title": "ContentSizeCategory.medium",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/medium",
+    "deprecated-code": "case medium",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.medium"
+  },
+  {
+    "title": "ContentSizeCategory.accessibilityLarge",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/accessibilitylarge",
+    "deprecated-code": "case accessibilityLarge",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.accessibilityLarge"
+  },
+  {
+    "title": "ContentSizeCategory.extraSmall",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/extrasmall",
+    "deprecated-code": "case extraSmall",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.extraSmall"
+  },
+  {
+    "title": "ContentSizeCategory.extraLarge",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/extralarge",
+    "deprecated-code": "case extraLarge",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.extraLarge"
+  },
+  {
+    "title": "ContentSizeCategory.accessibilityMedium",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/accessibilitymedium",
+    "deprecated-code": "case accessibilityMedium",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.accessibilityMedium"
+  },
+  {
+    "title": "isAccessibilityCategory",
+    "description": "A Boolean value indicating whether the content size category is one that is associated with accessibility.",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/isaccessibilitycategory",
+    "deprecated-code": "var isAccessibilityCategory: Bool { get }",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / isAccessibilityCategory"
+  },
+  {
+    "title": "ContentSizeCategory.extraExtraLarge",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/extraextralarge",
+    "deprecated-code": "case extraExtraLarge",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.extraExtraLarge"
+  },
+  {
+    "title": "ContentSizeCategory.accessibilityExtraExtraLarge",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/accessibilityextraextralarge",
+    "deprecated-code": "case accessibilityExtraExtraLarge",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.accessibilityExtraExtraLarge"
+  },
+  {
+    "title": "ContentSizeCategory.accessibilityExtraLarge",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/accessibilityextralarge",
+    "deprecated-code": "case accessibilityExtraLarge",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.accessibilityExtraLarge"
+  },
+  {
+    "title": "ContentSizeCategory.large",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/large",
+    "deprecated-code": "case large",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.large"
+  },
+  {
+    "title": "ContentSizeCategory.accessibilityExtraExtraExtraLarge",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/contentsizecategory/accessibilityextraextraextralarge",
+    "deprecated-code": "case accessibilityExtraExtraExtraLarge",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / ContentSizeCategory / ContentSizeCategory.accessibilityExtraExtraExtraLarge"
+  },
+  {
+    "title": "init(_:text:onCommit:)",
+    "description": "Creates an instance.",
+    "url": "https://developer.apple.com/documentation/swiftui/securefield/init(_:text:oncommit:)",
+    "deprecated-code": "nonisolated\ninit(\n_ titleKey: LocalizedStringKey,\ntext: Binding<String>,\nonCommit: @escaping () -> Void\n)",
+    "alternative-code": "Use init(_:text:prompt:) instead. Add the onSubmit(of:_:) view modifier for the onCommit behavior.",
+    "breadcrumbs": "SwiftUI / SecureField / init(_:text:onCommit:)"
+  },
+  {
+    "title": "system(_:design:)",
+    "description": "Gets a system font with the given text style and design.",
+    "url": "https://developer.apple.com/documentation/swiftui/font/system(_:design:)",
+    "deprecated-code": "static func system(\n_ style: Font.TextStyle,\ndesign: Font.Design = .default\n) -> Font",
+    "alternative-code": "Use system(_:design:weight:) instead.",
+    "breadcrumbs": "SwiftUI / Font / system(_:design:)"
+  },
+  {
+    "title": "system(size:weight:design:)",
+    "description": "Specifies a system font to use, along with the style, weight, and any design parameters you want applied to the text.",
+    "url": "https://developer.apple.com/documentation/swiftui/font/system(size:weight:design:)-73a88",
+    "deprecated-code": "static func system(\nsize: CGFloat,\nweight: Font.Weight = .regular,\ndesign: Font.Design = .default\n) -> Font",
+    "alternative-code": "Use system(size:weight:design:) instead.",
+    "breadcrumbs": "SwiftUI / Font / system(size:weight:design:)"
+  },
+  {
+    "title": "foregroundColor(_:)",
+    "description": "Sets the color of the text displayed by this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/text/foregroundcolor(_:)",
+    "deprecated-code": "nonisolated\nfunc foregroundColor(_ color: Color?) -> Text",
+    "alternative-code": "Use foregroundStyle(_:) instead.",
+    "breadcrumbs": "SwiftUI / Text / foregroundColor(_:)"
+  },
+  {
+    "title": "+(_:_:)",
+    "description": "Concatenates the text in two text views in a new text view.",
+    "url": "https://developer.apple.com/documentation/swiftui/text/+(_:_:)",
+    "deprecated-code": "static func + (lhs: Text, rhs: Text) -> Text",
+    "alternative-code": "Use string interpolation on `Text` instead: `Text(\\\"Hello \\\\(name)\\\")`",
+    "breadcrumbs": "SwiftUI / Text / +(_:_:)"
+  },
+  {
+    "title": "hasItemsConforming(to:)",
+    "description": "Returns whether at least one item conforms to at least one of the specified uniform type identifiers.",
+    "url": "https://developer.apple.com/documentation/swiftui/dropinfo/hasitemsconforming(to:)-4qeez",
+    "deprecated-code": "func hasItemsConforming(to types: [String]) -> Bool",
+    "alternative-code": "Use hasItemsConforming(to:) instead.",
+    "breadcrumbs": "SwiftUI / DropInfo / hasItemsConforming(to:)"
+  },
+  {
+    "title": "itemProviders(for:)",
+    "description": "Returns an array of items that each conform to at least one of the specified uniform type identifiers.",
+    "url": "https://developer.apple.com/documentation/swiftui/dropinfo/itemproviders(for:)-b6fo",
+    "deprecated-code": "func itemProviders(for types: [String]) -> [NSItemProvider]",
+    "alternative-code": "Use itemProviders(for:) instead.",
+    "breadcrumbs": "SwiftUI / DropInfo / itemProviders(for:)"
+  },
+  {
+    "title": "width()",
+    "description": "Sets the column’s width.",
+    "url": "https://developer.apple.com/documentation/swiftui/tablecolumn/width()",
+    "deprecated-code": "nonisolated\nfunc width() -> TableColumn<RowValue, Sort, Content, Label>",
+    "alternative-code": "Use width(_:) or width(min:ideal:max:) instead.",
+    "breadcrumbs": "SwiftUI / TableColumn / width()"
+  },
+  {
+    "title": "init(label:content:)",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/groupbox/init(label:content:)",
+    "deprecated-code": "nonisolated\ninit(\nlabel: Label,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / GroupBox / init(label:content:)"
+  },
+  {
+    "title": "init(header:content:)",
+    "description": "Creates a section with a header and the provided section content.",
+    "url": "https://developer.apple.com/documentation/swiftui/section/init(header:content:)",
+    "deprecated-code": "init(\nheader: Parent,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "Use init(content:header:) instead.",
+    "breadcrumbs": "SwiftUI / Section / init(header:content:)"
+  },
+  {
+    "title": "collapsible(_:)",
+    "description": "Sets whether a section can be collapsed by the user.",
+    "url": "https://developer.apple.com/documentation/swiftui/section/collapsible(_:)",
+    "deprecated-code": "func collapsible(_ collapsible: Bool) -> some View",
+    "alternative-code": "To disable collapsibility in macOS 14 and later, use one of the Section initializers that lacks collapsibility.",
+    "breadcrumbs": "SwiftUI / Section / collapsible(_:)"
+  },
+  {
+    "title": "init(header:footer:content:)",
+    "description": "Creates a section with a header, footer, and the provided section content.",
+    "url": "https://developer.apple.com/documentation/swiftui/section/init(header:footer:content:)",
+    "deprecated-code": "init(\nheader: Parent,\nfooter: Footer,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "Use init(content:header:footer:) instead.",
+    "breadcrumbs": "SwiftUI / Section / init(header:footer:content:)"
+  },
+  {
+    "title": "init(footer:content:)",
+    "description": "Creates a section with a footer and the provided section content.",
+    "url": "https://developer.apple.com/documentation/swiftui/section/init(footer:content:)",
+    "deprecated-code": "init(\nfooter: Footer,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "Use init(content:footer:) instead.",
+    "breadcrumbs": "SwiftUI / Section / init(footer:content:)"
+  },
+  {
+    "title": "onInsert(of:perform:)",
+    "description": "Sets the insert action for the dynamic view.",
+    "url": "https://developer.apple.com/documentation/swiftui/dynamicviewcontent/oninsert(of:perform:)-40hwa",
+    "deprecated-code": "func onInsert(\nof acceptedTypeIdentifiers: [String],\nperform action: @escaping (Int, [NSItemProvider]) -> Void\n) -> some DynamicViewContent",
+    "alternative-code": "Use onInsert(of:perform:) instead.",
+    "breadcrumbs": "SwiftUI / DynamicViewContent / onInsert(of:perform:)"
+  },
+  {
+    "title": "actionSheet(isPresented:content:)",
+    "description": "Presents an action sheet when a given condition is true.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/actionsheet(ispresented:content:)",
+    "deprecated-code": "nonisolated\nfunc actionSheet(\nisPresented: Binding<Bool>,\ncontent: () -> ActionSheet\n) -> some View",
+    "alternative-code": "Use confirmationDialog(_:isPresented:titleVisibility:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / View / actionSheet(isPresented:content:)"
+  },
+  {
+    "title": "init(title:message:buttons:)",
+    "description": "Creates an action sheet with the provided buttons.",
+    "url": "https://developer.apple.com/documentation/swiftui/actionsheet/init(title:message:buttons:)",
+    "deprecated-code": "init(\ntitle: Text,\nmessage: Text? = nil,\nbuttons: [ActionSheet.Button] = [.cancel()]\n)",
+    "alternative-code": "Use a View modifier like confirmationDialog(_:isPresented:titleVisibility:presenting:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / ActionSheet / init(title:message:buttons:)"
+  },
+  {
+    "title": "ActionSheet.Button",
+    "description": "A button representing an operation of an action sheet presentation.",
+    "url": "https://developer.apple.com/documentation/swiftui/actionsheet/button",
+    "deprecated-code": "typealias Button = Alert.Button",
+    "alternative-code": "Use a View modifier like confirmationDialog(_:isPresented:titleVisibility:presenting:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / ActionSheet / ActionSheet.Button"
+  },
+  {
+    "title": "init(title:message:primaryButton:secondaryButton:)",
+    "description": "Creates an alert with two buttons.",
+    "url": "https://developer.apple.com/documentation/swiftui/alert/init(title:message:primarybutton:secondarybutton:)",
+    "deprecated-code": "init(\ntitle: Text,\nmessage: Text? = nil,\nprimaryButton: Alert.Button,\nsecondaryButton: Alert.Button\n)",
+    "alternative-code": "Use a View modifier like alert(_:isPresented:presenting:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / Alert / init(title:message:primaryButton:secondaryButton:)"
+  },
+  {
+    "title": "alert(isPresented:content:)",
+    "description": "Presents an alert to the user.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/alert(ispresented:content:)",
+    "deprecated-code": "nonisolated\nfunc alert(\nisPresented: Binding<Bool>,\ncontent: () -> Alert\n) -> some View",
+    "alternative-code": "Use alert(_:isPresented:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / View / alert(isPresented:content:)"
+  },
+  {
+    "title": "Alert.Button",
+    "description": "A button that represents an operation of an alert presentation.",
+    "url": "https://developer.apple.com/documentation/swiftui/alert/button",
+    "deprecated-code": "struct Button",
+    "alternative-code": "Use a View modifier like alert(_:isPresented:presenting:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / Alert / Alert.Button"
+  },
+  {
+    "title": "init(title:message:dismissButton:)",
+    "description": "Creates an alert with one button.",
+    "url": "https://developer.apple.com/documentation/swiftui/alert/init(title:message:dismissbutton:)",
+    "deprecated-code": "init(\ntitle: Text,\nmessage: Text? = nil,\ndismissButton: Alert.Button? = nil\n)",
+    "alternative-code": "Use a View modifier like alert(_:isPresented:presenting:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / Alert / init(title:message:dismissButton:)"
+  },
+  {
+    "title": "sideBySideButtons(title:message:primaryButton:secondaryButton:)",
+    "description": "Creates a side by side button alert.",
+    "url": "https://developer.apple.com/documentation/swiftui/alert/sidebysidebuttons(title:message:primarybutton:secondarybutton:)",
+    "deprecated-code": "static func sideBySideButtons(\ntitle: Text,\nmessage: Text? = nil,\nprimaryButton: Alert.Button,\nsecondaryButton: Alert.Button\n) -> Alert",
+    "alternative-code": "Use a View modifier like alert(_:isPresented:presenting:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / Alert / sideBySideButtons(title:message:primaryButton:secondaryButton:)"
+  },
+  {
+    "title": "background(_:alignment:)",
+    "description": "Layers the given view behind this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/background(_:alignment:)",
+    "deprecated-code": "nonisolated\nfunc background<Background>(\n_ background: Background,\nalignment: Alignment = .center\n) -> some View where Background : View",
+    "alternative-code": "Use background(alignment:content:) instead.",
+    "breadcrumbs": "SwiftUI / View / background(_:alignment:)"
+  },
+  {
+    "title": "overlay(_:alignment:)",
+    "description": "Layers a secondary view in front of this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/overlay(_:alignment:)",
+    "deprecated-code": "nonisolated\nfunc overlay<Overlay>(\n_ overlay: Overlay,\nalignment: Alignment = .center\n) -> some View where Overlay : View",
+    "alternative-code": "Use overlay(alignment:content:) instead.",
+    "breadcrumbs": "SwiftUI / View / overlay(_:alignment:)"
+  },
+  {
+    "title": "init(id:placement:showsByDefault:content:)",
+    "description": "Creates a toolbar item with the specified placement and content, which allows for user customization.",
+    "url": "https://developer.apple.com/documentation/swiftui/toolbaritem/init(id:placement:showsbydefault:content:)",
+    "deprecated-code": "nonisolated\ninit(\nid: String,\nplacement: ToolbarItemPlacement = .automatic,\nshowsByDefault: Bool,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "Use the CustomizableToolbarContent/defaultCustomization(_:options) modifier with a value of .hidden",
+    "breadcrumbs": "SwiftUI / ToolbarItem / init(id:placement:showsByDefault:content:)"
+  },
+  {
+    "title": "navigationBarTrailing",
+    "description": "Places the item in the trailing edge of the navigation bar.",
+    "url": "https://developer.apple.com/documentation/swiftui/toolbaritemplacement/navigationbartrailing",
+    "deprecated-code": "static let navigationBarTrailing: ToolbarItemPlacement",
+    "alternative-code": "Use topBarTrailing instead.",
+    "breadcrumbs": "SwiftUI / ToolbarItemPlacement / navigationBarTrailing"
+  },
+  {
+    "title": "navigationBarLeading",
+    "description": "Places the item in the leading edge of the navigation bar.",
+    "url": "https://developer.apple.com/documentation/swiftui/toolbaritemplacement/navigationbarleading",
+    "deprecated-code": "static let navigationBarLeading: ToolbarItemPlacement",
+    "alternative-code": "Use topBarLeading instead.",
+    "breadcrumbs": "SwiftUI / ToolbarItemPlacement / navigationBarLeading"
+  },
+  {
+    "title": "init(id:)",
+    "description": "Creates a custom accessory bar item placement.",
+    "url": "https://developer.apple.com/documentation/swiftui/toolbaritemplacement/init(id:)",
+    "deprecated-code": "init<ID>(id: ID) where ID : Hashable",
+    "alternative-code": "Use accessoryBar(id:) instead.",
+    "breadcrumbs": "SwiftUI / ToolbarItemPlacement / init(id:)"
+  },
+  {
+    "title": "init(id:)",
+    "description": "Creates a custom accessory bar placement.",
+    "url": "https://developer.apple.com/documentation/swiftui/toolbarplacement/init(id:)",
+    "deprecated-code": "init<ID>(id: ID) where ID : Hashable",
+    "alternative-code": "Use init(id:) instead.",
+    "breadcrumbs": "SwiftUI / ToolbarPlacement / init(id:)"
+  },
+  {
+    "title": "defaultCustomization()",
+    "description": "Configures customizable toolbar content with the default visibility and options.",
+    "url": "https://developer.apple.com/documentation/swiftui/customizabletoolbarcontent/defaultcustomization()",
+    "deprecated-code": "func defaultCustomization() -> some CustomizableToolbarContent",
+    "alternative-code": "Please provide either a visibility or customization options",
+    "breadcrumbs": "SwiftUI / CustomizableToolbarContent / defaultCustomization()"
+  },
+  {
+    "title": "init(_:content:)",
+    "description": "Creates a new timeline view that uses the given schedule.",
+    "url": "https://developer.apple.com/documentation/swiftui/timelineview/init(_:content:)-67h35",
+    "deprecated-code": "nonisolated\ninit(\n_ schedule: Schedule,\n@ViewBuilder content: @escaping (TimelineView<Schedule, Content>.Context) -> Content\n)",
+    "alternative-code": "Use init(_:content:) instead. The replacement initializer’s context closure takes a TimelineViewDefaultContext as its input rather than a TimelineView.Context to prevent introducing an unnecessary generic parameter dependency on the context type.",
+    "breadcrumbs": "SwiftUI / TimelineView / init(_:content:)"
+  },
+  {
+    "title": "easeInEaseOut",
+    "description": "A bezier curve that starts out slowly, speeds up over the middle, then slows down again as it approaches the end.",
+    "url": "https://developer.apple.com/documentation/swiftui/unitcurve/easeineaseout",
+    "deprecated-code": "static let easeInEaseOut: UnitCurve",
+    "alternative-code": "Use easeInOut instead.",
+    "breadcrumbs": "SwiftUI / UnitCurve / easeInEaseOut"
+  },
+  {
+    "title": "init(menuItems:)",
+    "description": "Creates a context menu.",
+    "url": "https://developer.apple.com/documentation/swiftui/contextmenu/init(menuitems:)",
+    "deprecated-code": "init(@ViewBuilder menuItems: () -> MenuItems)",
+    "alternative-code": "Use contextMenu(menuItems:) instead.",
+    "breadcrumbs": "SwiftUI / ContextMenu / init(menuItems:)"
+  },
+  {
+    "title": "MenuButtonStyle",
+    "description": "A custom specification for the appearance and interaction of a menu button.",
+    "url": "https://developer.apple.com/documentation/swiftui/menubuttonstyle",
+    "deprecated-code": "protocol MenuButtonStyle",
+    "alternative-code": "Use MenuStyle instead.",
+    "breadcrumbs": "SwiftUI / MenuButtonStyle"
+  },
+  {
+    "title": "init(_:content:)",
+    "description": "Creates a menu button with the specified localized title and content.",
+    "url": "https://developer.apple.com/documentation/swiftui/menubutton/init(_:content:)",
+    "deprecated-code": "nonisolated\ninit(\n_ titleKey: LocalizedStringKey,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "Use Menu instead.",
+    "breadcrumbs": "SwiftUI / MenuButton / init(_:content:)"
+  },
+  {
+    "title": "init(label:content:)",
+    "description": "Creates a menu button with the specified label and content.",
+    "url": "https://developer.apple.com/documentation/swiftui/menubutton/init(label:content:)",
+    "deprecated-code": "init(\nlabel: Label,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "Use Menu instead.",
+    "breadcrumbs": "SwiftUI / MenuButton / init(label:content:)"
+  },
+  {
+    "title": "menuButtonStyle(_:)",
+    "description": "Sets the style for menu buttons within this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/menubuttonstyle(_:)",
+    "deprecated-code": "nonisolated\nfunc menuButtonStyle<S>(_ style: S) -> some View where S : MenuButtonStyle",
+    "alternative-code": "Use menuStyle(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / menuButtonStyle(_:)"
+  },
+  {
+    "title": "init(content:)",
+    "description": "Creates a window group.",
+    "url": "https://developer.apple.com/documentation/swiftui/windowgroup/init(content:)",
+    "deprecated-code": "init(@ViewBuilder content: () -> Content)",
+    "alternative-code": "Use the initializer which takes an escaping view builder instead.",
+    "breadcrumbs": "SwiftUI / WindowGroup / init(content:)"
+  },
+  {
+    "title": "init(_:id:content:)",
+    "description": "Creates a window group with a text view title and an identifier.",
+    "url": "https://developer.apple.com/documentation/swiftui/windowgroup/init(_:id:content:)",
+    "deprecated-code": "init(\n_ title: Text,\nid: String,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "Use the initializer which takes an escaping view builder instead.",
+    "breadcrumbs": "SwiftUI / WindowGroup / init(_:id:content:)"
+  },
+  {
+    "title": "init(_:content:)",
+    "description": "Creates a window group with a text view title.",
+    "url": "https://developer.apple.com/documentation/swiftui/windowgroup/init(_:content:)",
+    "deprecated-code": "init(\n_ title: Text,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "Use the initializer which takes an escaping view builder instead.",
+    "breadcrumbs": "SwiftUI / WindowGroup / init(_:content:)"
+  },
+  {
+    "title": "init(id:content:)",
+    "description": "Creates a window group with an identifier.",
+    "url": "https://developer.apple.com/documentation/swiftui/windowgroup/init(id:content:)",
+    "deprecated-code": "init(\nid: String,\n@ViewBuilder content: () -> Content\n)",
+    "alternative-code": "Use the initializer which takes an escaping view builder instead.",
+    "breadcrumbs": "SwiftUI / WindowGroup / init(id:content:)"
+  },
+  {
+    "title": "cgColor",
+    "description": "A Core Graphics representation of the color, if available.",
+    "url": "https://developer.apple.com/documentation/swiftui/color/cgcolor",
+    "deprecated-code": "var cgColor: CGColor? { get }",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / Color / cgColor"
+  },
+  {
+    "title": "StackNavigationViewStyle",
+    "description": "A navigation view style represented by a view stack that only shows a single top view at a time.",
+    "url": "https://developer.apple.com/documentation/swiftui/stacknavigationviewstyle",
+    "deprecated-code": "struct StackNavigationViewStyle",
+    "alternative-code": "Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / StackNavigationViewStyle"
+  },
+  {
+    "title": "accentColor(_:)",
+    "description": "Sets the accent color for this view and the views it contains.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accentcolor(_:)",
+    "deprecated-code": "nonisolated\nfunc accentColor(_ accentColor: Color?) -> some View",
+    "alternative-code": "Use the asset catalog’s accent color or tint(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / accentColor(_:)"
+  },
+  {
+    "title": "accessibility(hidden:)",
+    "description": "Specifies whether to hide this view from system accessibility features.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accessibility(hidden:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(hidden: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+    "alternative-code": "Use accessibilityHidden(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / accessibility(hidden:)"
+  },
+  {
+    "title": "onLongPressGesture(minimumDuration:pressing:perform:)",
+    "description": "Adds an action to perform when this view recognizes a long press gesture.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/onlongpressgesture(minimumduration:pressing:perform:)",
+    "deprecated-code": "nonisolated\nfunc onLongPressGesture(\nminimumDuration: Double = 0.5,\npressing: ((Bool) -> Void)? = nil,\nperform action: @escaping () -> Void\n) -> some View",
+    "alternative-code": "Use onLongPressGesture(minimumDuration:perform:onPressingChanged:) instead.",
+    "breadcrumbs": "SwiftUI / View / onLongPressGesture(minimumDuration:pressing:perform:)"
+  },
+  {
+    "title": "accessibility(inputLabels:)",
+    "description": "Sets alternate input labels with which users identify a view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accessibility(inputlabels:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(inputLabels: [Text]) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+    "alternative-code": "Use accessibilityInputLabels(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / accessibility(inputLabels:)"
+  },
+  {
+    "title": "navigationBarItems(leading:trailing:)",
+    "description": "Sets the navigation bar items for this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/navigationbaritems(leading:trailing:)",
+    "deprecated-code": "nonisolated\nfunc navigationBarItems<L, T>(\nleading: L,\ntrailing: T\n) -> some View where L : View, T : View",
+    "alternative-code": "Use toolbar(content:) with navigationBarLeading or navigationBarTrailing placement.",
+    "breadcrumbs": "SwiftUI / View / navigationBarItems(leading:trailing:)"
+  },
+  {
+    "title": "onPasteCommand(of:perform:)",
+    "description": "Adds an action to perform in response to the system’s Paste command.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/onpastecommand(of:perform:)-4f78f",
+    "deprecated-code": "nonisolated\nfunc onPasteCommand(\nof supportedTypes: [String],\nperform payloadAction: @escaping ([NSItemProvider]) -> Void\n) -> some View",
+    "alternative-code": "Use onPasteCommand(of:perform:) instead.",
+    "breadcrumbs": "SwiftUI / View / onPasteCommand(of:perform:)"
+  },
+  {
+    "title": "onDrop(of:delegate:)",
+    "description": "Defines the destination for a drag and drop operation with the same size and position as this view, with behavior controlled by the given delegate.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/ondrop(of:delegate:)-2vr9o",
+    "deprecated-code": "nonisolated\nfunc onDrop(\nof supportedTypes: [String],\ndelegate: any DropDelegate\n) -> some View",
+    "alternative-code": "Use onDrop(of:delegate:) instead.",
+    "breadcrumbs": "SwiftUI / View / onDrop(of:delegate:)"
+  },
+  {
+    "title": "navigationBarTitle(_:)",
+    "description": "Sets the title in the navigation bar for this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/navigationbartitle(_:)",
+    "deprecated-code": "nonisolated\nfunc navigationBarTitle(_ title: Text) -> some View",
+    "alternative-code": "Use navigationTitle(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / navigationBarTitle(_:)"
+  },
+  {
+    "title": "accessibility(identifier:)",
+    "description": "Uses the specified string to identify the view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accessibility(identifier:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(identifier: String) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+    "alternative-code": "Use accessibilityIdentifier(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / accessibility(identifier:)"
+  },
+  {
+    "title": "coordinateSpace(name:)",
+    "description": "Assigns a name to the view’s coordinate space, so other code can operate on dimensions like points and sizes relative to the named space.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/coordinatespace(name:)",
+    "deprecated-code": "nonisolated\nfunc coordinateSpace<T>(name: T) -> some View where T : Hashable",
+    "alternative-code": "Use coordinateSpace(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / coordinateSpace(name:)"
+  },
+  {
+    "title": "navigationBarItems(trailing:)",
+    "description": "Configures the navigation bar items for this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/navigationbaritems(trailing:)",
+    "deprecated-code": "nonisolated\nfunc navigationBarItems<T>(trailing: T) -> some View where T : View",
+    "alternative-code": "Use toolbar(content:) with navigationBarTrailing placement.",
+    "breadcrumbs": "SwiftUI / View / navigationBarItems(trailing:)"
+  },
+  {
+    "title": "navigationBarItems(leading:)",
+    "description": "Sets the navigation bar items for this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/navigationbaritems(leading:)",
+    "deprecated-code": "nonisolated\nfunc navigationBarItems<L>(leading: L) -> some View where L : View",
+    "alternative-code": "Use toolbar(content:) with navigationBarLeading placement.",
+    "breadcrumbs": "SwiftUI / View / navigationBarItems(leading:)"
+  },
+  {
+    "title": "searchable(text:placement:prompt:suggestions:)",
+    "description": "Marks this view as searchable, which configures the display of a search field.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/searchable(text:placement:prompt:suggestions:)",
+    "deprecated-code": "nonisolated\nfunc searchable<S>(\ntext: Binding<String>,\nplacement: SearchFieldPlacement = .automatic,\nprompt: LocalizedStringKey,\n@ViewBuilder suggestions: () -> S\n) -> some View where S : View",
+    "alternative-code": "Use the searchable modifier with the searchSuggestions modifier",
+    "breadcrumbs": "SwiftUI / View / searchable(text:placement:prompt:suggestions:)"
+  },
+  {
+    "title": "accessibility(hint:)",
+    "description": "Communicates to the user what happens after performing the view’s action.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accessibility(hint:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(hint: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+    "alternative-code": "Use accessibilityHint(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / accessibility(hint:)"
+  },
+  {
+    "title": "listRowPlatterColor(_:)",
+    "description": "Sets the color that the system applies to the row background when this view is placed in a list.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/listrowplattercolor(_:)",
+    "deprecated-code": "nonisolated\nfunc listRowPlatterColor(_ color: Color?) -> some View",
+    "alternative-code": "Use listItemTint(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / listRowPlatterColor(_:)"
+  },
+  {
+    "title": "complicationForeground()",
+    "description": "Promotes this view to the foreground in a complication.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/complicationforeground()",
+    "deprecated-code": "@MainActor @preconcurrency\nfunc complicationForeground() -> some View",
+    "alternative-code": "On watchOS 9.0 or later, use WidgetKit instead",
+    "breadcrumbs": "SwiftUI / View / complicationForeground()"
+  },
+  {
+    "title": "alert(item:content:)",
+    "description": "Presents an alert to the user.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/alert(item:content:)",
+    "deprecated-code": "nonisolated\nfunc alert<Item>(\nitem: Binding<Item?>,\ncontent: (Item) -> Alert\n) -> some View where Item : Identifiable",
+    "alternative-code": "Use alert(_:isPresented:presenting:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / View / alert(item:content:)"
+  },
+  {
+    "title": "accessibility(activationPoint:)",
+    "description": "Specifies the point where activations occur in the view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accessibility(activationpoint:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(activationPoint: CGPoint) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+    "alternative-code": "Use accessibilityActivationPoint(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / accessibility(activationPoint:)"
+  },
+  {
+    "title": "mask(_:)",
+    "description": "Masks this view using the alpha channel of the given view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/mask(_:)",
+    "deprecated-code": "nonisolated\nfunc mask<Mask>(_ mask: Mask) -> some View where Mask : View",
+    "alternative-code": "Use mask(alignment:_:) instead.",
+    "breadcrumbs": "SwiftUI / View / mask(_:)"
+  },
+  {
+    "title": "onPasteCommand(of:validator:perform:)",
+    "description": "Adds an action to perform in response to the system’s Paste command with items that you validate.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/onpastecommand(of:validator:perform:)-964k1",
+    "deprecated-code": "nonisolated\nfunc onPasteCommand<Payload>(\nof supportedTypes: [String],\nvalidator: @escaping ([NSItemProvider]) -> Payload?,\nperform payloadAction: @escaping (Payload) -> Void\n) -> some View",
+    "alternative-code": "Use onPasteCommand(of:validator:perform:) instead.",
+    "breadcrumbs": "SwiftUI / View / onPasteCommand(of:validator:perform:)"
+  },
+  {
+    "title": "autocapitalization(_:)",
+    "description": "Sets whether to apply auto-capitalization to this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/autocapitalization(_:)",
+    "deprecated-code": "nonisolated\nfunc autocapitalization(_ style: UITextAutocapitalizationType) -> some View",
+    "alternative-code": "Use textInputAutocapitalization(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / autocapitalization(_:)"
+  },
+  {
+    "title": "disableAutocorrection(_:)",
+    "description": "Sets whether to disable autocorrection for this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/disableautocorrection(_:)",
+    "deprecated-code": "nonisolated\nfunc disableAutocorrection(_ disable: Bool?) -> some View",
+    "alternative-code": "Use autocorrectionDisabled(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / disableAutocorrection(_:)"
+  },
+  {
+    "title": "focusable(_:onFocusChange:)",
+    "description": "Specifies if the view is focusable and, if so, adds an action to perform when the view comes into focus.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/focusable(_:onfocuschange:)",
+    "deprecated-code": "nonisolated\nfunc focusable(\n_ isFocusable: Bool = true,\nonFocusChange: @escaping (Bool) -> Void = { _ in }\n) -> some View",
+    "alternative-code": "Use the focusable(_:) method instead.",
+    "breadcrumbs": "SwiftUI / View / focusable(_:onFocusChange:)"
+  },
+  {
+    "title": "accessibility(value:)",
+    "description": "Adds a textual description of the value that the view contains.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accessibility(value:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(value: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+    "alternative-code": "Use accessibilityValue(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / accessibility(value:)"
+  },
+  {
+    "title": "onTapGesture(count:coordinateSpace:perform:)",
+    "description": "Adds an action to perform when this view recognizes a tap gesture, and provides the action with the location of the interaction.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/ontapgesture(count:coordinatespace:perform:)-36x9h",
+    "deprecated-code": "nonisolated\nfunc onTapGesture(\ncount: Int = 1,\ncoordinateSpace: CoordinateSpace = .local,\nperform action: @escaping (CGPoint) -> Void\n) -> some View",
+    "alternative-code": "Use onTapGesture(count:coordinateSpace:perform:) instead.",
+    "breadcrumbs": "SwiftUI / View / onTapGesture(count:coordinateSpace:perform:)"
+  },
+  {
+    "title": "onContinuousHover(coordinateSpace:perform:)",
+    "description": "Adds an action to perform when the pointer enters, moves within, and exits the view’s bounds.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/oncontinuoushover(coordinatespace:perform:)-8gyrl",
+    "deprecated-code": "nonisolated\nfunc onContinuousHover(\ncoordinateSpace: CoordinateSpace = .local,\nperform action: @escaping (HoverPhase) -> Void\n) -> some View",
+    "alternative-code": "Use onContinuousHover(coordinateSpace:perform:) instead.",
+    "breadcrumbs": "SwiftUI / View / onContinuousHover(coordinateSpace:perform:)"
+  },
+  {
+    "title": "colorScheme(_:)",
+    "description": "Sets this view’s color scheme.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/colorscheme(_:)",
+    "deprecated-code": "nonisolated\nfunc colorScheme(_ colorScheme: ColorScheme) -> some View",
+    "alternative-code": "Use preferredColorScheme(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / colorScheme(_:)"
+  },
+  {
+    "title": "accessibility(selectionIdentifier:)",
+    "description": "Sets a selection identifier for this view’s accessibility element.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accessibility(selectionidentifier:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(selectionIdentifier: AnyHashable) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+    "alternative-code": "This functionality is no longer available.",
+    "breadcrumbs": "SwiftUI / View / accessibility(selectionIdentifier:)"
+  },
+  {
+    "title": "onLongPressGesture(minimumDuration:maximumDistance:pressing:perform:)",
+    "description": "Adds an action to perform when this view recognizes a long press gesture.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/onlongpressgesture(minimumduration:maximumdistance:pressing:perform:)",
+    "deprecated-code": "nonisolated\nfunc onLongPressGesture(\nminimumDuration: Double = 0.5,\nmaximumDistance: CGFloat = 10,\npressing: ((Bool) -> Void)? = nil,\nperform action: @escaping () -> Void\n) -> some View",
+    "alternative-code": "Use onLongPressGesture(minimumDuration:maximumDistance:perform:onPressingChanged:) instead.",
+    "breadcrumbs": "SwiftUI / View / onLongPressGesture(minimumDuration:maximumDistance:pressing:perform:)"
+  },
+  {
+    "title": "accessibility(label:)",
+    "description": "Adds a label to the view that describes its contents.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accessibility(label:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(label: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+    "alternative-code": "Use accessibilityLabel(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / accessibility(label:)"
+  },
+  {
+    "title": "navigationBarTitle(_:displayMode:)",
+    "description": "Sets the title and display mode in the navigation bar for this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/navigationbartitle(_:displaymode:)",
+    "deprecated-code": "nonisolated\nfunc navigationBarTitle(\n_ title: Text,\ndisplayMode: NavigationBarItem.TitleDisplayMode\n) -> some View",
+    "alternative-code": "Use navigationTitle(_:) with navigationBarTitleDisplayMode(_:).",
+    "breadcrumbs": "SwiftUI / View / navigationBarTitle(_:displayMode:)"
+  },
+  {
+    "title": "edgesIgnoringSafeArea(_:)",
+    "description": "Changes the view’s proposed area to extend outside the screen’s safe areas.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/edgesignoringsafearea(_:)",
+    "deprecated-code": "nonisolated\nfunc edgesIgnoringSafeArea(_ edges: Edge.Set) -> some View",
+    "alternative-code": "Use ignoresSafeArea(_:edges:) instead.",
+    "breadcrumbs": "SwiftUI / View / edgesIgnoringSafeArea(_:)"
+  },
+  {
+    "title": "animation(_:)",
+    "description": "Applies the given animation to all animatable values within this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/animation(_:)-1hc0p",
+    "deprecated-code": "nonisolated\nfunc animation(_ animation: Animation?) -> some View",
+    "alternative-code": "Use withAnimation(_:_:) or animation(_:value:) instead.",
+    "breadcrumbs": "SwiftUI / View / animation(_:)"
+  },
+  {
+    "title": "accessibility(addTraits:)",
+    "description": "Adds the given traits to the view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accessibility(addtraits:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(addTraits traits: AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+    "alternative-code": "Use accessibilityAddTraits(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / accessibility(addTraits:)"
+  },
+  {
+    "title": "accessibility(removeTraits:)",
+    "description": "Removes the given traits from this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accessibility(removetraits:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(removeTraits traits: AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+    "alternative-code": "Use accessibilityRemoveTraits(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / accessibility(removeTraits:)"
+  },
+  {
+    "title": "navigationBarHidden(_:)",
+    "description": "Hides the navigation bar for this view.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/navigationbarhidden(_:)",
+    "deprecated-code": "nonisolated\nfunc navigationBarHidden(_ hidden: Bool) -> some View",
+    "alternative-code": "Use toolbar(_:for:) with the Visibility.hidden visibility and the navigationBar placement instead.",
+    "breadcrumbs": "SwiftUI / View / navigationBarHidden(_:)"
+  },
+  {
+    "title": "statusBar(hidden:)",
+    "description": "Sets the visibility of the status bar.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/statusbar(hidden:)",
+    "deprecated-code": "nonisolated\nfunc statusBar(hidden: Bool) -> some View",
+    "alternative-code": "Use statusBarHidden(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / statusBar(hidden:)"
+  },
+  {
+    "title": "frame()",
+    "description": "Positions this view within an invisible frame.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/frame()",
+    "deprecated-code": "nonisolated\nfunc frame() -> some View",
+    "alternative-code": "Use frame(width:height:alignment:) or frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:) instead.",
+    "breadcrumbs": "SwiftUI / View / frame()"
+  },
+  {
+    "title": "actionSheet(item:content:)",
+    "description": "Presents an action sheet using the given item as a data source for the sheet’s content.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/actionsheet(item:content:)",
+    "deprecated-code": "nonisolated\nfunc actionSheet<T>(\nitem: Binding<T?>,\ncontent: (T) -> ActionSheet\n) -> some View where T : Identifiable",
+    "alternative-code": "Use confirmationDialog(_:isPresented:titleVisibility:presenting:actions:message:) instead.",
+    "breadcrumbs": "SwiftUI / View / actionSheet(item:content:)"
+  },
+  {
+    "title": "cornerRadius(_:antialiased:)",
+    "description": "Clips this view to its bounding frame, with the specified corner radius.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/cornerradius(_:antialiased:)",
+    "deprecated-code": "nonisolated\nfunc cornerRadius(\n_ radius: CGFloat,\nantialiased: Bool = true\n) -> some View",
+    "alternative-code": "Use clipShape(_:style:) or fill(style:) instead.",
+    "breadcrumbs": "SwiftUI / View / cornerRadius(_:antialiased:)"
+  },
+  {
+    "title": "accessibility(sortPriority:)",
+    "description": "Sets the sort priority order for this view’s accessibility element, relative to other elements at the same level.",
+    "url": "https://developer.apple.com/documentation/swiftui/view/accessibility(sortpriority:)",
+    "deprecated-code": "nonisolated\nfunc accessibility(sortPriority: Double) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+    "alternative-code": "Use accessibilitySortPriority(_:) instead.",
+    "breadcrumbs": "SwiftUI / View / accessibility(sortPriority:)"
+  },
+  {
+    "title": "systemDark",
+    "description": "An effect that dims passthrough video.",
+    "url": "https://developer.apple.com/documentation/swiftui/surroundingseffect/systemdark",
+    "deprecated-code": "static var systemDark: SurroundingsEffect { get }",
+    "alternative-code": "",
+    "breadcrumbs": "SwiftUI / SurroundingsEffect / systemDark"
+  },
+  {
+    "title": "inset(alternatesRowBackgrounds:)",
+    "description": "The list style that describes the behavior and appearance of an inset list with optional alternating row backgrounds.",
+    "url": "https://developer.apple.com/documentation/swiftui/liststyle/inset(alternatesrowbackgrounds:)",
+    "deprecated-code": "static func inset(alternatesRowBackgrounds: Bool) -> InsetListStyle",
+    "alternative-code": "Use the inset style and add the alternatingRowBackgrounds(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / ListStyle / inset(alternatesRowBackgrounds:)"
+  },
+  {
+    "title": "bordered(alternatesRowBackgrounds:)",
+    "description": "The list style that describes the behavior and appearance of a list with standard border.",
+    "url": "https://developer.apple.com/documentation/swiftui/liststyle/bordered(alternatesrowbackgrounds:)",
+    "deprecated-code": "static func bordered(alternatesRowBackgrounds: Bool) -> BorderedListStyle",
+    "alternative-code": "Use the bordered style and add the alternatingRowBackgrounds(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / ListStyle / bordered(alternatesRowBackgrounds:)"
+  },
+  {
+    "title": "carousel",
+    "description": "A style that implements the carousel interaction and appearance.",
+    "url": "https://developer.apple.com/documentation/swiftui/tabviewstyle/carousel",
+    "deprecated-code": "@MainActor @preconcurrency\nstatic var carousel: CarouselTabViewStyle { get }",
+    "alternative-code": "Use verticalPage or verticalPage(transitionStyle:) instead.",
+    "breadcrumbs": "SwiftUI / TabViewStyle / carousel"
+  },
+  {
+    "title": "CarouselTabViewStyle",
+    "description": "A style that implements the carousel interaction and appearance.",
+    "url": "https://developer.apple.com/documentation/swiftui/carouseltabviewstyle",
+    "deprecated-code": "struct CarouselTabViewStyle",
+    "alternative-code": "Use VerticalPageTabViewStyle instead.",
+    "breadcrumbs": "SwiftUI / CarouselTabViewStyle"
+  },
+  {
+    "title": "BorderedButtonMenuStyle",
+    "description": "A menu style that displays a bordered button that toggles the display of the menu’s contents when pressed.",
+    "url": "https://developer.apple.com/documentation/swiftui/borderedbuttonmenustyle",
+    "deprecated-code": "struct BorderedButtonMenuStyle",
+    "alternative-code": "Use menuStyle(_:) with button and buttonStyle(_:) with bordered.",
+    "breadcrumbs": "SwiftUI / BorderedButtonMenuStyle"
+  },
+  {
+    "title": "borderedButton",
+    "description": "A menu style that displays a bordered button that toggles the display of the menu’s contents when pressed.",
+    "url": "https://developer.apple.com/documentation/swiftui/menustyle/borderedbutton",
+    "deprecated-code": "@MainActor @preconcurrency\nstatic var borderedButton: BorderedButtonMenuStyle { get }",
+    "alternative-code": "Use menuStyle(_:) with button and buttonStyle(_:) with bordered.",
+    "breadcrumbs": "SwiftUI / MenuStyle / borderedButton"
+  },
+  {
+    "title": "BorderlessButtonMenuStyle",
+    "description": "A menu style that displays a borderless button that toggles the display of the menu’s contents when pressed.",
+    "url": "https://developer.apple.com/documentation/swiftui/borderlessbuttonmenustyle",
+    "deprecated-code": "struct BorderlessButtonMenuStyle",
+    "alternative-code": "Use menuStyle(_:) with button and buttonStyle(_:) with borderless.",
+    "breadcrumbs": "SwiftUI / BorderlessButtonMenuStyle"
+  },
+  {
+    "title": "borderlessButton",
+    "description": "A menu style that displays a borderless button that toggles the display of the menu’s contents when pressed.",
+    "url": "https://developer.apple.com/documentation/swiftui/menustyle/borderlessbutton",
+    "deprecated-code": "@MainActor @preconcurrency\nstatic var borderlessButton: BorderlessButtonMenuStyle { get }",
+    "alternative-code": "Use menuStyle(_:) with button and buttonStyle(_:) with borderless.",
+    "breadcrumbs": "SwiftUI / MenuStyle / borderlessButton"
+  },
+  {
+    "title": "PopUpButtonPickerStyle",
+    "description": "A picker style that presents the options as a menu when the user presses a button.",
+    "url": "https://developer.apple.com/documentation/swiftui/popupbuttonpickerstyle",
+    "deprecated-code": "struct PopUpButtonPickerStyle",
+    "alternative-code": "Use MenuPickerStyle instead.",
+    "breadcrumbs": "SwiftUI / PopUpButtonPickerStyle"
+  },
+  {
+    "title": "bordered(alternatesRowBackgrounds:)",
+    "description": "The table style that describes the behavior and appearance of a table with standard border.",
+    "url": "https://developer.apple.com/documentation/swiftui/tablestyle/bordered(alternatesrowbackgrounds:)",
+    "deprecated-code": "@MainActor @preconcurrency\nstatic func bordered(alternatesRowBackgrounds: Bool) -> BorderedTableStyle",
+    "alternative-code": "Use the bordered style and add the alternatingRowBackgrounds(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / TableStyle / bordered(alternatesRowBackgrounds:)"
+  },
+  {
+    "title": "inset(alternatesRowBackgrounds:)",
+    "description": "The table style that describes the behavior and appearance of a table with its content and selection inset from the table edges.",
+    "url": "https://developer.apple.com/documentation/swiftui/tablestyle/inset(alternatesrowbackgrounds:)",
+    "deprecated-code": "@MainActor @preconcurrency\nstatic func inset(alternatesRowBackgrounds: Bool) -> InsetTableStyle",
+    "alternative-code": "Use the inset style and add the alternatingRowBackgrounds(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / TableStyle / inset(alternatesRowBackgrounds:)"
+  },
+  {
+    "title": "ControlActiveState.key",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/controlactivestate/key",
+    "deprecated-code": "case key",
+    "alternative-code": "Use `EnvironmentValues.appearsActive` instead.",
+    "breadcrumbs": "SwiftUI / ControlActiveState / ControlActiveState.key"
+  },
+  {
+    "title": "ControlActiveState.inactive",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/controlactivestate/inactive",
+    "deprecated-code": "case inactive",
+    "alternative-code": "Use `EnvironmentValues.appearsActive` instead.",
+    "breadcrumbs": "SwiftUI / ControlActiveState / ControlActiveState.inactive"
+  },
+  {
+    "title": "ControlActiveState.active",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/controlactivestate/active",
+    "deprecated-code": "case active",
+    "alternative-code": "Use `EnvironmentValues.appearsActive` instead.",
+    "breadcrumbs": "SwiftUI / ControlActiveState / ControlActiveState.active"
+  },
+  {
+    "title": "automatic",
+    "description": "The default navigation view style in the current context of the view being styled.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationviewstyle/automatic",
+    "deprecated-code": "static var automatic: DefaultNavigationViewStyle { get }",
+    "alternative-code": "Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationViewStyle / automatic"
+  },
+  {
+    "title": "DefaultNavigationViewStyle",
+    "description": "The default navigation view style.",
+    "url": "https://developer.apple.com/documentation/swiftui/defaultnavigationviewstyle",
+    "deprecated-code": "struct DefaultNavigationViewStyle",
+    "alternative-code": "Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / DefaultNavigationViewStyle"
+  },
+  {
+    "title": "DoubleColumnNavigationViewStyle",
+    "description": "A navigation view style represented by a primary view stack that navigates to a detail view.",
+    "url": "https://developer.apple.com/documentation/swiftui/doublecolumnnavigationviewstyle",
+    "deprecated-code": "struct DoubleColumnNavigationViewStyle",
+    "alternative-code": "Use ColumnNavigationViewStyle instead.",
+    "breadcrumbs": "SwiftUI / DoubleColumnNavigationViewStyle"
+  },
+  {
+    "title": "ColumnNavigationViewStyle",
+    "description": "A navigation view style represented by a series of views in columns.",
+    "url": "https://developer.apple.com/documentation/swiftui/columnnavigationviewstyle",
+    "deprecated-code": "struct ColumnNavigationViewStyle",
+    "alternative-code": "Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / ColumnNavigationViewStyle"
+  },
+  {
+    "title": "columns",
+    "description": "A navigation view style represented by a series of views in columns.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationviewstyle/columns",
+    "deprecated-code": "static var columns: ColumnNavigationViewStyle { get }",
+    "alternative-code": "Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationViewStyle / columns"
+  },
+  {
+    "title": "init(destination:tag:selection:label:)",
+    "description": "Creates a navigation link that presents the destination view when a bound selection variable equals a given tag value.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationlink/init(destination:tag:selection:label:)",
+    "deprecated-code": "init<V>(\ndestination: Destination,\ntag: V,\nselection: Binding<V?>,\n@ViewBuilder label: () -> Label\n) where V : Hashable",
+    "alternative-code": "Use init(value:label:) inside a List within a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationLink / init(destination:tag:selection:label:)"
+  },
+  {
+    "title": "init(tag:selection:destination:label:)",
+    "description": "Creates a navigation link that presents the destination view when a bound selection variable equals a given tag value.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationlink/init(tag:selection:destination:label:)",
+    "deprecated-code": "init<V>(\ntag: V,\nselection: Binding<V?>,\n@ViewBuilder destination: () -> Destination,\n@ViewBuilder label: () -> Label\n) where V : Hashable",
+    "alternative-code": "Use init(value:label:) inside a List within a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationLink / init(tag:selection:destination:label:)"
+  },
+  {
+    "title": "init(_:destination:isActive:)",
+    "description": "Creates a navigation link that presents a destination view when active, with a text label that the link generates from a localized string key.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationlink/init(_:destination:isactive:)",
+    "deprecated-code": "nonisolated\ninit(\n_ titleKey: LocalizedStringKey,\ndestination: Destination,\nisActive: Binding<Bool>\n)",
+    "alternative-code": "Use init(_:value:) instead. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationLink / init(_:destination:isActive:)"
+  },
+  {
+    "title": "init(destination:isActive:label:)",
+    "description": "Creates a navigation link that presents the destination view when active.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationlink/init(destination:isactive:label:)",
+    "deprecated-code": "init(\ndestination: Destination,\nisActive: Binding<Bool>,\n@ViewBuilder label: () -> Label\n)",
+    "alternative-code": "Use init(value:label:) instead. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationLink / init(destination:isActive:label:)"
+  },
+  {
+    "title": "init(_:tag:selection:destination:)",
+    "description": "Creates a navigation link that presents a destination view when a bound selection variable matches a value you provide, using a text label that the link generates from a title string.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationlink/init(_:tag:selection:destination:)",
+    "deprecated-code": "nonisolated\ninit<S, V>(\n_ title: S,\ntag: V,\nselection: Binding<V?>,\n@ViewBuilder destination: () -> Destination\n) where S : StringProtocol, V : Hashable",
+    "alternative-code": "Use init(_:value:) inside a List within a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationLink / init(_:tag:selection:destination:)"
+  },
+  {
+    "title": "init(destinationName:isActive:label:)",
+    "description": "Creates a navigation link that presents a view from a WatchKit storyboard when active.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationlink/init(destinationname:isactive:label:)",
+    "deprecated-code": "nonisolated\ninit(\ndestinationName: String,\nisActive: Binding<Bool>,\n@ViewBuilder label: () -> Label\n)",
+    "alternative-code": "Use init(value:label:) instead. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationLink / init(destinationName:isActive:label:)"
+  },
+  {
+    "title": "init(destinationName:tag:selection:label:)",
+    "description": "Creates a navigation link that presents a view from a WatchKit storyboard when a bound selection variable matches a value you provide.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationlink/init(destinationname:tag:selection:label:)",
+    "deprecated-code": "nonisolated\ninit<V>(\ndestinationName: String,\ntag: V,\nselection: Binding<V?>,\n@ViewBuilder label: () -> Label\n) where V : Hashable",
+    "alternative-code": "Use init(value:label:) inside a List within a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationLink / init(destinationName:tag:selection:label:)"
+  },
+  {
+    "title": "init(_:destination:tag:selection:)",
+    "description": "Creates a navigation link that presents a destination view when a bound selection variable matches a value you provide, using a text label that the link generates from a title string.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationlink/init(_:destination:tag:selection:)",
+    "deprecated-code": "nonisolated\ninit<S, V>(\n_ title: S,\ndestination: Destination,\ntag: V,\nselection: Binding<V?>\n) where S : StringProtocol, V : Hashable",
+    "alternative-code": "Use init(_:value:) inside a List within a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationLink / init(_:destination:tag:selection:)"
+  },
+  {
+    "title": "init(_:isActive:destination:)",
+    "description": "Creates a navigation link that presents a destination view when active, with a text label that the link generates from a localized string key.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationlink/init(_:isactive:destination:)",
+    "deprecated-code": "nonisolated\ninit(\n_ titleKey: LocalizedStringKey,\nisActive: Binding<Bool>,\n@ViewBuilder destination: () -> Destination\n)",
+    "alternative-code": "Use init(_:value:) inside a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationLink / init(_:isActive:destination:)"
+  },
+  {
+    "title": "init(destinationName:label:)",
+    "description": "Creates a navigation link that presents a view from a WatchKit storyboard.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationlink/init(destinationname:label:)",
+    "deprecated-code": "nonisolated\ninit(\ndestinationName: String,\n@ViewBuilder label: () -> Label\n)",
+    "alternative-code": "Use init(destination:label:) instead.",
+    "breadcrumbs": "SwiftUI / NavigationLink / init(destinationName:label:)"
+  },
+  {
+    "title": "init(isActive:destination:label:)",
+    "description": "Creates a navigation link that presents the destination view when active.",
+    "url": "https://developer.apple.com/documentation/swiftui/navigationlink/init(isactive:destination:label:)",
+    "deprecated-code": "init(\nisActive: Binding<Bool>,\n@ViewBuilder destination: () -> Destination,\n@ViewBuilder label: () -> Label\n)",
+    "alternative-code": "Use init(value:label:) inside a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / NavigationLink / init(isActive:destination:label:)"
+  },
+  {
+    "title": "dismiss()",
+    "description": "Dismisses the view if it is currently presented.",
+    "url": "https://developer.apple.com/documentation/swiftui/presentationmode/dismiss()",
+    "deprecated-code": "mutating func dismiss()",
+    "alternative-code": "Use dismiss instead.",
+    "breadcrumbs": "SwiftUI / PresentationMode / dismiss()"
+  },
+  {
+    "title": "isPresented",
+    "description": "Indicates whether a view is currently presented.",
+    "url": "https://developer.apple.com/documentation/swiftui/presentationmode/ispresented",
+    "deprecated-code": "var isPresented: Bool { get }",
+    "alternative-code": "Use isPresented instead.",
+    "breadcrumbs": "SwiftUI / PresentationMode / isPresented"
+  },
+  {
+    "title": "init(_:value:formatter:onEditingChanged:onCommit:)",
+    "description": "Creates an instance which binds over an arbitrary type,\nT\n.",
+    "url": "https://developer.apple.com/documentation/swiftui/textfield/init(_:value:formatter:oneditingchanged:oncommit:)",
+    "deprecated-code": "nonisolated\ninit<S, V>(\n_ title: S,\nvalue: Binding<V>,\nformatter: Formatter,\nonEditingChanged: @escaping (Bool) -> Void,\nonCommit: @escaping () -> Void\n) where S : StringProtocol",
+    "alternative-code": "Use init(_:value:formatter:prompt:) instead. Add the onSubmit(of:_:) view modifier for the onCommit behavior. Use FocusState and focused(_:equals:) for the onEditingChanged behavior.",
+    "breadcrumbs": "SwiftUI / TextField / init(_:value:formatter:onEditingChanged:onCommit:)"
+  },
+  {
+    "title": "init(_:value:formatter:onEditingChanged:)",
+    "description": "Create an instance which binds over an arbitrary type,\nV\n.",
+    "url": "https://developer.apple.com/documentation/swiftui/textfield/init(_:value:formatter:oneditingchanged:)",
+    "deprecated-code": "nonisolated\ninit<S, V>(\n_ title: S,\nvalue: Binding<V>,\nformatter: Formatter,\nonEditingChanged: @escaping (Bool) -> Void\n) where S : StringProtocol",
+    "alternative-code": "Renamed TextField.init(_:value:formatter:onEditingChanged:). Use View.onSubmit(of:_:) for functionality previously provided by the onCommit parameter. Use FocusState<T> and View.focused(_:equals:) for functionality previously provided by the onEditingChanged parameter.",
+    "breadcrumbs": "SwiftUI / TextField / init(_:value:formatter:onEditingChanged:)"
+  },
+  {
+    "title": "init(_:text:onCommit:)",
+    "description": "Creates a text field with a text label generated from a localized title string.",
+    "url": "https://developer.apple.com/documentation/swiftui/textfield/init(_:text:oncommit:)",
+    "deprecated-code": "nonisolated\ninit(\n_ titleKey: LocalizedStringKey,\ntext: Binding<String>,\nonCommit: @escaping () -> Void\n)",
+    "alternative-code": "Renamed TextField.init(_:text:onEditingChanged:). Use View.onSubmit(of:_:) for functionality previously provided by the onCommit parameter. Use FocusState<T> and View.focused(_:equals:) for functionality previously provided by the onEditingChanged parameter.",
+    "breadcrumbs": "SwiftUI / TextField / init(_:text:onCommit:)"
+  },
+  {
+    "title": "init(_:text:onEditingChanged:onCommit:)",
+    "description": "Creates a text field with a text label generated from a localized title string.",
+    "url": "https://developer.apple.com/documentation/swiftui/textfield/init(_:text:oneditingchanged:oncommit:)",
+    "deprecated-code": "nonisolated\ninit(\n_ titleKey: LocalizedStringKey,\ntext: Binding<String>,\nonEditingChanged: @escaping (Bool) -> Void,\nonCommit: @escaping () -> Void\n)",
+    "alternative-code": "Use init(_:text:prompt:) instead. Add the onSubmit(of:_:) view modifier for the onCommit behavior. Use FocusState and focused(_:equals:) for the onEditingChanged behavior.",
+    "breadcrumbs": "SwiftUI / TextField / init(_:text:onEditingChanged:onCommit:)"
+  },
+  {
+    "title": "init(_:value:formatter:onCommit:)",
+    "description": "Create an instance which binds over an arbitrary type,\nV\n.",
+    "url": "https://developer.apple.com/documentation/swiftui/textfield/init(_:value:formatter:oncommit:)",
+    "deprecated-code": "nonisolated\ninit<S, V>(\n_ title: S,\nvalue: Binding<V>,\nformatter: Formatter,\nonCommit: @escaping () -> Void\n) where S : StringProtocol",
+    "alternative-code": "Renamed TextField.init(_:value:formatter:onEditingChanged:). Use View.onSubmit(of:_:) for functionality previously provided by the onCommit parameter. Use FocusState<T> and View.focused(_:equals:) for functionality previously provided by the onEditingChanged parameter.",
+    "breadcrumbs": "SwiftUI / TextField / init(_:value:formatter:onCommit:)"
+  },
+  {
+    "title": "init(_:text:onEditingChanged:)",
+    "description": "Creates a text field with a text label generated from a localized title string.",
+    "url": "https://developer.apple.com/documentation/swiftui/textfield/init(_:text:oneditingchanged:)",
+    "deprecated-code": "nonisolated\ninit(\n_ titleKey: LocalizedStringKey,\ntext: Binding<String>,\nonEditingChanged: @escaping (Bool) -> Void\n)",
+    "alternative-code": "Renamed TextField.init(_:text:onEditingChanged:). Use View.onSubmit(of:_:) for functionality previously provided by the onCommit parameter. Use FocusState<T> and View.focused(_:equals:) for functionality previously provided by the onEditingChanged parameter.",
+    "breadcrumbs": "SwiftUI / TextField / init(_:text:onEditingChanged:)"
+  },
+  {
+    "title": "init(alternatesRowBackgrounds:)",
+    "description": "Creates an inset table style with optional alternating row backgrounds.",
+    "url": "https://developer.apple.com/documentation/swiftui/borderedtablestyle/init(alternatesrowbackgrounds:)",
+    "deprecated-code": "init(alternatesRowBackgrounds: Bool)",
+    "alternative-code": "Use the bordered style and add the alternatingRowBackgrounds(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / BorderedTableStyle / init(alternatesRowBackgrounds:)"
+  },
+  {
+    "title": "init(alternatesRowBackgrounds:)",
+    "description": "Creates an inset table style with optional alternating row backgrounds.",
+    "url": "https://developer.apple.com/documentation/swiftui/insettablestyle/init(alternatesrowbackgrounds:)",
+    "deprecated-code": "init(alternatesRowBackgrounds: Bool)",
+    "alternative-code": "Use the inset style and add the alternatingRowBackgrounds(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / InsetTableStyle / init(alternatesRowBackgrounds:)"
+  },
+  {
+    "title": "center",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/anchor/source/center-6w6ww",
+    "deprecated-code": "static var center: Anchor<Point3D>.Source { get }",
+    "alternative-code": "Use Anchor.Source.center3D instead",
+    "breadcrumbs": "SwiftUI / Anchor / Anchor.Source / center"
+  },
+  {
+    "title": "destructive(_:action:)",
+    "description": "Creates an alert button with a style that indicates a destructive action.",
+    "url": "https://developer.apple.com/documentation/swiftui/alert/button/destructive(_:action:)",
+    "deprecated-code": "static func destructive(\n_ label: Text,\naction: (() -> Void)? = {}\n) -> Alert.Button",
+    "alternative-code": "Use View.alert(_:isPresented:presenting:actions:) instead.",
+    "breadcrumbs": "SwiftUI / Alert / Alert.Button / destructive(_:action:)"
+  },
+  {
+    "title": "default(_:action:)",
+    "description": "Creates an alert button with the default style.",
+    "url": "https://developer.apple.com/documentation/swiftui/alert/button/default(_:action:)",
+    "deprecated-code": "static func `default`(\n_ label: Text,\naction: (() -> Void)? = {}\n) -> Alert.Button",
+    "alternative-code": "Use View.alert(_:isPresented:presenting:actions:) instead.",
+    "breadcrumbs": "SwiftUI / Alert / Alert.Button / default(_:action:)"
+  },
+  {
+    "title": "cancel(_:)",
+    "description": "Creates an alert button that indicates cancellation, with a system-provided label.",
+    "url": "https://developer.apple.com/documentation/swiftui/alert/button/cancel(_:)",
+    "deprecated-code": "static func cancel(_ action: (() -> Void)? = {}) -> Alert.Button",
+    "alternative-code": "Use View.alert(_:isPresented:presenting:actions:) instead.",
+    "breadcrumbs": "SwiftUI / Alert / Alert.Button / cancel(_:)"
+  },
+  {
+    "title": "cancel(_:action:)",
+    "description": "Creates an alert button that indicates cancellation, with a custom label.",
+    "url": "https://developer.apple.com/documentation/swiftui/alert/button/cancel(_:action:)",
+    "deprecated-code": "static func cancel(\n_ label: Text,\naction: (() -> Void)? = {}\n) -> Alert.Button",
+    "alternative-code": "Use View.alert(_:isPresented:presenting:actions:) instead.",
+    "breadcrumbs": "SwiftUI / Alert / Alert.Button / cancel(_:action:)"
+  },
+  {
+    "title": "BorderlessButtonMenuButtonStyle",
+    "description": "A menu button style which manifests as a borderless button with no visual embelishments.",
+    "url": "https://developer.apple.com/documentation/swiftui/borderlessbuttonmenubuttonstyle",
+    "deprecated-code": "struct BorderlessButtonMenuButtonStyle",
+    "alternative-code": "Use BorderlessButtonMenuStyle instead.",
+    "breadcrumbs": "SwiftUI / BorderlessButtonMenuButtonStyle"
+  },
+  {
+    "title": "DefaultMenuButtonStyle",
+    "description": "The default menu button style.",
+    "url": "https://developer.apple.com/documentation/swiftui/defaultmenubuttonstyle",
+    "deprecated-code": "struct DefaultMenuButtonStyle",
+    "alternative-code": "Use DefaultMenuStyle instead.",
+    "breadcrumbs": "SwiftUI / DefaultMenuButtonStyle"
+  },
+  {
+    "title": "BorderlessPullDownMenuButtonStyle",
+    "description": "A menu button style which manifests as a borderless pull-down button.",
+    "url": "https://developer.apple.com/documentation/swiftui/borderlesspulldownmenubuttonstyle",
+    "deprecated-code": "struct BorderlessPullDownMenuButtonStyle",
+    "alternative-code": "Use BorderlessButtonMenuStyle instead.",
+    "breadcrumbs": "SwiftUI / BorderlessPullDownMenuButtonStyle"
+  },
+  {
+    "title": "PullDownMenuButtonStyle",
+    "description": "A menu button style which manifests as a pull-down button.",
+    "url": "https://developer.apple.com/documentation/swiftui/pulldownmenubuttonstyle",
+    "deprecated-code": "struct PullDownMenuButtonStyle",
+    "alternative-code": "Use BorderedButtonMenuStyle instead.",
+    "breadcrumbs": "SwiftUI / PullDownMenuButtonStyle"
+  },
+  {
+    "title": "init(tint:)",
+    "description": "Creates a switch style with a tint color.",
+    "url": "https://developer.apple.com/documentation/swiftui/switchtogglestyle/init(tint:)",
+    "deprecated-code": "init(tint: Color)",
+    "alternative-code": "Use the tint(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / SwitchToggleStyle / init(tint:)"
+  },
+  {
+    "title": "stacknavigationviewstyle",
+    "description": "Creates a navigation view style represented by a view stack that only shows a single top view at a time.",
+    "url": "https://developer.apple.com/documentation/swiftui/stacknavigationviewstyle/init()",
+    "deprecated-code": "init()",
+    "alternative-code": "Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / StackNavigationViewStyle / init()"
+  },
+  {
+    "title": "init(alternatesRowBackgrounds:)",
+    "description": "Creates an inset list style with optional alternating row backgrounds.",
+    "url": "https://developer.apple.com/documentation/swiftui/insetliststyle/init(alternatesrowbackgrounds:)",
+    "deprecated-code": "init(alternatesRowBackgrounds: Bool)",
+    "alternative-code": "Use the inset style and add the alternatingRowBackgrounds(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / InsetListStyle / init(alternatesRowBackgrounds:)"
+  },
+  {
+    "title": "init(alternatesRowBackgrounds:)",
+    "description": "Creates a bordered list style with optional alternating row backgrounds.",
+    "url": "https://developer.apple.com/documentation/swiftui/borderedliststyle/init(alternatesrowbackgrounds:)",
+    "deprecated-code": "init(alternatesRowBackgrounds: Bool)",
+    "alternative-code": "Use the bordered style and add the alternatingRowBackgrounds(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / BorderedListStyle / init(alternatesRowBackgrounds:)"
+  },
+  {
+    "title": "carouseltabviewstyle",
+    "description": "Creates a carousel table view style.",
+    "url": "https://developer.apple.com/documentation/swiftui/carouseltabviewstyle/init()",
+    "deprecated-code": "init()",
+    "alternative-code": "Use verticalPage instead.",
+    "breadcrumbs": "SwiftUI / CarouselTabViewStyle / init()"
+  },
+  {
+    "title": "init(tint:)",
+    "description": "Creates a bordered button style with a tint color.",
+    "url": "https://developer.apple.com/documentation/swiftui/borderedbuttonstyle/init(tint:)",
+    "deprecated-code": "init(tint: Color)",
+    "alternative-code": "Use tint(_:) instead.",
+    "breadcrumbs": "SwiftUI / BorderedButtonStyle / init(tint:)"
+  },
+  {
+    "title": "borderedbuttonmenustyle",
+    "description": "Creates a bordered button menu style.",
+    "url": "https://developer.apple.com/documentation/swiftui/borderedbuttonmenustyle/init()",
+    "deprecated-code": "init()",
+    "alternative-code": "Use menuStyle(_:) with button and buttonStyle(_:) with bordered.",
+    "breadcrumbs": "SwiftUI / BorderedButtonMenuStyle / init()"
+  },
+  {
+    "title": "init(showsMenuIndicator:)",
+    "description": "Creates a borderless button menu style, specifying whether to show a visual menu indicator.",
+    "url": "https://developer.apple.com/documentation/swiftui/borderlessbuttonmenustyle/init(showsmenuindicator:)",
+    "deprecated-code": "init(showsMenuIndicator: Bool)",
+    "alternative-code": "Use View/menuIndicator(_) instead.",
+    "breadcrumbs": "SwiftUI / BorderlessButtonMenuStyle / init(showsMenuIndicator:)"
+  },
+  {
+    "title": "borderlessbuttonmenustyle",
+    "description": "Creates a borderless button menu style.",
+    "url": "https://developer.apple.com/documentation/swiftui/borderlessbuttonmenustyle/init()",
+    "deprecated-code": "init()",
+    "alternative-code": "Use menuStyle(_:) with button and buttonStyle(_:) with borderless.",
+    "breadcrumbs": "SwiftUI / BorderlessButtonMenuStyle / init()"
+  },
+  {
+    "title": "popupbuttonpickerstyle",
+    "description": "Creates a pop-up button picker style.",
+    "url": "https://developer.apple.com/documentation/swiftui/popupbuttonpickerstyle/init()",
+    "deprecated-code": "init()",
+    "alternative-code": "Use MenuPickerStyle instead.",
+    "breadcrumbs": "SwiftUI / PopUpButtonPickerStyle / init()"
+  },
+  {
+    "title": "init(tint:)",
+    "description": "Creates a linear gauge style with a tint color.",
+    "url": "https://developer.apple.com/documentation/swiftui/lineargaugestyle/init(tint:)",
+    "deprecated-code": "init(tint: Color)",
+    "alternative-code": "Use the tint(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / LinearGaugeStyle / init(tint:)"
+  },
+  {
+    "title": "init(tint:)",
+    "description": "Creates a linear progress view style with a tint color.",
+    "url": "https://developer.apple.com/documentation/swiftui/linearprogressviewstyle/init(tint:)",
+    "deprecated-code": "init(tint: Color)",
+    "alternative-code": "Use the tint(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / LinearProgressViewStyle / init(tint:)"
+  },
+  {
+    "title": "init(tint:)",
+    "description": "Creates a circular progress view style with a tint color.",
+    "url": "https://developer.apple.com/documentation/swiftui/circularprogressviewstyle/init(tint:)",
+    "deprecated-code": "init(tint: Color)",
+    "alternative-code": "Use the tint(_:) view modifier instead.",
+    "breadcrumbs": "SwiftUI / CircularProgressViewStyle / init(tint:)"
+  },
+  {
+    "title": "replacing(_:)",
+    "description": "Positions the window in the same spot as an existing window, hiding the old window in the process.",
+    "url": "https://developer.apple.com/documentation/swiftui/windowplacement/position/replacing(_:)",
+    "deprecated-code": "static func replacing(_ relativeWindow: WindowProxy) -> WindowPlacement.Position",
+    "alternative-code": "Use PushWindowAction instead.",
+    "breadcrumbs": "SwiftUI / WindowPlacement / WindowPlacement.Position / replacing(_:)"
+  },
+  {
+    "title": "defaultnavigationviewstyle",
+    "description": "Creates the default navigation view style.",
+    "url": "https://developer.apple.com/documentation/swiftui/defaultnavigationviewstyle/init()",
+    "deprecated-code": "init()",
+    "alternative-code": "Replace a styled NavigationView with a NavigationStack or NavigationSplitView. For more information, see Migrating to new navigation types.",
+    "breadcrumbs": "SwiftUI / DefaultNavigationViewStyle / init()"
+  },
+  {
+    "title": "doublecolumnnavigationviewstyle",
+    "description": "Creates a double column navigation view style.",
+    "url": "https://developer.apple.com/documentation/swiftui/doublecolumnnavigationviewstyle/init()",
+    "deprecated-code": "init()",
+    "alternative-code": "Use ColumnNavigationViewStyle instead.",
+    "breadcrumbs": "SwiftUI / DoubleColumnNavigationViewStyle / init()"
+  },
+  {
+    "title": "borderlessbuttonmenubuttonstyle",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/borderlessbuttonmenubuttonstyle/init()",
+    "deprecated-code": "init()",
+    "alternative-code": "Use `BorderlessButtonMenuStyle` instead.",
+    "breadcrumbs": "SwiftUI / BorderlessButtonMenuButtonStyle / init()"
+  },
+  {
+    "title": "defaultmenubuttonstyle",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/defaultmenubuttonstyle/init()",
+    "deprecated-code": "init()",
+    "alternative-code": "Use `menuStyle(.automatic)` instead.",
+    "breadcrumbs": "SwiftUI / DefaultMenuButtonStyle / init()"
+  },
+  {
+    "title": "borderlesspulldownmenubuttonstyle",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/borderlesspulldownmenubuttonstyle/init()",
+    "deprecated-code": "init()",
+    "alternative-code": "Use `BorderlessButtonMenuStyle` instead.",
+    "breadcrumbs": "SwiftUI / BorderlessPullDownMenuButtonStyle / init()"
+  },
+  {
+    "title": "pulldownmenubuttonstyle",
+    "description": "",
+    "url": "https://developer.apple.com/documentation/swiftui/pulldownmenubuttonstyle/init()",
+    "deprecated-code": "init()",
+    "alternative-code": "Use `BorderedButtonMenuStyle` instead.",
+    "breadcrumbs": "SwiftUI / PullDownMenuButtonStyle / init()"
+  }
+]
