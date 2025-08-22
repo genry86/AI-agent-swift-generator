@@ -12,6 +12,9 @@ The agent leverages LLMs with a **ReAct approach** (reasoning + action) to creat
   - Produces boilerplate code for navigation, persistence, and common utilities.  
   - Adapts to macOS/iOS targets.
 
+- **Context Injection**  
+  - `context.txt`: custom context data added to all chains. 
+
 - **Rule-based Context Injection**  
   - `basic_rules_str.txt`: global generation guidelines.  
   - `user_rules_str.txt`: user-provided custom rules.  
