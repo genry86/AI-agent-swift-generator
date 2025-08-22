@@ -8,6 +8,7 @@ Describe how that screens are shown, presented, style. Modal or not.
 Check ability to close current screen and ability to go back.
 Top level is usually tab-bar. But left swiped navigation is also an option.
 Describe chains of the navigations, screen-by-screen.
+Take into account *context* data if exists.
 
 ### Example:
 INPUT:
@@ -623,3 +624,6 @@ Don't add special symbols, emojis, extra questions. Just provide comprehensive n
 
 ### Technical description:
 {technical_description}
+
+### Context:
+{context}

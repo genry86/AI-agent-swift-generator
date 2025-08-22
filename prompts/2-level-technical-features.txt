@@ -7,6 +7,7 @@ Based on *general* and *structured description* of the logical features and sub-
 2-level represents screens inside each entity. Numbered with 1.1, 1.2, 1.3, etc.
 3-level represent UI controls inside each screen. input, output controls etc. Numbered with 1.1.1, 1.1.2, 1.1.3, etc.
 Be precise and detailed.
+Take into account *context* data if exists.
 
 ### Example:
 INPUT:
@@ -296,3 +297,6 @@ Don't add special symbols, emojis, extra questions. Just provide comprehensive t
 
 ### Structured description:
 {structured_description}
+
+### Context:
+{context}

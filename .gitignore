@@ -16,5 +16,3 @@ __pycache__/
 # Test
 tests/*
 
-context_data/user_rules.json
-context_data/user_rules_str.txt

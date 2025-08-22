@@ -8,6 +8,7 @@ Before code generation, take into account:
 *user rules* - custom user rules for app structure with higher priority than *basic rules*.
 *deprecated code* - source of codebase which you need to avoid and hints what to use instead.
 Carefully check *output format*.
+Take into account *context* data if exists.
 
 ### Codebase structure priority
 The most important, bible rules how to structure folders, files are described in *user rules*. Obey to them.
@@ -33,6 +34,9 @@ Important: All special characters, inside string properties of the generating, o
 
 ### User rules:
 {user_rules}
+
+### Context:
+{context}
 
 ### App description:
 {app_description}

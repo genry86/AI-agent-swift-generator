@@ -49,6 +49,7 @@ if __name__ == '__main__':
     }
 
     # --- Context data ---
+    context = fetch_context("context")
     basic_rules = fetch_context("basic_rules_str")
     user_rules = fetch_context("user_rules_str")
     deprecated_code = fetch_context("swiftui_deprecated_str")
@@ -58,10 +59,11 @@ if __name__ == '__main__':
 
     # --- Prompts ---
     # Chain prompts
-    prompt_generate_structured_description = fetch_prompt("1-level-structured-description")
-    prompt_generate_technical_description = fetch_prompt("2-level-technical-features")
-    prompt_generate_navigation = fetch_prompt("3-level-navigation")
+    prompt_generate_structured_description = fetch_prompt("1-level-structured-description").partial(context=context)
+    prompt_generate_technical_description = fetch_prompt("2-level-technical-features").partial(context=context)
+    prompt_generate_navigation = fetch_prompt("3-level-navigation").partial(context=context)
     prompt_generate_codebase = fetch_prompt("4-level-code-generation").partial(
+        context=context,
         basic_rules=basic_rules,
         user_rules=user_rules,
         deprecated_code=deprecated_code,
