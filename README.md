@@ -227,7 +227,6 @@ They define how the agent generates code (style, architecture rules, naming conv
 
 👉 If you don’t want to customize them yet, you can create empty files with these names — but they must exist in the `context_data/` folder, otherwise the pipeline will fail at startup.
 
-
+ 
 ## 📜 License
-
-MIT License. See [LICENSE](LICENSE) for details.
+All rights reserved. See [LICENSE](LICENSE) for details.
