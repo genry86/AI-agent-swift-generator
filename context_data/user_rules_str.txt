@@ -1,0 +1,148 @@
+Simple code
+When writing code, make it simple as possible, even if more lines of code needed.
+
+Code-comments
+If you are shwoing code-examples, add comments with: *what it is doing*, *input-params*, *output params*.
+
+Type-comments
+For custom structures, classes, functions, enums, extensions, protocols, always add short description right below 1th line of declaration.
+
+Compatibility types, params
+Always verify exact type compatibility between objects assinging. Espacially for model-classes and their properties with relationships to other classes.
+if conflicts happen, try to convert one object to another.
+If you are using functionality from different modules, files, libraries, then always check exact input and output params, number of params.
+
+Deprecated code
+Check latest documentation. Don't use deprecated methods, classes, types etc.
+Don't use `.foregroundColor` modifier, it is deprecated. Use `.foregroundStyle` as new replacement.
+Don't use `.navigationBarLeading`, it is deprecated. Use `.topBarLeading` as new replacement.
+Don't use `.navigationBarTrailing`, it is deprecated. Use `.topBarTrailing` as new replacement.
+Don't use `.cornerRadius` modifier, it is deprecated. Use `.clipShape(RoundedRectangle(...))` as new replacement.
+
+Unavailable code
+Check latest documentation. Use codebase which is available only for current platform.
+if project type is `macos` then don't use method `navigationBarTitleDisplayMode` - it is unavailable
+if project type is `macos` then don't use method `keyboardType` - it is unavailable
+Don't use `.fontFamily` for setting font desine. Use `.font(.system(..., design: .monospaced))` to set font in general.
+in the `struct`, never use `[weak self]` or `self?.`. it can be used only inside `class`
+Inside `.foregroundStyle` don't use `.accent`. Use alternatives.
+
+Guard
+`guard let` should be used only with Optional variables. Always check it vatiable is optional.
+if you generate closure and using `self` properties inside, always apply `[weak self]` and then `guard let self = self else { return }`.
+
+Closure
+If you generate closure and using external methods, properties from the currect classs, then use explicitly `self.`. Make sure use of `self` is safe.
+
+Struct
+For `struct` only. If you adding `init` method, don't place it directly inside struct body. Create extension of that struct and add `init` there.
+This approach will save initial `init` method generated automatically by swift.
+
+Constants
+Always create `Constants` class to store general constants, settings, etc.
+
+Extensions
+For small and reusable in different places operations, related to *single* type(Class, Structure, Enum, etc) create swift-extension.
+Save it inside `Extensions` folder. Group extensions by files with single type. e.g All atomic operations with `String` type should inside `String+Extension` file.
+
+Utilities
+For reusable in different places operations, not related to *single* type(Class, Structure, Enum, etc) create Utility classes, structures, enums etc.
+Save inside `Utility` folder. Group them logicaly by files. e.g. operation - image modifications with which includes several modifications, extension located inside `Image+Utility` file.
+
+Componets
+For reusable in different places UI-presentation code, big or small, create independent `View` classes, files inside root `Components` folder.
+Split components logically in separate files, with explicit-readable names
+e.g. small views for ui-elements(date, map, boolean, image) with specific configuration. view-modifiers, custome reusable views...
+
+View
+One `View` file should have only one main `View` class with general UI presentation, and `#Preview` section for SwiftUI preview.
+Main `View` class, should be simple and compact. Always extract subviews with readable action-names for smaller ui-presentation pieces of code.
+Extracted subviews should never be inside the same file with main `View` class.
+If extracted subviews reusable in other places, in other View classes then place them inside root `Components`(check `Components` rule).
+If extracted subviews are not reusable at all then create local folder with name as current View-class and place all subviews there, in separate files.
+If specific extracted subview is big, complex then also create separate local folder with name of that subview and place there new small extracted subviews of the current one.
+
+ViewModel
+Never create single ViewModel class to handle multiple View classes. it is bad appraoch.
+Any big, complex UI-presentation View class e.g. for whole screen or part of it should have its own separate ViewModel class.
+Other way round - if UI-presentation View class is small or have only ui functionality then ViewModel is redundant.
+e.g. List of items screen with View should have own ViewModel. Detail Item screen View has its own ViewModel class, EditView and AddView screens should have separate ViewModels. Small popup View class should not have ViewModel class.
+
+Model
+Model classes, structures, enums, used mainly to store data, should be inside `Models` folder and splitted by separate files. Never mix `models` with managers, services in single files.
+
+Managers, Services
+For big and logically grouped pieces of functionality, create manager or service class.
+`Manager` class is intended for high-level functionality.
+`Service` class is intended for tech-level functionality.
+ e.g. functionality related to interaction with API should be inside `APIService.swift`. functionality related to interaction with local database should be inside `DatabaseService.swift`. functionality related to `users authentication, registration` should be inside `AuthenticationManager.swift`.
+
+Responsibility
+Only Manager and Service classes must have core business logic, as Main app's codebase!
+`ViewModel` classes should not have core business logic, instead, they should reuse Managers and Services to prepare, modify, split data for UI View classes using Combine functionality and reactive approach(check `Reactive programming` rule).
+`View` classes *must* have code related ONLY to UI presentation AND they must reuse code, data provided by `ViewModel` classes.
+`View` classes *must not* have *business logic* code. it is bad approach.
+
+Protocol conformance
+If you are using object of custom class, struct, enum as param for native or external library swift method then *always* check if object type is compatible.
+Especially, check if used method expects input param as protocol(e.g. `Hashable`, `Equatable` etc).
+If custom object which is used as input param, doesn't conform to expected protocol then create extension inside root `Extensions` folder which conforms to that the protocol.
+Extensions for different classes should be placed in separate files.
+
+Equatable
+If you are creating comparison code  `==` between objects of custom classes, structures, enums then always check if these classes, structures, enums conforms to `Equatable` protocol. If they are not conformed then inside root `Extensions` folder,  create extensions and implement that conformance.
+Extensions for different classes should be placed in separate files.
+
+Reactive programming
+When you're working with SwiftUI + Combine, especially inside `ViewModel` classes, use `Reactive` approach as mach as possible, which is based on `observation chains`.
+`Observation chain` means that one property(or several combined properties) has subscription which consist of different combine methods like:
+.debounce({...}).filter({...}).map({...}).flatMap({...}).receive({...}) etc. Inside chain, property value is modified or updated or replaced or used as condition or used as api request param and so on, any operation is possible.
+Ideally, `ViewModel` class should have public input-output properties, used by `View` class, private properties used for intermediate calculations or to trigger other chains, result properties which have end result values observed by `View` class.
+`ViewModel` classes, ideally should have `setupBinding` method, which is calling once, inside `init`. That method should have comprehensive observation chains for main `ViewModel` properties.
+If `View` class or `ViewModel` itself update some property then specific observation chain should be triggered.
+Don't create methods which re-creates the same subscriptions all the time with new methods' params. it is bad approach.
+Instead, methods' params should be saved inside internal properties and triggered, observed inside ViewModel chains.
+
+Entities, Screens
+If, explicitly in the task-description or from your analysis of the task, you got list of used app-entities, then inside `Scenes` folder, create specific folder for each entity with appropriate name.
+From my request or based on your logic, if specific entity requires separate screens then create separate folders for these screens.
+Every screen folder has its own View, ViewModel classes and folders with specific subviews if needed. (check `View` rule)
+e.g. If we have `User` entity with users-list, user-detail screens then inside `Scenes` we should have `Users` folder then two sub-folders `UserList` and `UserDetail`.
+`UserList` folder has `UserListView`, `UserListViewModel` classes and UserList folder with subviews like `UserListRow`, header, footer views etc.
+`UserDetail` folder has `UserDetaileView`, `UserDetaileViewModel` classes and folder for extracted subviews.
+(Chek `View` rule to organize View and their subviews files)
+
+AppSession
+For global properties, events, which impacts on different  app places, screens, create `AppSession` class, as environment variable if possible. It should have all global properties, published properties, methods and so on.
+
+.contextMenu
+for iOS, avoid using .contextMenu modifier. try to use `sheet` or `alert` or other options. For macos, use it as intended.
+
+Combine sink
+When using combine `.sink` method:
+Input param closure `receiveValue:` should be used almost always for any @published properties updates.
+Closure `receiveCompletion` should be used only for errors handling.
+
+@Published properties
+If ViewModel's @Published properties are modified in the `View`, `ViewModel` classes (button taps, gestures, etc.) then inside ViewModel class always use `DispatchQueue.main.async` or `MainActor.run` for places where these properties are modified.
+
+LazyHGrid LazyVGrid
+if you use LazyHGrid and setting `alignment` param, which has VerticalAlignment type then don't use .leading or .trailing, use .top or .bottom.
+if you use LazyVGrid and setting `alignment` param, which has HorizontalAlignment type then don't use .top or .bottom, use .leading or .trailing.
+
+#Preview
+Inside `View` classes, for `#Preview` section, if you are tryining to initialize object's properties, it should always be initialized via constructor. It should never be initialized using dot expression. it makes `'buildExpression' is unavailable: this expression does not conform to 'View'` compilation error.
+Also, never use explicit `return` statement in #Preview {...}.
+
+#Predicate<...>
+if you are using SwiftData predicate then always avoid direct usage of extenal variables inside closure of predicate. Create intermediate variable outside closure, assign external value to it and use that variable inside closure. it will avoid compilattion issue with `PredicateExpressions` type.
+e.g.
+*Incorrect*
+predicate: #Predicate<Note> { note in
+                note.category?.id == self.category.id
+            },
+*Correct*
+let categoryId = self.category.id
+predicate: #Predicate<Note> { note in
+                note.category?.id == categoryId
+            },

@@ -1,0 +1,118 @@
+[
+  {
+    "title": "Simple code",
+    "content": "When writing code, make it simple as possible, even if more lines of code needed."
+  },
+  {
+    "title": "Code-comments",
+    "content": "If you are shwoing code-examples, add comments with: *what it is doing*, *input-params*, *output params*."
+  },
+  {
+    "title": "Type-comments",
+    "content": "For custom structures, classes, functions, enums, extensions, protocols, always add short description right below 1th line of declaration."
+  },
+  {
+    "title": "Compatibility types, params",
+    "content": "Always verify exact type compatibility between objects assinging. Espacially for model-classes and their properties with relationships to other classes.\nif conflicts happen, try to convert one object to another.\nIf you are using functionality from different modules, files, libraries, then always check exact input and output params, number of params."
+  },
+  {
+    "title": "Deprecated code",
+    "content": "Check latest documentation. Don't use deprecated methods, classes, types etc.\nDon't use `.foregroundColor` modifier, it is deprecated. Use `.foregroundStyle` as new replacement.\nDon't use `.navigationBarLeading`, it is deprecated. Use `.topBarLeading` as new replacement.\nDon't use `.navigationBarTrailing`, it is deprecated. Use `.topBarTrailing` as new replacement.\nDon't use `.cornerRadius` modifier, it is deprecated. Use `.clipShape(RoundedRectangle(...))` as new replacement."
+  },
+  {
+    "title": "Unavailable code",
+    "content": "Check latest documentation. Use codebase which is available only for current platform. \nif project type is `macos` then don't use method `navigationBarTitleDisplayMode` - it is unavailable\nif project type is `macos` then don't use method `keyboardType` - it is unavailable\nDon't use `.fontFamily` for setting font desine. Use `.font(.system(..., design: .monospaced))` to set font in general.\nin the `struct`, never use `[weak self]` or `self?.`. it can be used only inside `class`\nInside `.foregroundStyle` don't use `.accent`. Use alternatives."
+  },
+  {
+    "title": "Guard",
+    "content": "`guard let` should be used only with Optional variables. Always check it vatiable is optional.\nif you generate closure and using `self` properties inside, always apply `[weak self]` and then `guard let self = self else { return }`."
+  },
+  {
+    "title": "closure",
+    "content": "If you generate closure and using external methods, properties from the currect classs, then use explicitly `self.`. Make sure use of `self` is safe."
+  },
+  {
+    "title": "Struct",
+    "content": "For `struct` only. If you adding `init` method, don't place it directly inside struct body. Create extension of that struct and add `init` there. \nThis approach will save initial `init` method generated automatically by swift."
+  },
+  {
+    "title": "Constants",
+    "content": "Always create `Constants` class to store general constants, settings, etc."
+  },
+  {
+    "title": "Extensions",
+    "content": "For small and reusable in different places operations, related to *single* type(Class, Structure, Enum, etc) create swift-extension.\nSave it inside `Extensions` folder. Group extensions by files with single type. e.g All atomic operations with `String` type should inside `String+Extension` file."
+  },
+  {
+    "title": "Utilities",
+    "content": "For reusable in different places operations, not related to *single* type(Class, Structure, Enum, etc) create Utility classes, structures, enums etc.\nSave inside `Utility` folder. Group them logicaly by files. e.g. operation - image modifications with which includes several modifications, extension located inside `Image+Utility` file."
+  },
+  {
+    "title": "Componets",
+    "content": "For reusable in different places UI-presentation code, big or small, create independent `View` classes, files inside root `Components` folder. \nSplit components logically in separate files, with explicit-readable names\ne.g. small views for ui-elements(date, map, boolean, image) with specific configuration. view-modifiers, custome reusable views..."
+  },
+  {
+    "title": "View",
+    "content": "One `View` file should have only one main `View` class with general UI presentation, and `#Preview` section for SwiftUI preview. \nMain `View` class, should be simple and compact. Always extract subviews with readable action-names for smaller ui-presentation pieces of code.\nExtracted subviews should never be inside the same file with main `View` class. \nIf extracted subviews reusable in other places, in other View classes then place them inside root `Components`(check `Components` rule).\nIf extracted subviews are not reusable at all then create local folder with name as current View-class and place all subviews there, in separate files.\nIf specific extracted subview is big, complex then also create separate local folder with name of that subview and place there new small extracted subviews of the current one."
+  },
+  {
+    "title": "ViewModel",
+    "content": "Never create single ViewModel class to handle multiple View classes. it is bad appraoch. \nAny big, complex UI-presentation View class e.g. for whole screen or part of it should have its own separate ViewModel class.\nOther way round - if UI-presentation View class is small or have only ui functionality then ViewModel is redundant.\ne.g. List of items screen with View should have own ViewModel. Detail Item screen View has its own ViewModel class, EditView and AddView screens should have separate ViewModels. Small popup View class should not have ViewModel class."
+  },
+  {
+    "title": "Model",
+    "content": "Model classes, structures, enums, used mainly to store data, should be inside `Models` folder and splitted by separate files. Never mix `models` with managers, services in single files."
+  },
+  {
+    "title": "Managers, Services",
+    "content": "For big and logically grouped pieces of functionality, create manager or service class. \n`Manager` class is intended for high-level functionality.\n`Service` class is intended for tech-level functionality.\n e.g. functionality related to interaction with API should be inside `APIService.swift`. functionality related to interaction with local database should be inside `DatabaseService.swift`. functionality related to `users authentication, registration` should be inside `AuthenticationManager.swift`."
+  },
+  {
+    "title": "Responsibility",
+    "content": "Only Manager and Service classes must have core business logic, as Main app's codebase!\n`ViewModel` classes should not have core business logic, instead, they should reuse Managers and Services to prepare, modify, split data for UI View classes using Combine functionality and reactive approach(check `Reactive programming` rule).\n`View` classes *must* have code related ONLY to UI presentation AND they must reuse code, data provided by `ViewModel` classes.\n`View` classes *must not* have *business logic* code. it is bad approach."
+  },
+  {
+    "title": "Protocol conformance",
+    "content": "If your are using object of custom class, struct, enum as param for native or external library swift method then *always* check if object type is compatible.\nEspecially, check if used method expects input param as protocol(e.g. `Hashable`, `Equatable` etc). \nIf custom object which is used as input param, doesn't conform to expected protocol then create extension inside root `Extensions` folder which conforms to that the protocol. \nExtensions for different classes should be placed in separate files."
+  },
+  {
+    "title": "Equatable",
+    "content": "If you are creating comparison code  `==` between objects of custom classes, structures, enums then always check if these classes, structures, enums conforms to `Equatable` protocol. If they are not conformed then inside root `Extensions` folder,  create extensions and implement that conformance. \nExtensions for different classes should be placed in separate files."
+  },
+  {
+    "title": "Reactive programming",
+    "content": "When you working with SwiftUI + Combine, especially inside `ViewModel` classes, use `Reactive` approach as mach as possible, which is based on `observation chains`. \n`Observation chain` means that one property(or several combined properties) has subscription which consist of different combine methods like:\n.debounce({...}).filter({...}).map({...}).flatMap({...}).receive({...}) etc. Inside chain, property value is modified or updated or replaced or used as condition or used as api request param and so on, any operation is possible.\nIdeally, `ViewModel` class should have public input-output properties, used by `View` class, private properties used for intermideate calculations or to trigger other chains, result properties which have end result values observed by `View` class.\n`ViewModel` classes, ideally should have `setupBinding` method, which is calling once, inside `init`. That method should have comprehensive observation chains for main `ViewModel` properties. \nIf `View` class or `ViewModel` itself update some property then specific observation chain should be triggered.\nDon't create methods which re-creates the same subscriptions all the time with new methods' params. it is bad approach.\nInstead, methods' params should be saved inside internal properties and triggered, observed inside ViewModel chains."
+  },
+  {
+    "title": "Entities, Screens",
+    "content": "If, explicitly in the task-description or from your analysis of the task, you got list of used app-entities, then inside `Scenes` folder, create specific folder for each entity with appropriate name. \nFrom my request or based on your logic, if specific entity requires separate screens then create separate folders for these screens.\nEvery screen folder has its own View, ViewModel classes and folders with specific subviews if needed. (check `View` rule)\ne.g. If we have `User` entity with users-list, user-detail screens then inside `Scenes` we should have `Users` folder then two sub-folders `UserList` and `UserDetail`. \n`UserList` folder has `UserListView`, `UserListViewModel` classes and UserList folder with subviews like `UserListRow`, header, footer views etc. \n`UserDetail` folder has `UserDetaileView`, `UserDetaileViewModel` classes and folder for extracted subviews. \n(Chek `View` rule to organize View and their subviews files)"
+  },
+  {
+    "title": "AppSession",
+    "content": "For global properties, events, which impacts on different  app places, screens, create `AppSession` class, as environment variable if possible. It should have all global properties, published properties, methods and so on."
+  },
+  {
+    "title": ".contextMenu",
+    "content": "for iOS, avoid using .contextMenu modifier. try to use `sheet` or `alert` or other options. For macos, use it as intended."
+  },
+  {
+    "title": "Combine sink",
+    "content": "When using combine `.sink` method:\nInput param closure `receiveValue:` should be used almost always for any @published properties updates.\nClosure `receiveCompletion` should be used only for errors handling."
+  },
+  {
+    "title": "@Published properties",
+    "content": "If ViewModel's @Published properties are modified in the `View`, `ViewModel` classes (button taps, gestures, etc.) then inside ViewModel class always use `DispatchQueue.main.async` or `MainActor.run` for places where these properties are modified."
+  },
+  {
+    "title": "LazyHGrid LazyVGrid",
+    "content": "if you use LazyHGrid and setting `alignment` param, which has VerticalAlignment type then don't use .leading or .trailing, use .top or .bottom.\nif you use LazyVGrid and setting `alignment` param, which has HorizontalAlignment type then don't use .top or .bottom, use .leading or .trailing."
+  },
+  {
+    "title": "#Preview",
+    "content": "Inside `View` classes, for `#Preview` section, if you are tryining to initialize object's properties, it should always be initialized via constructor. It should never be initialized using dot expression. it makes `'buildExpression' is unavailable: this expression does not conform to 'View'` compilation error.\nAlso, never use explicit `return` statement in #Preview {...}."
+  },
+  {
+    "title": "#Predicate<...>",
+    "content": "if you are using SwiftData predicate then always avoid direct usage of extenal variables inside closure of predicate. Create intermediate variable outside closure, assign external value to it and use that variable inside closure. it will avoid compilattion issue with `PredicateExpressions` type. \ne.g.\n*Incorrect*\npredicate: #Predicate<Note> { note in\n                note.category?.id == self.category.id\n            },\n*Correct*\nlet categoryId = self.category.id\npredicate: #Predicate<Note> { note in\n                note.category?.id == categoryId\n            },"
+  }
+]
