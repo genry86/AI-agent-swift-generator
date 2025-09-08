@@ -58,6 +58,12 @@ def fetch_file(filename: str) -> str:
         content = file.read().replace("{", "{{").replace("}", "}}")
         return content
 
+def fetch_prompt_str(filename: str, is_chat_prompt = True):
+    full_path = os.path.join(PROMPTS_PATH, f"{filename}.txt")
+    with open(full_path, "r", encoding="utf8") as file:
+        content = file.read()
+        return content
+
 def fetch_prompt(filename: str, is_chat_prompt = True):
     full_path = os.path.join(PROMPTS_PATH, f"{filename}.txt")
     with open(full_path, "r", encoding="utf8") as file:

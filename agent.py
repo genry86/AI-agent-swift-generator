@@ -22,7 +22,7 @@ from langchain_ollama import ChatOllama
 from config import CONTEXT_WINDOW, REACT_ITERATIONS, RETRY_NUMBER, TEMPERATURE
 from schemas import AppSchema
 from tools_utility import write_file, read_file, file_delete, create_directory, list_directory
-from utility import runnable, fetch_file, fetch_prompt, create_agent_prompt, chain_save_data, to_dict, to_agent_input, fetch_context
+from utility import runnable, fetch_file, fetch_prompt, create_agent_prompt, chain_save_data, to_dict, to_agent_input, fetch_context, fetch_prompt_str
 
 load_dotenv()
 
@@ -48,17 +48,16 @@ if __name__ == '__main__':
         "recursion_limit": REACT_ITERATIONS
     }
 
+    # --- Json Schema of generating App structure ---
+    codebase_schema = AppSchema.model_json_schema()
+
     # --- Context data ---
     context = fetch_context("context")
     basic_rules = fetch_context("basic_rules_str")
     user_rules = fetch_context("user_rules_str")
     deprecated_code = fetch_context("swiftui_deprecated_str")
 
-    # --- Json Schema of generating App structure ---
-    codebase_schema = AppSchema.model_json_schema()
-
     # --- Prompts ---
-    # Chain prompts
     prompt_generate_structured_description = fetch_prompt("1-level-structured-description").partial(context=context)
     prompt_generate_technical_description = fetch_prompt("2-level-technical-features").partial(context=context)
     prompt_generate_navigation = fetch_prompt("3-level-navigation").partial(context=context)
@@ -69,12 +68,13 @@ if __name__ == '__main__':
         deprecated_code=deprecated_code,
         codebase_schema=codebase_schema
     )
-    # System-agent prompt
-    system_prompt = fetch_prompt("system_prompt", is_chat_prompt=False).partial(
+
+    # Create ReAct Agent
+    # agent_prompt = create_agent_prompt(system_prompt)
+    agent_prompt = fetch_prompt_str("system_prompt").format(
         codebase_schema=codebase_schema,
         tools=tools_description
     )
-    agent_prompt = create_agent_prompt(system_prompt)
 
     # --- Agent ---
     agent_executor = create_react_agent(llm_tools, tools, checkpointer=memory, prompt=agent_prompt).with_retry(stop_after_attempt=RETRY_NUMBER)
@@ -89,22 +89,24 @@ if __name__ == '__main__':
                                              | llm
                                              | StrOutputParser()
                                              | chain_save_data("1_structured_description"))
+
     # 2 - Create technical description, based on data from previous steps
     chain_generate_technical_description = (prompt_generate_technical_description
                                          | llm
                                          | StrOutputParser()
                                          | chain_save_data("2_technical_description"))
+
     # 3 - Create navigation description, based on data from previous steps
     chain_generate_navigation = (prompt_generate_navigation
                                  | llm
                                  | StrOutputParser()
                                  | chain_save_data("3_navigation"))
+
     # 4 - Generate Folder, files structure based on all generated previously data
     pydantic_parser = PydanticOutputParser(pydantic_object=AppSchema)
     safe_pydantic_parser = OutputFixingParser.from_llm(parser=pydantic_parser, llm=llm).with_retry(stop_after_attempt=RETRY_NUMBER)
     chain_generate_codebase = (prompt_generate_codebase
                                  | llm
-                                 | chain_save_data("4_codebase_before")
                                  | safe_pydantic_parser
                                  | to_dict
                                  | chain_save_data("4_codebase"))
