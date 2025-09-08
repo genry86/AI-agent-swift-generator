@@ -9,5 +9,5 @@ RETRY_NUMBER = 5
 
 # Path
 PROMPTS_PATH = "./prompts"
-CONTEXT_PATH = "./context"
+CONTEXT_PATH = "./context_data"
 PROJECT_DOCS = "./project_docs"
