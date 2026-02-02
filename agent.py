@@ -79,10 +79,6 @@ if __name__ == '__main__':
     # --- Agent ---
     agent_executor = create_react_agent(llm_tools, tools, checkpointer=memory, prompt=agent_prompt).with_retry(stop_after_attempt=RETRY_NUMBER)
 
-    # --- Main app description ---
-    query = ("Create Macos app, implemented on SwiftUI, MVVM, Combine. App should be similar to browser. "
-             "Left sidebar should have bookmarks list which opens webpage. Right sidebar should have list of attached notes, text or images.")
-
     # --- Pre-processing chains ---
     # 1 - Create structured project data based on App description
     chain_generate_structured_description = (prompt_generate_structured_description
